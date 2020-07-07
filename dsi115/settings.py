@@ -23,9 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_u3o#9ew(axo3c5@g3!z977c1_h*65(&kdo+3bu^0b%i%32-ko'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+#según deploy
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'dsi115.urls'
@@ -73,13 +75,24 @@ WSGI_APPLICATION = 'dsi115.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+#sección de desarrollo
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#   }
+#}
+#sección de desarrollo
 
+#sección de deployment
+import dj_database_url
+from decouple import config
+DATABASES ={
+    'default':dj_database_url.config(
+    default=config('DATABASE_URL')
+    )
+}
+#sección de deployment
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -118,3 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'static'),
+    )
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
