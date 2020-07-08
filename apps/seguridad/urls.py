@@ -7,7 +7,7 @@ app_name='seguridad'
 urlpatterns=[
 
 url(r'^login/', auth, name="ingresar"),
-url(r'^', index,name="index"),
+url(r'^index/', index,name="index"),
 
 #url(r'^logout', LogoutView.as_view(next_page='/ingreso/login'), name="logout"),
 
