@@ -1,0 +1,28 @@
+
+{% load static %}
+{%block logout%}
+{%endblock logout%}
+{%block contenido%}
+<link rel="stylesheet" type="text/css" href="{% static "css/cssB.css" %}">
+<body id="log">
+	<div id="Contenedor">
+	<h1 class="opcioncontra">Administrador</h1>
+	<form method="post"> 
+		{% csrf_token %}
+		<div class="opcioncontra">
+			<input type="text" class="form-control" name="user" placeholder="nombre de usuario" id="Correo" aria-describedby="sizing-addon1" required="true">
+		</div>
+		<div class="opcioncontra">
+			<input  type="password" name="pass" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required="true">
+		</div>
+		<div class="opcioncontra">
+			<button type="submit" class="boton">Entrar</button>
+		</div>
+	</form>
+		<hr>
+		<hr>
+</div>	
+</body>
+
+	
+{%endblock contenido%}
