@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'dsi115.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 #sección de desarrollo
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -91,16 +91,16 @@ DATABASES = {
     }
 }
 #sección de desarrollo
-
+'''
 #sección de deployment
-'''import dj_database_url
+import dj_database_url
 from decouple import config
 DATABASES ={
     'default':dj_database_url.config(
     default=config('DATABASE_URL')
     )
 }
-'''
+
 #sección de deployment
 
 #usar ''' para comentar secciones
