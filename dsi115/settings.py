@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_u3o#9ew(axo3c5@g3!z977c1_h*65(&kdo+3bu^0b%i%32-ko'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #según deploy
 
 ALLOWED_HOSTS = ['*']
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.compras',
+    'apps.inventario',
+    'apps.seguridad',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +59,7 @@ ROOT_URLCONF = 'dsi115.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,25 +79,28 @@ WSGI_APPLICATION = 'dsi115.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 #sección de desarrollo
-'''    'default': {
+
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dsi',
-        #'USER': 'lol',
-        #'PASSWORD': 'noquiero',
+        'USER': 'lol',
+        'PASSWORD': 'noquiero',
         'HOST': 'localhost',
         'PORT': '5432',
     }
-}'''
+}
 #sección de desarrollo
 
 #sección de deployment
-import dj_database_url
+'''import dj_database_url
 from decouple import config
 DATABASES ={
     'default':dj_database_url.config(
     default=config('DATABASE_URL')
     )
 }
+'''
 #sección de deployment
 
 #usar ''' para comentar secciones
@@ -133,6 +139,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+LOGIN_URL = 'seguridad:ingresar'
+LOGIN_REDIRECT_URL='/index/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
