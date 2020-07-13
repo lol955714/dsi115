@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+		<title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/cssB.css' %}">
+</head>
+<body>
+	<div class="banner">
+		<div><br>SIAVAC  | <span>Sistema Informático para la Administración y Venta de Accesorios</span><hr>
+		</div>
+		</div>
+		<nav class="navegacion">
+			<ul class="menu">
+				<li><a href="#">Inicio</a></li>
+				<li><a href="#">Inventario</a></li>
+				<li><a href="#">Compras</a>
+					<ul class="submenu">
+						<li><a href="#">Servicio #1</a></li>
+						<li><a href="#">Servicio #2</a></li>
+						<li><a href="#">Servicio #3</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Gestionar Usuarios</a></li>
+				<li style="float:right" class="salir"><a href="">Cerrar Sesión</a></li>
+			</ul>
+		</nav>
+		{% block content %}{% endblock %}
+</body>
+<footer>SIAVAC  | Diseno de Sistemas I - 2020</footer>
+</html>
