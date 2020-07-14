@@ -11,8 +11,9 @@
 		</div>
 		<nav class="navegacion">
 			<ul class="menu">
+				{%block encabezado%}
 				<li><a href="#">Inicio</a></li>
-				<li><a href="#">Inventario</a></li>
+				<li><a href="{% url 'inventario:inventario' %}">Inventario</a></li>
 				<li><a href="#">Compras</a>
 					<ul class="submenu">
 						<li><a href="#">Servicio #1</a></li>
@@ -21,10 +22,12 @@
 					</ul>
 				</li>
 				<li><a href="#">Gestionar Usuarios</a></li>
-				<li style="float:right" class="salir"><a href="">Cerrar Sesión</a></li>
+			{%endblock encabezado%}
+				<li style="float:right" class="salir"><a href="{%  url "seguridad:logout"%}">Cerrar Sesión</a></li>
 			</ul>
 		</nav>
-		{% block content %}{% endblock %}
+		{% block content %}{% endblock content%}
+	}
 </body>
 <footer>SIAVAC  | Diseno de Sistemas I - 2020</footer>
 </html>

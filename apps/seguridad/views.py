@@ -15,16 +15,11 @@ def auth(request):
 		user = authenticate(username=usern,password=passw)
 		if user is not None:
 			login(request, user)
-			return redirect('seguridad:index')
+			if request.user.groups.filter(name='administrador').exists():#inicio de selección de index
+				return redirect('inventario:index')
+			else:
+				return render(request,'base/nope.html',{})#finaliza selección de index
 		else:
 			return redirect('seguridad:ingresar')
-	return render(request, 'seguridad/login.html',{})
+	return render(request,'seguridad/login.html',{})
 
-@login_required
-def index(request):
-	if request.user.groups.filter(name='administrador').exists():
-		return render(request,'indexPorRol/indexAdministrador.html',{})
-	else:
-		return render (request,'seguridad/login.html')
-	
-		

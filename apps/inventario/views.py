@@ -5,3 +5,5 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def indexInentario(request):
 	return render(request,'inventario/index.html')
+def inventario(request):
+	return render(request,'base/existencias.html')
