@@ -18,6 +18,7 @@ class Proveedor(models.Model):
 
 class Producto(models.Model):
 	nombre =models.CharField(max_length=30,null=False)
+	descripcion =models.CharField(max_length=50,null=False,default='')
 	precioventa =models.DecimalField(max_digits=5,decimal_places=2,null=False)
 	preciocompra =models.DecimalField(max_digits=5,decimal_places=2,null=False)
 	existencia =models.IntegerField(null=False)
