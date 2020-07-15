@@ -26,6 +26,7 @@ SECRET_KEY = '_u3o#9ew(axo3c5@g3!z977c1_h*65(&kdo+3bu^0b%i%32-ko'
 DEBUG = True
 #según deploy
 
+
 ALLOWED_HOSTS = ['*']
 
 
