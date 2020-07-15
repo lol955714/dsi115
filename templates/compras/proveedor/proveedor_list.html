@@ -1,0 +1,44 @@
+{% extends 'base/base_sistema.html' %}
+{% load static %} 
+{% block title %}SIAVAC | Proveedores{% endblock %}
+{% block javascript %}
+  <script src="{% static 'js/proveedors.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <h1 class="page-header">Proveedores</h1>
+  <p>
+    <button type="button" class="btn btn-primary js-create-proveedor"
+          data-url="{% url 'compras:proveedor-create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      New Proveedor
+    </button>
+  </p>
+
+  <table class="table" id="proveedor-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Operaciones</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% include 'compras/proveedor/proveedor_list_2.html' %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-proveedor">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}
