@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'apps.compras',
     'apps.inventario',
     'apps.seguridad',
+    'widget_tweaks',    #utilizado para articulo y proveedores
+    'crispy_forms',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
@@ -84,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dsi',
-        'USER': 'lol',
-        'PASSWORD': 'noquiero',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -138,12 +141,17 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
+
+
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 LOGIN_URL = 'seguridad:ingresar'
 LOGIN_REDIRECT_URL='/index/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+
+
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
-    )
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

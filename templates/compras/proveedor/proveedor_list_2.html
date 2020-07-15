@@ -1,0 +1,26 @@
+{% for proveedor in proveedors %}
+<tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{ proveedor.nombre }}</td>
+    <td>{{ proveedor.direccion }}</td>
+    <td>{{ proveedor.mobile }}</td>
+    <td>{{ proveedor.email }}</td>
+    <td>
+        <button type="button"
+            class="btn btn-warning btn-sm js-update-proveedor"
+            data-url="{% url 'compras:proveedor-update' proveedor.id %}">
+            <span class="glyphicon glyphicon-pencil"></span>
+            Editar
+         </button>
+        <button type="button"
+          class="btn btn-danger btn-sm js-delete-proveedor"
+          data-url="{% url 'compras:proveedor-delete' proveedor.id %}">
+            <span class="glyphicon glyphicon-trash"></span>
+             Eliminar
+          </button>
+    </td>
+{% empty %}
+<tr>
+      <td colspan="8" class="text-center bg-warning">No proveedors</td>
+</tr>
+{% endfor %}
