@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .models import *
 # Create your views here.
 @login_required
 def indexInentario(request):
 	return render(request,'inventario/index.html')
 def inventario(request):
-	return render(request,'base/existencias.html')
+	producto=Producto.objects.all()
+	contexto={'productos':producto}
+	return render(request,'base/existencias.html',contexto)

@@ -5,12 +5,20 @@
     <h1>Existencias</h1>
     <table class="bordered">
     <thead>
-    <tr><th>Nombre</th><th>Descripción</th><th>Precio</th><th>Existencias</th><th>Acciones</th></tr>
+    <tr><th>Nombre</th><th>Descripción</th><th>Precio de compra</th><th>Precio de venta</th> <th>Existencias</th><th>Acciones</th></tr>
 	</thead>
-    <tr><td>Producto 1</td><td>Baterías 1</td><td>00.00</td><td>100</td><td><a href="">Editar</a>&nbsp;<a href="">Eliminar</a></td></tr>
-    <tr><td>Producto 2</td><td>Accs y demas S.A</td><td>00.00</td><td>32</td><td><a href="">Editar</a>&nbsp;<a href="">Eliminar</a></td></tr>
-    <tr><td>Producto 3</td><td>Autos V</td><td>00.00</td><td>60</td><td><a href="">Editar</a>&nbsp;<a href="">Eliminar</a></td></tr>
-    <tr><td>Producto 4</td><td>Autos y Moto S.A</td><td>00.00</td><td>25</td><td><a href="">Editar</a>&nbsp;<a href="">Eliminar</a></td></tr>
+	<tbody>
+   {% for producto in productos%}
+   <tr>
+   	<td>{{producto.nombre}}</td>
+   	<td>{{producto.descripcion}}</td>
+   	<td>{{producto.preciocompra}}</td>
+   	<td>{{producto.precioventa}}</td>
+   	<td>{{producto.existencia}}</td>
+   	<td><a href="">Editar</a>&nbsp;<a href="">Eliminar</a></td>
+   </tr>
+   {%endfor%}
+    </tbody>
 </table>
 <table style="margin: 0 auto;">
     <tr><td colspan="4"><br><button type="submit" class="boton">Agregar Nuevo Producto</button></td></tr>
