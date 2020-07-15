@@ -1,0 +1,31 @@
+{% load static %}
+{%block logout%}
+{%endblock logout%}
+{%block contenido%}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cssB.css' %}">
+<title>SIAVAC | Login</title>
+        <div class="banner">
+        <div><br>SIAVAC  | <span>Sistema Informático para la Administración y Venta de Accesorios</span><hr></div>
+        </div>
+        <body id="log">
+            <div id="Contenedor">
+                <div class="header">
+                    <div>Administrador<span></span></div>
+                </div>
+            <form method="post"> 
+                {% csrf_token %}
+                    <div class="login">
+                        <div class="opcioncontra">
+                            <input type="text" class="form-control" name="user" placeholder="Nombre de Usuario" id="Correo" aria-describedby="sizing-addon1" required="true">
+                        </div>
+                        <div class="opcioncontra">
+                            <input  type="password" name="pass" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required="true">
+                        </div>
+                        <div class="opcioncontra">
+                        <br><button type="submit" class="boton">Iniciar Sesión</button> 
+                        </div>
+                    </div>
+            </form>
+            </div>  
+        </body> 
+{%endblock contenido%}

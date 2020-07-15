@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 #librerias usadas para articulo y proveedor
 from .forms	import ProveedorForm, ArticuloForm		
-from .models import Proveedor, Producto
+from apps.inventario.models import Proveedor, Producto
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
