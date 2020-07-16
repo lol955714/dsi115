@@ -130,11 +130,21 @@ def verpedidos(request):
 	contexto = {'proveedores':proveedor,'productos':producto}
 	return render(request, 'compras/pedidos/gestionar_pedidos.html',contexto)
 
+
+def crearPedido(request):'''en esta crea el pedido vacío, se ejecutaría cuando den click al botón correspondiente a "crear pedido" (genera una url asignando esta vista)
+                        luego envialo a otra pantalla con un formulario sencillo para elegir el proveedor y en la vista que procese el formulario buscas el proveedor con 
+                        el código que mandes desde este y asignas proveedor  y pago; luego está página te envía a la de agregar productos (lines de pedido)
+                        que imprimirias una tabla con un boton de agregar al final y envias el código del pedido y del producto, e incluso las cantidades podés asignarlas 
+                        como en wichos, con una pantalla emergente
+                        '''
+
+
+
 def agregarPedido(request):
     if request.method=='POST':
         form = pedidoForm(request.POST)
         if  form.is_valid():
-            ped = Pedido()
+            #ped = Pedido()
             ped.save()
             Lin=detalle_Pedido()
             #Lin.setfkProducto(Producto.objects.get(id=form.producto.id))

@@ -33,5 +33,12 @@ class detalle_Pedido(models.Model):
         return self.subtotal
 
 
+class Tipo_Pago(models.Model):
+    tipo = models.CharField(max_length=60)
+    detalle = models.CharField(max_length=60)
 
+class Pago(models.Model):
+    fk_Tipo_Pago=models.ForeignKey(Tipo_Pago,on_delete=models.CASCADE,null=False)
+    fecha =models.DateField(null=False)
+    fk_pedido=models.ForeignKey(Pedido,on_delete=models.CASCADE)
 
