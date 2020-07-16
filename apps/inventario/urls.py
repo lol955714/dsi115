@@ -4,5 +4,6 @@ from django.conf.urls import url
 from apps.inventario.views import *
 app_name='inventario'
 urlpatterns=[
-url(r'^inventario',inventario,name="inventario")
+url(r'^inventario',inventario,name="inventario"),
+url(r'^gestprod/(?P<idProducto>\w+)', gestprod, name="gestprod"),
 ]
