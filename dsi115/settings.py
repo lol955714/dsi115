@@ -26,7 +26,6 @@ SECRET_KEY = '_u3o#9ew(axo3c5@g3!z977c1_h*65(&kdo+3bu^0b%i%32-ko'
 DEBUG = True
 #según deploy
 
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'apps.compras',
     'apps.inventario',
     'apps.seguridad',
+    
     'widget_tweaks',    #utilizado para articulo y proveedores
     'crispy_forms',
     'phone_field',
@@ -88,8 +88,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dsi',
-        'USER': 'lol',
-        'PASSWORD': 'noquiero',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -146,7 +146,7 @@ USE_TZ = True
 
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 LOGIN_URL = 'seguridad:ingresar'
-LOGIN_REDIRECT_URL='seguridad:login'
+LOGIN_REDIRECT_URL='/index/'
 
 
 STATIC_URL = '/static/'
