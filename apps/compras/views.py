@@ -9,6 +9,7 @@ from apps.inventario.models import Proveedor, Producto
 from apps.compras.models import *
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
+from .forms import *
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 # Create your views here.
@@ -125,48 +126,24 @@ def articulo_delete(request, pk):
 
 
 def verpedidos(request):
-	proveedor = Proveedor.objects.all()
-	producto = Producto.objects.all()
-	contexto = {'proveedores':proveedor,'productos':producto}
+	pedidos=Pedido.objects.all()
+	contexto = {'pedido':pedidos}
 	return render(request, 'compras/pedidos/gestionar_pedidos.html',contexto)
 
 
-def crearPedido(request):'''en esta crea el pedido vacío, se ejecutaría cuando den click al botón correspondiente a "crear pedido" (genera una url asignando esta vista)
-                        luego envialo a otra pantalla con un formulario sencillo para elegir el proveedor y en la vista que procese el formulario buscas el proveedor con 
-                        el código que mandes desde este y asignas proveedor  y pago; luego está página te envía a la de agregar productos (lines de pedido)
-                        que imprimirias una tabla con un boton de agregar al final y envias el código del pedido y del producto, e incluso las cantidades podés asignarlas 
-                        como en wichos, con una pantalla emergente
-                        '''
+#def crearPedido(request):
 
 
 
 def agregarPedido(request):
     if request.method=='POST':
-        form = pedidoForm(request.POST)
-        if  form.is_valid():
-            #ped = Pedido()
-            ped.save()
-            Lin=detalle_Pedido()
-            #Lin.setfkProducto(Producto.objects.get(id=form.producto.id))
-            Lin.setfkPedido(Pedido.objects.get(id=ped.id))
+        fomu=pedidoForm(request.POST)
+        if fomu.is_valid():
+            form_data=fomu.cleaned_data
+            pedido=Pedido()
+            
 
-            ped = Pedido.objects.get(id=ped.id)
-            ped.setComentario('form.comentario')
-            ped.setDisplay()
-            ped.save()
-            ped = Pedido.objects.get(id=ped.id)
-            ped.subtotal = ped.subtotal + Lin.getSubtotal()
-            Lin.setSubtotal()
-            Lin.save()
-            ped.save()
-        return redirect('compras:reCom')
-    else:
-        proveedor = Proveedor.objects.all()
-        producto = Producto.objects.all()
-        pedido = Pedido.objects.all().filter(display=True)
-        form=pedidoForm ()
-        contexto={'form':form,'proveedores':proveedor,'productos':producto,'pedidos':pedido}
-        return render(request,'compras/pedidos/generar_pedidos.html',contexto)
+    return render(request,'compras/pedidos/generar_pedidos.html',)
 
 class PedidosList(ListView):
     model = detalle_Pedido

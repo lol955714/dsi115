@@ -6,7 +6,7 @@ from apps.compras.views import *
 
 app_name='compras'
 urlpatterns=[
-    url(r'^index',indexCompras,name="index"),
+    url(r'^index',verpedidos,name="index"),
     url(r'^realizarCompras',agregarPedido,name="reCom"),
     #url(r'^addPedido', agregarPedido, name="addP"),
     url(r'^gestionarPedidos',PedidosList.as_view(),name="gesPed"),

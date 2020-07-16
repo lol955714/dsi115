@@ -5,6 +5,7 @@ from apps.inventario.models import *
 
 class Pedido(models.Model):
     exito= models.BooleanField(default=False)
+    fkProveedor=models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     cancelado = models.BooleanField(default=False)
     pendiente = models.BooleanField(default=True)
     subtotal = models.FloatField(null=True,default=0)

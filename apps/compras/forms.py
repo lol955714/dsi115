@@ -1,5 +1,6 @@
 from django import forms 
 from apps.inventario.models import *
+from apps.inventario.models import *
 
 
 #class ProveedorForm(forms.ModelForm):
@@ -12,11 +13,10 @@ from apps.inventario.models import *
 #		model = Producto
 #		fields = ('nombre', 'precioCompra', 'proveedor', 'precioVenta','existencia','descripcion')
 
+prove=Proveedor.objects.all()
+
 class pedidoForm(forms.Form):
-	proveedor = forms.ModelChoiceField(queryset=Proveedor.objects.all())
-	producto = forms.ModelChoiceField(queryset=Producto.objects.all())
-	cantidad = forms.IntegerField()
-	comentario = forms.CharField()
+	proveedores=forms.ModelMultipleChoiceField(prove,required=True)
 
 
 

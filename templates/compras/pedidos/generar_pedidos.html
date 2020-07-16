@@ -5,61 +5,6 @@
 {% endblock %}
 {% block content %}
 
-<table border="1ptx" width="1000px">
-    <tr><td colspan="2" align="center">RELLENAR INVENTARIO</td></tr>
-    <tr>
-    <td><form method="POST">
-		{% csrf_token %}
-        {{form.as_p}}
-		<button type="submit">Agregar</button>
-	</form></td>
-    <td>
-        <table>
-            <tr>
-                <td>Pedido</td>
-                <td>Cantidad</td>
-                <td>Total</td>
-                <td>    </td>
-            </tr>
-            {% for pedido in pedidos %}
-            <tr>
-                <td>{{pedido.id}}</td>
-                <td>{{pedido.subtotal}}</td>
-                <td></td>
-                <td><a href="">Eliminar</a></td>
-            </tr>
-            {% endfor %}
-
-        </table>
-    </td>
-    </tr>
-    <tr><td colspan="2" align="center">PEDIDOS</td></tr>
-    <tr >
-        <table border="1ptx">
-            <tr>
-                <td>
-                    Columna 1
-                </td>
-                <td>
-                    Columna 2
-                </td>
-                <td>
-                    Columna 3
-                </td>
-                <td>
-                    Columna 4
-                </td>
-                <td>
-                    Columna 5
-                </td>
-            </tr>
-        </table>
-    </tr>
-</table>
-
-
-
-
 
 
 {% endblock %}

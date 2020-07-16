@@ -13,19 +13,14 @@
 		<nav class="navegacion">
 			<ul class="menu">
 				{%block encabezado%}
-				<li><a href="#">Inicio</a></li>
 				<li><a href="{% url 'inventario:inventario' %}">Inventario</a></li>
-				<li><a href="#">Compras</a>
-					<ul class="submenu">
-						<li><a href="#">Servicio #1</a></li>
-						<li><a href="#">Servicio #2</a></li>
-						<li><a href="#">Servicio #3</a></li>
-					</ul>
-				</li>
+				<li><a href="{% url 'compras:index' %}">Compras</a></li>
 			{%endblock encabezado%}
 				<li style="float:right" class="salir"><a href="{%  url "seguridad:logout"%}">Cerrar Sesión</a></li>
 			</ul>
 		</nav>
+{%block propio%}
+{%endblock propio%}
 		{% block content %}
 		{% endblock content%}
 	}
