@@ -5,7 +5,6 @@ from apps.inventario.models import *
 
 class Pedido(models.Model):
     exito= models.BooleanField(default=False)
-    fkProveedor=models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     cancelado = models.BooleanField(default=False)
     pendiente = models.BooleanField(default=True)
     subtotal = models.FloatField(null=True,default=0)
@@ -39,7 +38,12 @@ class Tipo_Pago(models.Model):
     detalle = models.CharField(max_length=60)
 
 class Pago(models.Model):
-    fk_Tipo_Pago=models.ForeignKey(Tipo_Pago,on_delete=models.CASCADE,null=False)
+    fk_Tipo_Pago=models.ForeignKey(Tipo_Pago,on_delete=models.CASCADE,null=True)
     fecha =models.DateField(null=False)
-    fk_pedido=models.ForeignKey(Pedido,on_delete=models.CASCADE)
-
+    fk_pedido=models.ForeignKey(Pedido,on_delete=models.CASCADE,null=True)
+    def setfk_Pedido(self,valor):
+        self.fk_pedido=valor
+    def set_fk_Tipo(self,valor):
+        self.fk_Tipo_Pago=valor
+    def setFecha(self, valor):
+        self.fecha=valor

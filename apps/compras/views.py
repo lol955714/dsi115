@@ -4,11 +4,12 @@ from django.contrib.auth.decorators import login_required
 from random import randrange, choice
 #librerias usadas para articulo y proveedor
 from .forms	import *
+from datetime import date
 from django.views.generic import *
 from apps.inventario.models import Proveedor, Producto
 from apps.compras.models import *
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .forms import *
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -141,9 +142,17 @@ def agregarPedido(request):
         if fomu.is_valid():
             form_data=fomu.cleaned_data
             pedido=Pedido()
-            
-
-    return render(request,'compras/pedidos/generar_pedidos.html',)
+            pago=Pago()
+            pago.setfk_Pedido(pedido.id)
+            pago.setFecha(date.today())
+            pago.set_fk_Tipo(Tipo_Pago.objects.get(str(form_data.get("tipo").get())))
+            pago.save()
+            pedido.save()
+            urlss='/compra/pedir'+str(pedido.id)
+            return HttpResponse(urlss)
+    else:
+        form=pedidoForm()
+        return render(request,'compras/pedidos/generar_pedidos.html',{'form':form})
 
 class PedidosList(ListView):
     model = detalle_Pedido

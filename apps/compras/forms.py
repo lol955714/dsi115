@@ -1,7 +1,6 @@
 from django import forms 
 from apps.inventario.models import *
-from apps.inventario.models import *
-
+from .models import *
 
 #class ProveedorForm(forms.ModelForm):
 #	class Meta:
@@ -14,9 +13,11 @@ from apps.inventario.models import *
 #		fields = ('nombre', 'precioCompra', 'proveedor', 'precioVenta','existencia','descripcion')
 
 prove=Proveedor.objects.all()
+tipos=Tipo_Pago.objects.all()
 
 class pedidoForm(forms.Form):
 	proveedores=forms.ModelMultipleChoiceField(prove,required=True)
+	tipo=forms.ModelMultipleChoiceField(tipos,required=True)
 
 
 
