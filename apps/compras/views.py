@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from random import randrange, choice
 #librerias usadas para articulo y proveedor
-from .forms	import ProveedorForm, ArticuloForm		
-from .models import Proveedor, Producto
-from django.shortcuts import render, get_object_or_404
+from .forms	import *
+from django.views.generic import *
+from apps.inventario.models import Proveedor, Producto
+from apps.compras.models import *
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-
+from django.urls import reverse_lazy
 # Create your views here.
 #falta agregar verificación por rol
 @login_required
@@ -120,3 +122,48 @@ def articulo_delete(request, pk):
             request=request,
         )
     return JsonResponse(data)
+
+
+def verpedidos(request):
+	proveedor = Proveedor.objects.all()
+	producto = Producto.objects.all()
+	contexto = {'proveedores':proveedor,'productos':producto}
+	return render(request, 'compras/pedidos/gestionar_pedidos.html',contexto)
+
+def agregarPedido(request):
+    if request.method=='POST':
+        form = pedidoForm(request.POST)
+        if  form.is_valid():
+            ped = Pedido()
+            ped.save()
+            Lin=detalle_Pedido()
+            #Lin.setfkProducto(Producto.objects.get(id=form.producto.id))
+            Lin.setfkPedido(Pedido.objects.get(id=ped.id))
+
+            ped = Pedido.objects.get(id=ped.id)
+            ped.setComentario('form.comentario')
+            ped.setDisplay()
+            ped.save()
+            ped = Pedido.objects.get(id=ped.id)
+            ped.subtotal = ped.subtotal + Lin.getSubtotal()
+            Lin.setSubtotal()
+            Lin.save()
+            ped.save()
+        return redirect('compras:reCom')
+    else:
+        proveedor = Proveedor.objects.all()
+        producto = Producto.objects.all()
+        pedido = Pedido.objects.all().filter(display=True)
+        form=pedidoForm ()
+        contexto={'form':form,'proveedores':proveedor,'productos':producto,'pedidos':pedido}
+        return render(request,'compras/pedidos/generar_pedidos.html',contexto)
+
+class PedidosList(ListView):
+    model = detalle_Pedido
+    template_name = 'compras/pedidos/gestionar_pedidos.html'
+
+class PedidosCreate(CreateView):
+    model = detalle_Pedido
+    form_class = pedidoForm
+    template_name = 'compras/pedidos/generar_pedidos.html'
+    success_url = reverse_lazy('compras:reCom')

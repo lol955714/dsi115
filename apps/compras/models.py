@@ -28,3 +28,36 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Pedido(models.Model):
+    exito= models.BooleanField(default=False)
+    cancelado = models.BooleanField(default=False)
+    pendiente = models.BooleanField(default=True)
+    subtotal = models.FloatField(null=True,default=0)
+    display = models.BooleanField(default=False)
+    fechaPedido = models.DateTimeField(auto_now=True)
+    def setDisplay(self):
+        self.display=True
+    def setComentario(self,valor):
+        self.comentarios=valor
+
+class detalle_Pedido(models.Model):
+    fkPedido = models.ForeignKey(Pedido, on_delete=models.CASCADE,null=True)
+    cantidad = models.IntegerField(default=1)
+    fkProducto =models.ForeignKey(Producto, on_delete=models.CASCADE,null=True)
+    subtotal = models.FloatField(null=True,default=0)
+    comentario = models.CharField(max_length=60,blank=True)
+    def setfkPedido(self,valor):
+        self.fkPedido=valor
+    def setfkProducto(self,valor):
+        self.fkProducto=valor
+    def setCantidad(self,valor):
+        self.cantidad=valor
+    def setSubtotal(self):
+        self.subtotal=self.cantidad*self.fkProducto.precioCompra
+    def getSubtotal(self):
+        return self.subtotal
+
+
+
+
