@@ -1,0 +1,45 @@
+{% extends 'base/base_sistema.html' %}
+{%block propio%}
+<a href="{% url 'compras:reCom' %}"><button>crear pedido</button></a>
+<a href=""><button>gestionar proveedores</button></a>
+<a href=""><button>registrar nuevo articulo</button></a>
+{%endblock propio%}
+{% block content %}
+{%if pedidos%}
+<table>
+	<thead>
+		<tr>
+			<td>fecha creado</td>
+			<td>proveedor</td>
+			<td>monto</td>
+			<td>estado</td>
+			<td>accines</td>
+		</tr>
+	</thead>
+	<tbody>
+		
+		{%for pedido in pedidos%}
+		<tr>
+			<td>{{pedido.fechaPedido}}</td>
+			<td>{{pedido.fkProveedor.nombre}}</td>
+			<td>{{pedido.subtotal}}</td>
+			{%if pedido.pendiente == True%}
+			<td>pendiente</td>
+			{%else%}
+			{%if pedido.cancelado == True%}
+			<td>Cancelado</td>
+			{%else%}
+			<td>Recibido</td>
+			{%endif%}
+			{%endif%}
+			<td><a href="">ver detalle</a></td>
+		</tr>
+		{%endfor%}
+		{%else%}
+		<label>No hay pedidos registrados</label>
+		{%endif%}
+	</tbody>
+</table>
+
+
+{% endblock %}

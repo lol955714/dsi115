@@ -1,0 +1,15 @@
+{% extends 'base/base_sistema.html' %}
+{%block navegacion%}
+{%endblock navegacion%}
+{% block content %}
+<a href="{% url 'compras:index' %}"><button>Cancelar</button></a>
+
+<form action="{% url 'compras:reCom' %}" method="POST" id="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" value="submit" id="submit" class="boton">Generar pedido</button>
+</form>
+
+{% endblock content%}
+
+

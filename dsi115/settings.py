@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'apps.compras',
     'apps.inventario',
     'apps.seguridad',
-    
     'widget_tweaks',    #utilizado para articulo y proveedores
     'crispy_forms',
     'phone_field',
@@ -88,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dsi',
-        'USER': 'postgres',
-        'PASSWORD': 'admin123',
+        'USER': 'lol',
+        'PASSWORD': 'noquiero',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -130,9 +129,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-mx'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/El_Salvador'
 
 USE_I18N = True
 

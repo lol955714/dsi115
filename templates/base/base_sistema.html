@@ -10,19 +10,21 @@
 		<div><br>SIAVAC  | <span>Sistema Informático para la Administración y Venta de Accesorios</span><hr>
 		</div>
 		</div>
+		{%block navegacion%}
 		<nav class="navegacion">
 			<ul class="menu">
 				{%block encabezado%}
 				<li><a href="{% url 'inventario:inventario' %}">Inventario</a></li>
-				<li><a href="/compras/articulo">Compras</a></li>
+				<li><a href="{% url 'compras:index' %}">Compras</a></li>
 			{%endblock encabezado%}
 				<li style="float:right" class="salir"><a href="{%  url "seguridad:logout"%}">Cerrar Sesión</a></li>
 			</ul>
 		</nav>
+	{%endblock navegacion%}
+{%block propio%}
+{%endblock propio%}
 		{% block content %}
 		{% endblock content%}
-
-
 	
 	<script src="{% static 'js/jquery-3.4.1.min.js' %}" ></script>
 	<script src="{% static 'js/popper.min.js' %}"></script>

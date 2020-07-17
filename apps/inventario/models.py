@@ -9,7 +9,7 @@ class Categoria(models.Model):
 		return '%s'%(self.nombre)
 
 class Proveedor(models.Model):
-	nombre =models.CharField(max_length=30,null=False)
+	nombre =models.CharField(max_length=30,null=True)
 	telefono=models.CharField(max_length=8,null=False)
 	direccion=models.CharField(max_length=150,null=False)
 	estado =models.BooleanField(default=True,null=False)
