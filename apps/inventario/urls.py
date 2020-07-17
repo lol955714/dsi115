@@ -5,5 +5,6 @@ from apps.inventario.views import *
 app_name='inventario'
 urlpatterns=[
 url(r'^inventario',inventario,name="inventario"),
-url(r'^gestprod/(?P<idProducto>\w+)', gestprod, name="gestprod"),
+url(r'^editar_producto/(?P<idProducto>\w+)', gestprod2, name="gestprod"),
+url(r'^eliminar_producto/(?P<idProducto>\w+)',deleteprod, name="elimprod"),
 ]

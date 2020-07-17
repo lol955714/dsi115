@@ -5,9 +5,10 @@ from django.forms import widgets
 from django.forms import fields, CheckboxInput
 
 class productoForm(forms.ModelForm):
+	fkcate = forms.ModelChoiceField(queryset=CategoriaIncidencia.objects.all())
+	comentario = forms.CharField(required=False, max_length=150)
 	class Meta:
 		model=Producto
-
 		fields=[
 			'nombre',
 			'descripcion',
@@ -39,3 +40,7 @@ class productoForm(forms.ModelForm):
 			'fkproveedor': forms.Select(),
 			'fkcategoria': forms.Select(),
 		}
+
+
+class elimiarForm(forms.Form):
+	confirmar = forms.CheckboxInput()

@@ -17,7 +17,8 @@
    	<td>{{producto.preciocompra}}</td>
    	<td>{{producto.precioventa}}</td>
    	<td>{{producto.existencia}}</td>
-   	<td><a href="{% url 'inventario:gestprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]">Modificar {{producto.id}}</a></td><td><a href="">Eliminar</a></td>
+   	<td><a href="{% url 'inventario:gestprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]">Modificar {{producto.id}}</a></td>
+       <td><a href="{% url 'inventario:elimprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]">Eliminar {{producto.id}}</a></td>
    </tr>
    {%endfor%}
     </tbody>

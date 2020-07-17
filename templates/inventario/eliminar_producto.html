@@ -1,0 +1,10 @@
+{%block content%}
+¿Seguro que desea eliminar el producto?
+*LA INFORMACIÓN YA NO PODRA RECUPERARSE*
+<form method="POST" action="{% url 'inventario:elimprod' idProducto %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" >BORRAR</button>
+</form>
+
+{%endblock content%}
