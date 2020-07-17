@@ -6,3 +6,4 @@ dsi115/settings.py
 *.xml
 *.pyc
 dsi115/settings.py
+*.pyc
