@@ -8,8 +8,12 @@ app_name='compras'
 urlpatterns=[
     url(r'^index',verpedidos,name="index"),
     url(r'^realizarCompras',agregarPedido,name="reCom"),
+    url(r'^add/(?P<idPedido>\w+)/(?P<producto>\w+)/(?P<idProveedor>\w+)', agregarLinea,name="add"),
+    url(r'^editar/(?P<idLinea>\w+)/(?P<idPedido>\w+)/(?P<producto>\w+)/(?P<idProveedor>\w+)', editarLinea,name="editarLinea"),
+    url(r'^borrar/(?P<idLinea>\w+)/(?P<idPedido>\w+)/(?P<producto>\w+)/(?P<idProveedor>\w+)', borrarLinea,name="borrarLinea"),
     #url(r'^addPedido', agregarPedido, name="addP"),
     url(r'^pedir/(?P<idPedido>\w+)/(?P<idProveedor>\w+)/', lineapedido, name="lin"),
+    url(r'^cancelar/(?P<idPedido>\w+)/', cancelar, name="cancelar"),
 
     url(r'^gestionarPedidos',PedidosList.as_view(),name="gesPed"),
     path(

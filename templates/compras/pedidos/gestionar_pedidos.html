@@ -21,7 +21,7 @@
 		{%for pedido in pedidos%}
 		<tr>
 			<td>{{pedido.fechaPedido}}</td>
-			<td>hay que hacer una búsqueda inversa</td>
+			<td>{{pedido.fkProveedor.nombre}}</td>
 			<td>{{pedido.subtotal}}</td>
 			{%if pedido.pendiente == True%}
 			<td>pendiente</td>

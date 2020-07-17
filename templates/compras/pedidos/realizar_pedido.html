@@ -1,5 +1,9 @@
 {% extends 'base/base_sistema.html' %}
 {%block navegacion%}
+<a href="{% url 'compras:cancelar' idPedido%}"><button>Cancelar</button> </a>
+{%if var != 0%}
+<a href="{% url 'compras:index' %}"><button>Terminar</button> </a>
+{%endif%}
 {%endblock navegacion%}
 {%block content%}
 <link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>
@@ -18,11 +22,44 @@
 				<tr>
 					<td>{{producto.nombre}}</td>
 					<td>{{producto.precio}}</td>
-					<td> <a href="/" rel="get:id=10" rev="abcwin[500,auto]"><button>agregar</button> </a> </td>
+					<td> <a href="{% url 'compras:add' idPedido producto.id idProveedor%}" rel="get:id=10" rev="abcwin[500,auto]">add</a> </td>
 				</tr>
 			{%endfor%}
 		{%else%}
 			<label>No tenemos productos de este proveedor</label>
+		{%endif%}
+	</tbody>
+</table>
+
+
+<table>
+	<thead>
+		
+		<tr>
+			<td>articulo</td>
+			<td>cantidad</td>
+			<td>subtotal</td>
+			<td>comentario</td>
+			<td>Editar</td>
+			<td>Eliminar</td>
+		</tr>
+	</thead>
+	<tbody>
+	{%if detalle%}
+			{%for detalle in detalle%}
+	
+		
+				<tr>
+					<td>{{detalle.fkProducto.nombre}}</td>
+					<td>{{detalle.cantidad}}</td>
+					<td>{{detalle.subtotal}}</td>
+					<td>{{detalle.comentario}}</td>
+					<td><a href="{% url 'compras:borrarLinea'  detalle.id idPedido detalle.fkProducto.id idProveedor %}">eliminar</td>
+					
+				</tr>
+			{%endfor%}
+		{%else%}
+			<label>aún no registramos nada en el pedido</label>
 		{%endif%}
 	</tbody>
 </table>

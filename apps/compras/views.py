@@ -129,18 +129,68 @@ def articulo_delete(request, pk):
 
 def verpedidos(request):
 	pedidos=Pedido.objects.all()
-	contexto = {'pedido':pedidos}
+	contexto = {'pedidos':pedidos}
 	return render(request, 'compras/pedidos/gestionar_pedidos.html',contexto)
 
 
 #def crearPedido(request):
 
-def lineapedido(request, idPedido, idProveedor):
+def lineapedido(request, idPedido, idProveedor):#muestra los productos dle proveedor y da pauta para añadir
     cat=Categoria.objects.get(id=idProveedor)
     produc=Producto.objects.all().filter(fkcategoria= cat)
-    return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc})
+    detalle=detalle_Pedido.objects.all().filter(fkPedido=Pedido.objects.get(id=idPedido))
+    var=detalle.count()
+    return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc,'idPedido':idPedido,'idProveedor':idProveedor,'detalle':detalle,'var':var})
 
-def agregarPedido(request):
+def cancelar(request, idPedido):
+    pedido=Pedido.objects.get(id=idPedido)
+    detalle=detalle_Pedido.objects.all().filter(fkPedido=pedido)
+    detalle.delete()
+    pedido.delete()
+    return redirect('compras:index')
+
+def borrarLinea(request, idLinea, idPedido, producto, idProveedor):
+    deta=detalle_Pedido.objects.get(id=int(idLinea))
+    pedido=Pedido.objects.get(id=idPedido)
+    pedido.quitarSubtotal(deta.getSubtotal())
+    deta.delete()
+    cat=Categoria.objects.get(id=idProveedor)
+    produc=Producto.objects.all().filter(fkcategoria= cat)
+    detalle=detalle_Pedido.objects.all().filter(fkPedido=Pedido.objects.get(id=idPedido))
+    var=detalle.count()
+    return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc,'idPedido':idPedido,'idProveedor':idProveedor,'detalle':detalle,'var':var})
+
+def editarLinea(request, idLinea, idPedido, producto, idProveedor):
+    if request.method=='POST':
+        fom=formulario(request.POST)
+        if fom.is_valid():
+            form_data=fom.cleaned_data
+            deta=detalle_Pedido.objects.get(id=idLinea)
+            deta.delete()
+            detalle=detalle_Pedido()
+            pedido=Pedido.objects.get(id=idPedido)
+            producto=Producto.objects.get(id=producto)
+            pedido.quitarSubtotal(detalle.getSubtotal())       
+            detalle.setfkPedido(pedido)
+            detalle.setfkProducto(producto)
+            detalle.setCantidad(form_data.get("cantidad"))
+            detalle.setSubtotal()
+            pedido.agregarSubtotal(detalle.getSubtotal())
+            detalle.setComentario(form_data.get("comentario"))
+            detalle.save()
+            pedido.save()
+            cat=Categoria.objects.get(id=idProveedor)
+            produc=Producto.objects.all().filter(fkcategoria= cat)
+            detalle=detalle_Pedido.objects.all().filter(fkPedido=Pedido.objects.get(id=idPedido))
+            var=detalle.count()
+            print("holi")
+            return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc,'idPedido':idPedido,'idProveedor':idProveedor,'detalle':detalle,'var':var})
+    else:
+        form=formulario()
+        contexto={'form':form,'producto':producto,'idPedido':idPedido,'idProveedor':idProveedor,'idLinea':idLinea}
+        return render(request,'compras/pedidos/realizar_pedido.html',contexto)
+
+def agregarPedido(request):#genera el pedido
     if request.method=='POST':
         fomu=pedidoForm(request.POST)
         if fomu.is_valid():
@@ -153,12 +203,39 @@ def agregarPedido(request):
             var=str(form_data.get("tipo").get())
             pago.set_fk_Tipo(Tipo_Pago.objects.get(tipo=var))
             pago.save()
+            pedido.fkProveedor=Proveedor.objects.get(nombre=form_data.get("proveedores").get())
             pedido.save()
             urlss='/compras/pedir/'+str(pedido.id)+'/'+str(Proveedor.objects.get(nombre=form_data.get("proveedores").get()).id)
             return redirect(urlss)
     else:
         form=pedidoForm()
         return render(request,'compras/pedidos/generar_pedidos.html',{'form':form})
+
+def agregarLinea(request,  idPedido, producto, idProveedor):#agrega las líneas de pedido
+    if request.method=='POST':
+        fom=formulario(request.POST)
+        if fom.is_valid():
+            form_data=fom.cleaned_data
+            detalle=detalle_Pedido()
+            pedido=Pedido.objects.get(id=idPedido)
+            producto=Producto.objects.get(id=producto)
+            detalle.setfkPedido(pedido)
+            detalle.setfkProducto(producto)
+            detalle.setCantidad(form_data.get("cantidad"))
+            detalle.setSubtotal()
+            pedido.agregarSubtotal(detalle.getSubtotal())
+            detalle.setComentario(form_data.get("comentario"))
+            detalle.save()
+            pedido.save()
+            cat=Categoria.objects.get(id=idProveedor)
+            produc=Producto.objects.all().filter(fkcategoria= cat)
+            detalle=detalle_Pedido.objects.all().filter(fkPedido=Pedido.objects.get(id=idPedido))
+            var=detalle.count()
+            return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc,'idPedido':idPedido,'idProveedor':idProveedor,'detalle':detalle,'var':var})
+    else:
+        form=formulario()
+        contexto={'form':form,'idPedido':idPedido, 'producto':producto,'idProveedor':idProveedor}
+        return render(request,'compras/pedidos/agregar_articulo.html',contexto)
 
 class PedidosList(ListView):
     model = detalle_Pedido
