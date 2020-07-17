@@ -17,12 +17,10 @@
    	<td>{{producto.preciocompra}}</td>
    	<td>{{producto.precioventa}}</td>
    	<td>{{producto.existencia}}</td>
-   	<td><a href="">Editar</a>&nbsp;<a href="">Eliminar</a></td>
+<td><a href="{% url 'inventario:gestprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
+       <a href="{% url 'inventario:elimprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a></td>
    </tr>
    {%endfor%}
     </tbody>
-</table>
-<table style="margin: 0 auto;">
-    <tr><td colspan="4"><br><button type="submit" class="boton">Agregar Nuevo Producto</button></td></tr>
 </table>
         {% endblock %}
