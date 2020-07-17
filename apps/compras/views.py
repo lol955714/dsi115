@@ -153,11 +153,14 @@ def borrarLinea(request, idLinea, idPedido, producto, idProveedor):
     deta=detalle_Pedido.objects.get(id=int(idLinea))
     pedido=Pedido.objects.get(id=idPedido)
     pedido.quitarSubtotal(deta.getSubtotal())
-    deta.delete()
+    pedido.save()
+    print(deta.getSubtotal())
+   
     cat=Categoria.objects.get(id=idProveedor)
     produc=Producto.objects.all().filter(fkcategoria= cat)
     detalle=detalle_Pedido.objects.all().filter(fkPedido=Pedido.objects.get(id=idPedido))
     var=detalle.count()
+    deta.delete()
     return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc,'idPedido':idPedido,'idProveedor':idProveedor,'detalle':detalle,'var':var})
 
 def editarLinea(request, idLinea, idPedido, producto, idProveedor):
