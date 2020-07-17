@@ -21,6 +21,8 @@ class CategoriaIncidencia(models.Model):
 	descripcion = models.CharField(max_length=150, null=False)
 	def gePkCatInc(self):
 		return self.id
+	def __str__(self):
+		return '%s'%(self.nombre)
 
 
 class Producto(models.Model):
