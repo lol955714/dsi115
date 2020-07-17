@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from random import randrange, choice
 #librerias usadas para articulo y proveedor
@@ -9,7 +10,7 @@ from django.views.generic import *
 from apps.inventario.models import Proveedor, Producto
 from apps.compras.models import *
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from .forms import *
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -134,7 +135,10 @@ def verpedidos(request):
 
 #def crearPedido(request):
 
-
+def lineapedido(request, idPedido, idProveedor):
+    cat=Categoria.objects.get(id=idProveedor)
+    produc=Producto.objects.all().filter(fkcategoria= cat)
+    return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc})
 
 def agregarPedido(request):
     if request.method=='POST':
@@ -142,14 +146,16 @@ def agregarPedido(request):
         if fomu.is_valid():
             form_data=fomu.cleaned_data
             pedido=Pedido()
+            pedido.save()
             pago=Pago()
-            pago.setfk_Pedido(pedido.id)
+            pago.setfk_Pedido(pedido)
             pago.setFecha(date.today())
-            pago.set_fk_Tipo(Tipo_Pago.objects.get(str(form_data.get("tipo").get())))
+            var=str(form_data.get("tipo").get())
+            pago.set_fk_Tipo(Tipo_Pago.objects.get(tipo=var))
             pago.save()
             pedido.save()
-            urlss='/compra/pedir'+str(pedido.id)
-            return HttpResponse(urlss)
+            urlss='/compras/pedir/'+str(pedido.id)+'/'+str(Proveedor.objects.get(nombre=form_data.get("proveedores").get()).id)
+            return redirect(urlss)
     else:
         form=pedidoForm()
         return render(request,'compras/pedidos/generar_pedidos.html',{'form':form})

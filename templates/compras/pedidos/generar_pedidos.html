@@ -1,4 +1,6 @@
-
+{% extends 'base/base_sistema.html' %}
+{%block navegacion%}
+{%endblock navegacion%}
 {% block content %}
 <a href="{% url 'compras:index' %}"><button>Cancelar</button></a>
 
@@ -8,6 +10,6 @@
     <button type="submit" value="submit" id="submit" class="boton">Generar pedido</button>
 </form>
 
-{% endblock %}
+{% endblock content%}
 
 

@@ -1,0 +1,28 @@
+{% extends 'base/base_sistema.html' %}
+{%block navegacion%}
+{%endblock navegacion%}
+{%block content%}
+<table>
+	<thead>
+		<tr>
+			<td>nombre</td>
+			<td>Precio</td>
+			<td>agregar</td>
+		</tr>
+	</thead>
+	<tbody>
+		{%if productos%}
+			{%for producto in productos%}
+				<tr>
+					<td>{{producto.nombre}}</td>
+					<td>{{producto.precio}}</td>
+					<td> <a href="http://xvideos.com" rel="get:id=10" rev="abcwin[500,auto]"><img  width="90px" height="90px"><button>agregar</button> </a> </td>
+				</tr>
+			{%endfor%}
+		{%else%}
+			<label>No tenemos productos de este proveedor</label>
+		{%endif%}
+	</tbody>
+</table>
+{%endblock content%}
+

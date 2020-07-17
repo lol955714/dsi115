@@ -36,6 +36,8 @@ class detalle_Pedido(models.Model):
 class Tipo_Pago(models.Model):
     tipo = models.CharField(max_length=60)
     detalle = models.CharField(max_length=60)
+    def __str__(self):
+        return '%s'%(self.tipo)
 
 class Pago(models.Model):
     fk_Tipo_Pago=models.ForeignKey(Tipo_Pago,on_delete=models.CASCADE,null=True)
@@ -47,3 +49,5 @@ class Pago(models.Model):
         self.fk_Tipo_Pago=valor
     def setFecha(self, valor):
         self.fecha=valor
+    def __str__(self):
+        return '%s'%(self.fecha)

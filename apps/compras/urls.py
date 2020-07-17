@@ -9,6 +9,8 @@ urlpatterns=[
     url(r'^index',verpedidos,name="index"),
     url(r'^realizarCompras',agregarPedido,name="reCom"),
     #url(r'^addPedido', agregarPedido, name="addP"),
+    url(r'^pedir/(?P<idPedido>\w+)/(?P<idProveedor>\w+)/', lineapedido, name="lin"),
+
     url(r'^gestionarPedidos',PedidosList.as_view(),name="gesPed"),
     path(
     	'proveedor/', 
