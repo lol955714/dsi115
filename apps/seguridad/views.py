@@ -23,3 +23,5 @@ def auth(request):
 			return redirect('seguridad:ingresar')
 	return render(request,'seguridad/login.html',{})
 
+
+

@@ -20,9 +20,12 @@ from django.urls import reverse_lazy
 def indexCompras(request):
 	return render(request,'compras/index.html')
 
+@login_required
 def proveedor_list(request):
 	proveedors = Proveedor.objects.all()
 	return render(request,'compras/proveedor/proveedor_list.html',{'proveedors':proveedors})
+
+@login_required
 def save_proveedor_form(request, form, template_name):
 	data = dict()
 	if request.method == 'POST':
@@ -41,12 +44,16 @@ def save_proveedor_form(request, form, template_name):
 		request = request,
 	)
 	return JsonResponse(data)
+
+@login_required
 def proveedor_create(request):
     if request.method == 'POST':
         form = ProveedorForm(request.POST)
     else:
         form = ProveedorForm()
     return save_proveedor_form(request, form, 'compras/proveedor/proveedor_create.html')
+
+@login_required
 def proveedor_update(request, pk):
     proveedor = get_object_or_404(Proveedor, pk=pk)
     if request.method == 'POST':
@@ -54,6 +61,8 @@ def proveedor_update(request, pk):
     else:
         form = ProveedorForm(instance=proveedor)
     return save_proveedor_form(request, form, 'compras/proveedor/proveedor_update.html')
+    
+@login_required
 def proveedor_delete(request, pk):
     proveedor = get_object_or_404(Proveedor, pk=pk)
     data = dict()
@@ -72,10 +81,12 @@ def proveedor_delete(request, pk):
         )
     return JsonResponse(data)
 
-
+@login_required
 def articulo_list(request):
 	articulos = Producto.objects.all()
 	return render(request,'compras/articulo/articulo_list.html',{'articulos':articulos})
+
+@login_required
 def save_articulo_form(request, form, template_name):
 	data = dict()
 	if request.method == 'POST':
@@ -95,12 +106,16 @@ def save_articulo_form(request, form, template_name):
 		request = request,
 	)
 	return JsonResponse(data)
+
+@login_required
 def articulo_create(request):
     if request.method == 'POST':
         form = ArticuloForm(request.POST)
     else:
         form = ArticuloForm()
     return save_articulo_form(request, form, 'compras/articulo/articulo_create.html')
+
+@login_required
 def articulo_update(request, pk):
     articulo = get_object_or_404(Producto, pk=pk)
     if request.method == 'POST':
@@ -108,6 +123,7 @@ def articulo_update(request, pk):
     else:
         form = ArticuloForm(instance=articulo)
     return save_articulo_form(request, form, 'compras/articulo/articulo_update.html')
+@login_required
 def articulo_delete(request, pk):
     articulo = get_object_or_404(Producto, pk=pk)
     data = dict()
@@ -126,7 +142,7 @@ def articulo_delete(request, pk):
         )
     return JsonResponse(data)
 
-
+@login_required
 def verpedidos(request):
 	pedidos=Pedido.objects.all()
 	contexto = {'pedidos':pedidos}
@@ -134,7 +150,7 @@ def verpedidos(request):
 
 
 #def crearPedido(request):
-
+@login_required
 def lineapedido(request, idPedido, idProveedor):#muestra los productos dle proveedor y da pauta para añadir
     cat=Categoria.objects.get(id=idProveedor)
     produc=Producto.objects.all().filter(fkcategoria= cat)
@@ -142,6 +158,7 @@ def lineapedido(request, idPedido, idProveedor):#muestra los productos dle prove
     var=detalle.count()
     return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc,'idPedido':idPedido,'idProveedor':idProveedor,'detalle':detalle,'var':var})
 
+@login_required
 def cancelar(request, idPedido):
     pedido=Pedido.objects.get(id=idPedido)
     detalle=detalle_Pedido.objects.all().filter(fkPedido=pedido)
@@ -149,6 +166,7 @@ def cancelar(request, idPedido):
     pedido.delete()
     return redirect('compras:index')
 
+@login_required
 def borrarLinea(request, idLinea, idPedido, producto, idProveedor):
     deta=detalle_Pedido.objects.get(id=int(idLinea))
     pedido=Pedido.objects.get(id=idPedido)
@@ -163,6 +181,7 @@ def borrarLinea(request, idLinea, idPedido, producto, idProveedor):
     deta.delete()
     return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc,'idPedido':idPedido,'idProveedor':idProveedor,'detalle':detalle,'var':var})
 
+@login_required
 def editarLinea(request, idLinea, idPedido, producto, idProveedor):
     if request.method=='POST':
         fom=formulario(request.POST)
@@ -193,6 +212,7 @@ def editarLinea(request, idLinea, idPedido, producto, idProveedor):
         contexto={'form':form,'producto':producto,'idPedido':idPedido,'idProveedor':idProveedor,'idLinea':idLinea}
         return render(request,'compras/pedidos/realizar_pedido.html',contexto)
 
+@login_required
 def agregarPedido(request):#genera el pedido
     if request.method=='POST':
         fomu=pedidoForm(request.POST)
@@ -214,6 +234,7 @@ def agregarPedido(request):#genera el pedido
         form=pedidoForm()
         return render(request,'compras/pedidos/generar_pedidos.html',{'form':form})
 
+@login_required
 def agregarLinea(request,  idPedido, producto, idProveedor):#agrega las líneas de pedido
     if request.method=='POST':
         fom=formulario(request.POST)
@@ -240,10 +261,12 @@ def agregarLinea(request,  idPedido, producto, idProveedor):#agrega las líneas 
         contexto={'form':form,'idPedido':idPedido, 'producto':producto,'idProveedor':idProveedor}
         return render(request,'compras/pedidos/agregar_articulo.html',contexto)
 
+@login_required
 class PedidosList(ListView):
     model = detalle_Pedido
     template_name = 'compras/pedidos/gestionar_pedidos.html'
 
+@login_required
 class PedidosCreate(CreateView):
     model = detalle_Pedido
     form_class = pedidoForm
