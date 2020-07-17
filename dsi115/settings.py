@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'dsi115.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dsi',
+        'NAME': 'ds2',
         'USER': 'lol',
         'PASSWORD': 'noquiero',
         'HOST': 'localhost',

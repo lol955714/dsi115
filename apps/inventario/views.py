@@ -26,10 +26,6 @@ def inventario(request):
 		contexto={'productos':producto}
 	return render(request,'base/existencias.html',contexto)
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
 def gestprod2(request,idProducto):
     producto = Producto.objects.get(id=idProducto)
     if request.method=='POST':
@@ -55,11 +51,4 @@ def deleteprod(request,idProducto):
              producto.delete()
              return redirect('inventario:inventario')
     form = elimiarForm()
-<<<<<<< Updated upstream
     return render(request, 'inventario/eliminar_producto.html',{'form':form,'idProducto':idProducto})
-=======
-    return render(request, 'inventario/eliminar_producto.html',{'form':form,'idProducto':idProducto})
-=======
-
->>>>>>> Stashed changes
->>>>>>> Stashed changes
