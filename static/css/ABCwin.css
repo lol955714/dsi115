@@ -1,0 +1,39 @@
+#abc_win {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	padding: 10px; 
+	margin: 0 auto; 
+	color: #333; 
+	/*border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;*/
+	background-color: white;
+}
+
+#abc_show { 
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	margin: 0 auto; 
+	color: white; 
+	/*border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;*/ 
+	background-color: black;
+}
+
+#abc_show a { 
+	color: white;
+}
+
+a.abc img { 
+	border: none; 
+	visibility: hidden;
+}
+
+#abc_picture { 
+	text-align: center;
+}
+
+#abc_picture div { 
+	float: left;
+}
