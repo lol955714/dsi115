@@ -1,0 +1,14 @@
+{%block content%}
+<link rel="stylesheet" type="text/css" href="/static/css/cssE.css"/>
+<div class="aviso">
+	<div class="h">Aviso: Confirmar Eliminación</div>
+                <div class="mensaje">
+                    ¿Está seguro que desea eliminar el producto?<br>¡LA INFORMACIÓN YA NO PODRÁ RECUPERARSE!
+						<form method="POST" action="{% url 'inventario:elimprod' idProducto %}">
+						    {% csrf_token %}
+						    {{ form.as_p }}
+    						<br><button type="submit" >Eliminar</button>
+						</form> 
+                </div>
+            </div>
+{%endblock content%}

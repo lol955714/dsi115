@@ -16,7 +16,7 @@ def auth(request):
 		if user is not None:
 			login(request, user)
 			if request.user.groups.filter(name='administrador').exists():#inicio de selección de index
-				return redirect('inventario:index')
+				return redirect('inventario:inventario')
 			else:
 				return render(request,'base/nope.html',{})#finaliza selección de index
 		else:

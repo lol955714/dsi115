@@ -2,11 +2,15 @@
 <tr>
     <td>{{forloop.counter}}</td>
     <td>{{ articulo.nombre }}</td>
-    <td>{{ articulo.precioCompra }}</td>
-    <td>{{ articulo.proveedor }}</td>
-    <td>{{ articulo.precioVenta }}</td>
-    <td>{{ articulo.existencia }}</td>
     <td>{{ articulo.descripcion }}</td>
+    <td>{{ articulo.precioventa }}</td>
+    <td>{{ articulo.preciocompra }}</td>
+    <td>{{ articulo.existencia }}</td>
+    <td>{{ articulo.promocion }}</td>
+    <td>{{ articulo.fkproveedor }}</td>
+
+   
+
     <td>
         <button type="button"
             class="btn btn-warning btn-sm js-update-articulo"
@@ -23,6 +27,6 @@
     </td>
 {% empty %}
 <tr>
-      <td colspan="8" class="text-center bg-warning">No hay articulos registrados</td>
+      <td colspan="9" class="text-center bg-warning">No hay articulos registrados</td>
 </tr>
 {% endfor %}

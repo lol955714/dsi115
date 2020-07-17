@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.compras',
     'apps.inventario',
     'apps.seguridad',
+    
     'widget_tweaks',    #utilizado para articulo y proveedores
     'crispy_forms',
     'phone_field',

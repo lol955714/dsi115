@@ -1,11 +1,13 @@
 {% extends 'base/base_sistema.html' %}
 {% block title %}SIAVAC | Existencias{% endblock %}
 {% block content %}
-    
+<link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>
+<script type="text/javascript" src="/static/js/ABCwin.js"></script>
+
     <h1>Existencias</h1>
     <table class="bordered">
     <thead>
-    <tr><th>Nombre</th><th>Descripción</th><th>Precio de compra</th><th>Precio de venta</th> <th>Existencias</th><th>Acciones</th></tr>
+    <tr><th>Nombre</th><th>Descripción</th><th>Precio de Compra</th><th>Precio de Venta</th> <th>Existencias</th><th colspan="2" align="center">Acciones</th></tr>
 	</thead>
 	<tbody>
    {% for producto in productos%}
@@ -15,7 +17,8 @@
    	<td>{{producto.preciocompra}}</td>
    	<td>{{producto.precioventa}}</td>
    	<td>{{producto.existencia}}</td>
-   	<td><a href="">Editar</a>&nbsp;<a href="">Eliminar</a></td>
+   	<td><a href="{% url 'inventario:gestprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
+       <a href="{% url 'inventario:elimprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a></td>
    </tr>
    {%endfor%}
     </tbody>
