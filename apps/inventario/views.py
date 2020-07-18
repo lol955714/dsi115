@@ -24,6 +24,7 @@ def inventario(request):
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
+
 	return render(request,'base/existencias.html',contexto)
 
 @login_required

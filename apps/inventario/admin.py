@@ -13,3 +13,6 @@ admin.site.register(CategoriaIncidencia)
 admin.site.register(Incidencia)
 
 
+admin.sites.AdminSite.site_header = 'Administración del sistema SIAVAC'
+admin.sites.AdminSite.site_title = 'SIAVAC Administracion'
+admin.sites.AdminSite.index_title = ''
