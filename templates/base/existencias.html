@@ -3,8 +3,27 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>
 <script type="text/javascript" src="/static/js/ABCwin.js"></script>
-    
+     {% if messages %} 
+    <ul class="messages"> 
+       {% for message in messages%} 
+        <div class="alert alert-{{ message.tags }}" role="alert"> 
+          <p>{{ message }}</p> 
+      </div> 
+       {% endfor %} 
+    </ul> 
+    {% endif %} 
     <h1>Existencias</h1>
+     <table> 
+      <tr> 
+        <td> 
+    <form method="post"> 
+      {% csrf_token %} 
+     <input type="text" placeholder="Buscar producto" name="buscar" value="{{request.GET.buscar }}"> 
+     <button type="submit">Buscar</button> 
+    </form> 
+    </td> 
+    </tr> 
+    </table>
     <table class="bordered">
     <thead>
     <tr><th>Nombre</th><th>Descripción</th><th>Precio de compra</th><th>Precio de venta</th> <th>Existencias</th><th>Acciones</th></tr>
@@ -16,7 +35,11 @@
    	<td>{{producto.descripcion}}</td>
    	<td>{{producto.preciocompra}}</td>
    	<td>{{producto.precioventa}}</td>
-   	<td>{{producto.existencia}}</td>
+   	 {% if producto.existencia <= 5 %}
+     <td bgcolor="red">{{producto.existencia}}</td>
+    {% else %}
+     <td>{{producto.existencia}}</td>
+    {% endif %}
 <td><a href="{% url 'inventario:gestprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
        <a href="{% url 'inventario:elimprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a></td>
    </tr>

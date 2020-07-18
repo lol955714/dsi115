@@ -5,3 +5,5 @@ dsi115/settings.py
 *.iml
 *.xml
 *.pyc
+dsi115/settings.py
+*.pyc

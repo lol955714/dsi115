@@ -24,8 +24,10 @@ def inventario(request):
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
+
 	return render(request,'base/existencias.html',contexto)
 
+@login_required
 def gestprod2(request,idProducto):
     producto = Producto.objects.get(id=idProducto)
     if request.method=='POST':
@@ -43,6 +45,7 @@ def gestprod2(request,idProducto):
     producto = Producto.objects.get(id=idProducto)
     return render(request, 'inventario/modificar_producto.html',{'form':form,'idProducto':idProducto})
 
+@login_required
 def deleteprod(request,idProducto):
     producto = Producto.objects.get(id=idProducto)
     if request.method=='POST':
