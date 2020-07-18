@@ -15,7 +15,7 @@ urlpatterns=[
     url(r'^pedir/(?P<idPedido>\w+)/(?P<idProveedor>\w+)/', lineapedido, name="lin"),
     url(r'^cancelar/(?P<idPedido>\w+)/', cancelar, name="cancelar"),
 
-    url(r'^gestionarPedidos',PedidosList.as_view(),name="gesPed"),
+    url(r'^gestionarPedidos',PedidosList,name="gesPed"),
     path(
     	'proveedor/', 
     	proveedor_list,

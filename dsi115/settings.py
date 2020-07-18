@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'dsi115.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dsi',
+        'NAME': 'basefinal',
         'USER': 'lol',
         'PASSWORD': 'noquiero',
         'HOST': 'localhost',
@@ -145,7 +145,7 @@ USE_TZ = True
 
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 LOGIN_URL = 'seguridad:ingresar'
-LOGIN_REDIRECT_URL='/index/'
+LOGIN_REDIRECT_URL='/'
 
 
 STATIC_URL = '/static/'

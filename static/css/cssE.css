@@ -1,0 +1,90 @@
+@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+.aviso {
+    min-width:500px;
+    position: absolute;
+    padding: 0;
+    top:40%;
+    left:50%;
+    margin-left:-250px;
+    color: #CCC;
+    border:1px solid #CCC;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 5px;
+}
+
+div button {
+    border: 1px solid #910;
+    background: #F00;
+    color:#FFF;
+    padding: 10px 18px;
+    margin: 0 3px 15px 0;
+    font-weight: bold;
+    
+    color: #fff;
+    border-color: #ab3326;
+    background-color: #c0392b;
+    border-radius: 3px;
+    border:none;
+    display:block;
+    margin: 0 auto;
+}
+
+.h {
+    padding: 12px 15px;
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #444;
+    font-family: 'Exo', sans-serif;
+}
+
+.mensaje {
+    padding: 15px;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    font-family: 'Exo', sans-serif;
+}
+/*-------------------------------*/
+
+.btn{
+    border: 1px solid #910;
+    color:#FFF;
+    padding: 10px 18px;
+    margin: 0 3px 15px 0;
+    font-weight: bold;
+    background-color: #3CC93F;
+    border-radius: 3px;
+    border:none;
+    display:block;
+    margin: 0 auto;
+}
+
+
+form {
+    background-color: #FFF;
+    border-radius: 3px;
+    color: #636363;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 20px;
+    margin: 0 auto;
+    width: 475px;
+    font-family: 'Exo', sans-serif;
+    text-align: left;
+        }
+
+label {
+    width: 30%;
+    }
+
+input, select{
+    
+    width: 60%;
+    display: table-column;
+    }
