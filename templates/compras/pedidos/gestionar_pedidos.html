@@ -1,26 +1,23 @@
 {% extends 'base/base_sistema.html' %}
-{%block propio%}
-<div id="botonera">
-	<a href="{% url 'compras:reCom' %}"><button>crear pedido</button></a>
-<a href="/compras/proveedor"><button>gestionar proveedores</button></a>
+{% block titulo_contenido %}Pedidos Realizados{% endblock titulo_contenido%}
+{% block previa_contenido %}Se presentan los pedidos registrados así como la opción ver detalles para mostrar más información sobre el pedido seleccionado.{% endblock previa_contenido%}
+{% block inf %}
 
-</div>
-<style type="text/css">
-  botonera {
-    color: purple;
-    background-color: #d8da3d }
-  </style>
-{%endblock propio%}
+Cree un nuevo pedido o gestione la información relacionada con los proveedores seleccionando una de las siguientes opciones: 
+<p><a href="{% url 'compras:reCom' %}"><button type="button" class="btn btn-primary js-create-proveedor">Crear Pedido</button></a>
+<a href="/compras/proveedor"><button type="button" class="btn btn-primary js-create-proveedor">Gestionar Proveedores</button></a></p>
+{% endblock inf%}
+
 {% block content %}
 {%if pedidos%}
-<table class="bordered" id="tabla">
+<table class="table" id="proveedor-table">
 	<thead>
 		<tr>
-			<td>fecha creado</td>
-			<td>proveedor</td>
-			<td>monto</td>
-			<td>estado</td>
-			<td>accines</td>
+			<td>Fecha de Creación</td>
+			<td>Proveedor</td>
+			<td>Monto</td>
+			<td>Estado</td>
+			<td>Acciones</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,7 +28,7 @@
 			<td>{{pedido.fkProveedor.nombre}}</td>
 			<td>{{pedido.subtotal}}</td>
 			{%if pedido.pendiente == True%}
-			<td>pendiente</td>
+			<td>Pendiente</td>
 			{%else%}
 			{%if pedido.cancelado == True%}
 			<td>Cancelado</td>
@@ -39,14 +36,14 @@
 			<td>Recibido</td>
 			{%endif%}
 			{%endif%}
-			<td><a href="">ver detalle</a></td>
+			<td><a href="">Ver detalle</a></td>
 		</tr>
 		{%endfor%}
-		{%else%}
-		<label>No hay pedidos registrados</label>
-		{%endif%}
+		
 	</tbody>
 </table>
-
+{%else%}
+		<label><h3>No hay pedidos registrados</h3><p>Para ingresar un nuevo pedido, seleccione la opción <strong>Generar Pedido</strong> e ingrese los datos que se le solicitarán.</p></label>
+		{%endif%}
 
 {% endblock %}

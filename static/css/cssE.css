@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700);
 
 .aviso {
     min-width:500px;
@@ -12,6 +13,14 @@
     border:1px solid #CCC;
     background: rgba(255, 255, 255, 1);
     border-radius: 5px;
+}
+
+h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  margin: 0 0 20px 0;
+  padding: 0;
+  color: blue;
 }
 
 div button {

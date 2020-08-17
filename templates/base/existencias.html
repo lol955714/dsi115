@@ -1,8 +1,21 @@
 {% extends 'base/base_sistema.html' %}
 {% block title %}SIAVAC | Existencias{% endblock %}
+{% block titulo_contenido %}Existencias{% endblock titulo_contenido%}
+{% block previa_contenido %}Se presentan los productos registrados con las opciones para editar y eliminar.{% endblock previa_contenido%}
+{% block inf %}
+
+Edite la información registrada de un artículo en existencia seleccionando el ícono <img src="/static/images/editar.png" title="Editar" width="20" height="20"/> al lado del producto que desea modificar. Elimine un elemento de la tabla haciendo click en <img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>. <p>Realice la búsqueda de un artículo en específico ingresando el nombre del producto:</p>
+{% endblock inf%}
+{% block bsq %}
+      <form method="post"> 
+      {% csrf_token %} 
+       <input type="text" placeholder="Buscar Producto" name="buscar" value="{{request.GET.buscar }}"> 
+       <button type="submit" class="btn btn-primary js-create-proveedor">Buscar</button> 
+      </form>   
+{% endblock bsq%}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>
-<script type="text/javascript" src="/static/js/ABCwin.js"></script>
+  <script type="text/javascript" src="/static/js/ABCwin.js"></script>
      {% if messages %} 
     <ul class="messages"> 
        {% for message in messages%} 
@@ -12,19 +25,7 @@
        {% endfor %} 
     </ul> 
     {% endif %} 
-    <h1>Existencias</h1>
-     <table> 
-      <tr> 
-        <td> 
-    <form method="post"> 
-      {% csrf_token %} 
-     <input type="text" placeholder="Buscar producto" name="buscar" value="{{request.GET.buscar }}"> 
-     <button type="submit">Buscar</button> 
-    </form> 
-    </td> 
-    </tr> 
-    </table>
-    <table class="bordered">
+    <table class="table" id="proveedor-table">
     <thead>
     <tr><th>Nombre</th><th>Descripción</th><th>Precio de compra</th><th>Precio de venta</th> <th>Existencias</th><th>Acciones</th></tr>
 	</thead>

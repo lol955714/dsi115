@@ -1,29 +1,35 @@
 {% extends 'base/base_sistema.html' %}
 {% load static %} 
 {% block title %}SIAVAC | Proveedores{% endblock %}
+{% block titulo_contenido %}Proveedores{% endblock titulo_contenido%}
+{% block previa_contenido %}Se presentan los proveedores registrados y las opciones para editar y eliminar.{% endblock previa_contenido%}
+{% block inf %}
+Edite la información de un proveedor dando click en <img src="/static/images/editar.png" title="Editar" width="20" height="20"/> al lado del elemento que desea modificar. Elimine un proveedor de la tabla haciendo click en <img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>. Puede agregar un nuevo proveedor en:
+{% endblock inf%}
+{% block bsq %}
+      <button type="button" class="btn btn-primary js-create-proveedor"
+          data-url="{% url 'compras:proveedor-create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      Agregar Nuevo Proveedor
+    </button> 
+<p><br>Para regresar a la pantalla principal de compras, haga click en:</p> 
+    <a href="{% url 'compras:index' %}"><button type="button" class="btn btn-primary js-create-proveedor">Regresar a Compras</button></a>
+{% endblock bsq%}
 {% block javascript %}
   <script src="{% static 'js/proveedors.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <h1 class="page-header">Proveedores</h1>
-  <p>
-    <button type="button" class="btn btn-primary js-create-proveedor"
-          data-url="{% url 'compras:proveedor-create' %}">
-      <span class="glyphicon glyphicon-plus"></span>
-      New Proveedor
-    </button>
-  </p>
-
+  
   <table class="table" id="proveedor-table">
     <thead>
       <tr>
         <th>#</th>
         <th>Nombre</th>
-        <th># Telefonico </th>
-        <th>Direccion</th>
-        <th>Operaciones</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
