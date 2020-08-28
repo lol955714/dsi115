@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.compras',
     'apps.inventario',
+    'apps.ventas',
     'apps.seguridad',
     'widget_tweaks',    #utilizado para articulo y proveedores
     'crispy_forms',

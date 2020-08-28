@@ -8,6 +8,7 @@ class Categoria(models.Model):
 	def __str__(self):
 		return '%s'%(self.nombre)
 
+
 class Proveedor(models.Model):
 	nombre =models.CharField(max_length=30,null=True)
 	telefono=models.CharField(max_length=8,null=False)
