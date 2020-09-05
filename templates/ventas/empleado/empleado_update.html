@@ -1,10 +1,10 @@
 {% load crispy_forms_tags %}
 
-<form method="POST" action="{% url 'compras:proveedor-update' form.instance.pk %}" class="js-proveedor-update-form">
+<form method="POST" action="{% url 'ventas:empleado-update' form.instance.pk %}" class="js-empleado-update-form">
   {% csrf_token %}
   <div class="modal-header">
     
-    <h4 class="modal-title">Actualizar Datos del Proveedor</h4>
+    <h4 class="modal-title">Actualizar Datos del Empleado</h4>
   </div>
   <div class="modal-body">
     {{ form|crispy }}
