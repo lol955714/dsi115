@@ -1,9 +1,9 @@
 from django import forms 
-from .models import *
+from apps.ventas.models import *
 
-class ArticuloForm(forms.ModelForm):
+class EmpleadoForm(forms.ModelForm):
 	class Meta:
-		model = Producto
+		model = Empleado
 		fields = [
 			'nombres', 
 			'apellidos', 
