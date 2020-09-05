@@ -1,0 +1,52 @@
+{% extends 'base/base_sistema.html' %}
+{% load static %} 
+{% block title %}SIAVAC | Empleados{% endblock %}
+{% block titulo_contenido %}Proveedores{% endblock titulo_contenido%}
+{% block previa_contenido %}Se presentan los empleados registrados y las opciones para editar y eliminar.{% endblock previa_contenido%}
+{% block inf %}
+Edite la información de un empleados dando click en <img src="/static/images/editar.png" title="Editar" width="20" height="20"/> al lado del elemento que desea modificar. Elimine un proveedor de la tabla haciendo click en <img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>. Puede agregar un nuevo proveedor en:
+{% endblock inf%}
+{% block bsq %}
+      <button type="button" class="btn btn-primary js-create-empleado"
+          data-url="{% url 'ventas:empleado-create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      Agregar Nuevo Empleado
+    </button> 
+<p><br>Para regresar a la pantalla principal de ventas, haga click en:</p> 
+    <a href="{% url 'ventas:index' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Ventas</button></a>
+{% endblock bsq%}
+{% block javascript %}
+  <script src="{% static 'js/empleados.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  
+  <table class="table" id="empleado-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Teléfono</th>
+        <th>DUI</th>
+        <th>NIT</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% include 'ventas/empleado/empleado_list_2.html' %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-empleado">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
