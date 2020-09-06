@@ -11,6 +11,7 @@ admin.site.register(Producto)
 admin.site.register(CategoriaIncidencia)
 
 admin.site.register(Incidencia)
+admin.site.register(Notificacion)
 
 
 admin.sites.AdminSite.site_header = 'Administración del sistema SIAVAC'

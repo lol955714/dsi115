@@ -1,0 +1,21 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cssF.css' %}">
+<link rel="stylesheet" href="{% static 'css/cssG.css' %}">
+
+
+NOTIFICACIONES
+<table border="1px">
+    <thead>
+    <tr><th>Categoria</th><th>Descripcion</th><th>Acción</th></tr>
+    </thead>
+    <tbody>
+   {% for notificacion in notificaciones %}
+    <tr>
+
+        <th>Categoria</th>
+        <th>{{notificacion.descripcion}}</th>
+        <th><a href="">Ir al sitio</a></th>
+    </tr>
+       {% endfor %}
+    </tbody>
+</table>

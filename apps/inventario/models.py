@@ -65,3 +65,7 @@ class Incidencia(models.Model):
 		self.fkProducto = valor
 	def setDescripcion(self, valor):
 		self.descripcion = valor
+
+class Notificacion(models.Model):
+	fecha = models.DateTimeField(auto_now=True)
+	descripcion = models.CharField(max_length=150, null=False)

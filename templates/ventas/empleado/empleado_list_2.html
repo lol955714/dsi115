@@ -1,0 +1,29 @@
+{% for empleado in empleados %}
+<tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{ empleado.nombres }}</td>
+    <td>{{ empleado.apellidos }}</td>
+    <td>{{ empleado.telefono }}</td>
+    <td>{{ empleado.dui }}</td>
+    <td>{{ empleado.nit }}</td>
+
+    <td>
+
+        <button type="button"
+            class="btn btn-warning btn-sm js-update-empleado"
+            data-url="{% url 'ventas:empleado-update' empleado.id %}">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <img src="/static/images/editar.png" title="Editar" width="20" height="20"/>
+         </button>
+        <button type="button"
+          class="btn btn-danger btn-sm js-delete-empleado"
+          data-url="{% url 'ventas:empleado-delete' empleado.id %}">
+            <span class="glyphicon glyphicon-trash"></span>
+             <img src="/static/images/delete.png" title="Editar" width="20" height="20"/>
+          </button>
+    </td>
+{% empty %}
+<tr>
+      <td colspan="8" class="text-center bg-warning">No Existen Empleados</td>
+</tr>
+{% endfor %}

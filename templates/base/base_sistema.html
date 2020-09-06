@@ -5,6 +5,15 @@
 		<title>{% block title %}{% endblock %}</title>
 			<link rel="stylesheet" href="{% static 'css/cssB.css' %}">
 			<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+            <link rel="stylesheet" href="{% static 'css/cssF.css' %}">
+            <link rel="stylesheet" href="{% static 'css/cssG.css' %}">
+            <script type="text/javascript" src="/static/js/jquery.min.1.9.js"></script>
+            <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+            <script type="text/javascript" src="/static/js/script1.js"></script>
+            <link rel="stylesheet" type="text/css" href="/static/css/ABCwin2.css"/>
+            <script type="text/javascript" src="/static/js/ABCwin2.js"></script>
+
+
     <div class="container">
       <div class="logo float-left">
         <h1 class="text-light"><a href="" class="scrollto"><span>SIAVAC</span></a></h1>
@@ -15,6 +24,7 @@
           {%block encabezado%}
 				<li><a href="{% url 'inventario:inventario' %}">Inventario</a></li>
 				<li><a href="{% url 'compras:index' %}">Compras</a></li>
+                <li><a href="{% url 'inventario:notif'  %}" rel="get:id=10" rev="abcwin[500,auto]">Notificaciones</a></li>
 			{%endblock encabezado%}
 				<li style="float:right" class="salir"><a href="{%  url "seguridad:logout"%}">Cerrar Sesión</a></li>
         </ul>
