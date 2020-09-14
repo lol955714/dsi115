@@ -24,7 +24,7 @@ class detalle_Pedido(models.Model):
     fkPedido = models.ForeignKey(Pedido, on_delete=models.CASCADE,null=True)
     cantidad = models.IntegerField(default=1)
     fkProducto =models.ForeignKey(Producto, on_delete=models.CASCADE,null=True)
-    subtotal = models.DecimalField(max_digits=5,decimal_places=2,default=0)
+    subtotal = models.DecimalField(max_digits=10,decimal_places=2,default=0)
     comentario = models.CharField(max_length=60,blank=True)
     def setfkPedido(self,valor):
         self.fkPedido=valor

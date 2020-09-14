@@ -1,4 +1,3 @@
-
 from .forms	import *
 from .models import *
 from django.contrib.auth import authenticate, login, logout
@@ -7,7 +6,25 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
-# Create your views here.
+
+
+def iniciarVenta(request):
+    if request.method =='POST':
+        formulario=iniciarVe(request.POST)
+        if form.is_valid():            
+            form_data=formulario.cleaned_data
+            venta=pedido()
+            venta.setCliente(form_data.get("cliente"))
+            venta.setVendedor(Empleado.objects.get(id=form_data.get("vendedor").get()))
+            venta.save()
+            return render(request,'ventas/venta/edicionPedido.html',{'valor':venta.id})
+    else:
+        formulario=iniciarVe()
+        return render(request,'ventas/venta/iniciarVenta.html',{'form':iniciarVe})
+
+
+
+
 @login_required
 def empleado_list(request):
 	empleados = Empleado.objects.all()

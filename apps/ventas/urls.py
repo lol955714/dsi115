@@ -7,6 +7,7 @@ from apps.ventas.views import *
 from django.contrib.auth.views import LogoutView
 app_name='ventas'
 urlpatterns=[
+    url(r'^iniciarVenta/', iniciarVenta,name="iniciar"),
     path(
     	'empleado/', 
     	empleado_list,

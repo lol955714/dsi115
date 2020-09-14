@@ -1,0 +1,6 @@
+
+	<form action="{% url 'ventas:iniciar' %}">
+		{%csrf_token%}
+		{{form.as_p}}
+		<button type="submit">Iniciar</button>
+	</form>

@@ -1,13 +1,17 @@
-{% load static %}
 {%block logout%}
 {%endblock logout%}
 {%block contenido%}
-<link rel="stylesheet" type="text/css" href="{% static 'css/cssB.css' %}">
+<link rel="stylesheet" type="text/css" href="/static/css/cssB.css"/>
+<link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>
+    <script type="text/javascript" src="/static/js/ABCwin.js"></script>
 <title>SIAVAC | Login</title>
         <div class="banner">
         <div><br>SIAVAC  | <span>Sistema Informático para la Administración y Venta de Accesorios</span><hr></div>
         </div>
         <body id="log">
+            <div id="contenedor2">
+                <a href= {% url 'ventas:iniciar' %} rel="get:id=10" rev="abcwin[500,500]">Iniciar nueva venta </a>
+            </div>
             <div id="Contenedor">
                 <div class="header">
                     <div>Administrador<span></span></div>

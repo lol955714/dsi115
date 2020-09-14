@@ -1,5 +1,9 @@
 from django import forms 
+from django.forms import widgets
 from apps.ventas.models import *
+from django.conf import settings
+
+vendedores= Empleado.objects.all()
 
 class EmpleadoForm(forms.ModelForm):
 	class Meta:
@@ -26,3 +30,6 @@ class EmpleadoForm(forms.ModelForm):
 			'dui' : forms.NumberInput(attrs={'class':'form-control'}),
 			'nit' : forms.NumberInput(attrs={'class':'form-control'}),
 		}
+class iniciarVe(forms.Form):
+	vendedor = forms.ModelMultipleChoiceField(vendedores,required=False,label="vendedor")
+	cliente = forms.CharField(label='Nombre del cliente',required=True,max_length=25)
