@@ -29,5 +29,30 @@ urlpatterns=[
         name='empleado-delete'
     ),
 
+    path(
+    	'meta/', 
+    	meta_list,
+    	name='meta-list'
+    ),
+    path(
+    	'meta/create/',
+    	meta_create,
+    	name='meta-create'
+    ),
+    path(
+        'meta/update/<int:pk>',
+        meta_update,
+        name='meta-update'
+    ),
+    path(
+        'meta/delete/<int:pk>',
+        meta_delete,
+        name='meta-delete'
+    ),
 
+    path(
+        'empleado/meta/',
+        informe_meta,
+        name='empleado-meta'
+    )
 ]

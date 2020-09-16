@@ -30,6 +30,27 @@ class EmpleadoForm(forms.ModelForm):
 			'dui' : forms.NumberInput(attrs={'class':'form-control'}),
 			'nit' : forms.NumberInput(attrs={'class':'form-control'}),
 		}
+
+class MetaForm(forms.ModelForm):
+	class Meta:
+		model = Metas
+		fields = [
+
+			'monto_asignado', 
+			'descripcion', 
+		]
+		labels={
+
+			'monto_asignado':'Ingrese el monto en $',
+			'descripcion':'Descripcion de la meta',
+		}
+		widgets={
+
+			'monto_asignado' : forms.NumberInput(attrs={'class':'form-control'}),
+			'descripcion' : forms.TextInput(attrs={'class':'form-control'}),
+
+		}
+
 class iniciarVe(forms.Form):
 	vendedor = forms.ModelMultipleChoiceField(vendedores,required=False,label="vendedor")
 	cliente = forms.CharField(label='Nombre del cliente',required=True,max_length=25)

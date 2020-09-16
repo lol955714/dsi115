@@ -1,0 +1,31 @@
+{% block content %}
+<div >
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Empleado</th>
+        <th>Meta Asignada</th>
+        <th>Monto Logrado</th>
+        <th>% de Avance</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for empleado in empleados %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{ empleado.nombres }}</td>
+            <td>{{ pedidos }}</td>
+            {% empty %}
+            <tr>
+                  <td colspan="8" class="text-center bg-warning">No Existen Metas</td>
+            </tr>
+            {% endfor %}        
+    </tbody>
+  </table>
+
+</div>
+
+  <a href="{% url 'ventas:empleado-list' %}">Atras</a>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base/base_sistema.html' %}
+{% load static %} 
+{% block title %}SIAVAC | Metas{% endblock %}
+{% block javascript %}
+  <script src="{% static 'js/metas.js' %}"></script>
+{% endblock %}
+{% block bsq %}
+      <button type="button" class="btn btn-primary js-create-meta"
+          data-url="{% url 'ventas:meta-create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      Agregar una nueva meta
+    </button> 
+
+{% endblock bsq%}
+
+
+{% block content %}
+<div class="container">
+  
+  <table class="table" id="meta-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>monto asignado</th>
+        <th>descripcion</th>
+        <th>monto logrado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% include 'ventas/meta/meta_list_2.html' %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-meta">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  <a href="{% url 'ventas:empleado-list' %}">Atras</a>
+
+{% endblock %}

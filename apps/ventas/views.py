@@ -85,3 +85,71 @@ def empleado_delete(request, pk):
             request=request,
         )
     return JsonResponse(data)
+
+@login_required
+def meta_list(request):
+	metas = Metas.objects.all()
+	return render(request,'ventas/meta/meta_list.html',{'metas':metas})
+
+@login_required 
+def save_meta_form(request, form, template_name):
+	data = dict()
+	if request.method == 'POST':
+		if form.is_valid():
+			form.save()
+			data['form_is_valid']=True
+			metas = Metas.objects.all()
+			data['html_meta_list'] = render_to_string('ventas/meta/meta_list_2.html',
+				{'metas':metas})
+		else:
+			data['form_is_valid']=False
+	context = {'form':form}
+	data['html_form'] = render_to_string(
+		template_name,
+		context,
+		request = request,
+	)
+	return JsonResponse(data)
+
+@login_required
+def meta_create(request):
+    if request.method == 'POST':
+        form = MetaForm(request.POST)
+    else:
+        form = MetaForm()
+    return save_meta_form(request, form, 'ventas/meta/meta_create.html')
+
+@login_required
+def meta_update(request, pk):
+    meta = get_object_or_404(Metas, pk=pk)
+    if request.method == 'POST':
+        form = MetaForm(request.POST, instance=meta)
+    else:
+        form = MetaForm(instance=meta)
+    return save_meta_form(request, form, 'ventas/meta/meta_update.html')
+    
+@login_required
+def meta_delete(request, pk):
+    meta = get_object_or_404(Metas, pk=pk)
+    data = dict()
+    if request.method == 'POST':
+        meta.delete()
+        data['form_is_valid'] = True  
+        metas = Metas.objects.all()
+        data['html_empleado_list'] = render_to_string('ventas/meta/meta_list_2.html', {
+            'metas': metas
+        })
+    else:
+        context = {'meta': meta}
+        data['html_form'] = render_to_string('ventas/meta/meta_delete.html',
+            context,
+            request=request,
+        )
+    return JsonResponse(data)
+
+@login_required
+def informe_meta(request):
+    empleados = Empleado.objects.all()
+    pedidos = pedido.objects.all().aggregate(Sum('total'))
+    return render(request,'ventas/empleado/empleado_metas.html',
+    {'empleados':empleados, 'pedidos':pedidos})
