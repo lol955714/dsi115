@@ -147,9 +147,3 @@ def meta_delete(request, pk):
         )
     return JsonResponse(data)
 
-@login_required
-def informe_meta(request):
-    empleados = Empleado.objects.all()
-    pedidos = pedido.objects.all().aggregate(Sum('total'))
-    return render(request,'ventas/empleado/empleado_metas.html',
-    {'empleados':empleados, 'pedidos':pedidos})
