@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
+from django.db.models import Sum
 
 
 def iniciarVenta(request):
