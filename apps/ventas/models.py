@@ -15,6 +15,7 @@ class Metas(models.Model):
 		return '%s'%(self.monto_asignado)
 
 class Empleado(models.Model):
+	usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE )
 	meta_asignadafk = models.ForeignKey(Metas, on_delete=models.CASCADE,null=True)
 	nombres = models.CharField(max_length=40,null=False)
 	apellidos = models.CharField(max_length=40,null=False)
@@ -25,6 +26,7 @@ class Empleado(models.Model):
 		return '%s'%(self.nombres)
 
 class pedido(models.Model):
+	fechaCreada =models.DateField(auto_now=True)
 	vendedor = models.ForeignKey(Empleado, on_delete=models.CASCADE,null=False)
 	cliente = models.CharField(max_length=50,null=False)
 	total = models.DecimalField(max_digits=6,decimal_places=2,null=True)
