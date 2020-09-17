@@ -1,0 +1,79 @@
+{% extends 'base/base_sistema.html' %}
+{% load static %}
+{% block navegacion %}
+<nav class="main-nav float-right d-none d-lg-block">
+<ul>
+    <li>
+        <a href="">Ventas pendientes</a>
+        <a href="{% url 'ventas:finalizar' pedid.id %}">Finalizar venta</a>
+        <a href="">Cancelar venta</a>
+    </li>
+</ul>
+ </nav><!-- .main-nav -->
+{% endblock navegacion %}
+{% block propio %}
+    <div>
+        <div>
+        <h3>vendedor: {{pedid.vendedor.nombres}}</h3>
+        <br>
+        <h3>Cliente: {{pedid.cliente}}</h3>
+        <br>
+        <h3>Fecha de facturación:{{pedid.fechaCreada}}</h3>
+
+        </div>
+        <div>
+        </div>
+        <div>
+        <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if lineas %}
+          {% for linea in lineas %}
+            <tr>
+                <td>{{linea.articulofk.nombre}}</td>
+                <td>{{linea.articulofk.precioventa}}</td>
+                <td>{{linea.cantidad}}</td>
+                <td>{{linea.subtotal}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+
+        {% endif %}
+        </table>
+        </div>
+
+        <div>
+       <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if productos %}
+           {% for producto in productos %}
+            <tr>
+                <td>{{producto.nombre}}</td>
+                <td>{{producto.descripcion}}</td>
+                <td>{{producto.precioventa}}</td>
+                <td>{{producto.existencia}}</td>
+                <td><a href="{% url 'ventas:añadir' pedid.id producto.id %}"> <button> Agregar </button> </a> </td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+        </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock propio %}

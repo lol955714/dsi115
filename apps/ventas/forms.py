@@ -52,5 +52,8 @@ class MetaForm(forms.ModelForm):
 		}
 
 class iniciarVe(forms.Form):
-	vendedor = forms.ModelMultipleChoiceField(vendedores,required=False,label="vendedor")
+	vendedor = forms.ModelMultipleChoiceField(vendedores,required=True,label="vendedor")
 	cliente = forms.CharField(label='Nombre del cliente',required=True,max_length=25)
+
+class agregar(forms.Form):
+	cantidad=forms.IntegerField(label="Cantidad de productos", required=True, min_value=1)

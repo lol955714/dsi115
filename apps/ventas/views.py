@@ -1,29 +1,69 @@
 from .forms	import *
 from .models import *
+from apps.inventario.models import Producto, Proveedor, Categoria
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.db.models import Sum
 
+def venta(request, idPedido):
+    lineas = lineaDeVenta.objects.filter(pedidofk=int(idPedido))
+    print(lineas.count())
+    print(idPedido)
+    productos = Producto.objects.all()
+    pedid = pedido.objects.get(id=int(idPedido))
+    return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos})
+
+def finalizarVenta(reques,idPedido):
+    print(idPedido)
+    ped=pedido.objects.get(id=int(idPedido))
+    ped.setFinal()
+    ped.save()
+    return redirect("/")
+
+def agregarLinea(request,idPedido,idProducto):
+    pedid=pedido.objects.get(id=int(idPedido))
+    prod=Producto.objects.get(id=int(idProducto))
+    if request.method == 'POST':
+        form=agregar(request.POST)
+        if form.is_valid():
+            form_data=form.cleaned_data
+            linea=lineaDeVenta()
+            linea.setArticulo(prod)
+            linea.setCantidad(int(form_data.get("cantidad")))
+            linea.setPedido(pedid)
+            linea.sub()
+            linea.save()
+            ruta='/ventas/vender/'+str(pedid.id)
+            return redirect(ruta)
+    else:
+        form=agregar()
+        variables={'form':form,'pedid':pedid,'prod':prod}
+        return render (request,'ventas/venta/agregar.html',variables)
 
 def iniciarVenta(request):
     if request.method =='POST':
-        formulario=iniciarVe(request.POST)
+        form=iniciarVe(request.POST)
         if form.is_valid():            
-            form_data=formulario.cleaned_data
+            form_data=form.cleaned_data
             venta=pedido()
             venta.setCliente(form_data.get("cliente"))
-            venta.setVendedor(Empleado.objects.get(id=form_data.get("vendedor").get()))
+            venta.setVendedor(form_data.get("vendedor").get())
             venta.save()
-            return render(request,'ventas/venta/edicionPedido.html',{'valor':venta.id})
+            ruta='/ventas/vender/'+str(venta.id)
+            return redirect(ruta)
     else:
-        formulario=iniciarVe()
-        return render(request,'ventas/venta/iniciarVenta.html',{'form':iniciarVe})
+        form=iniciarVe()
+        return render(request,'ventas/venta/iniciarVenta.html',{'form':form})
 
-
+def informe_meta(request):
+    empleados = Empleado.objects.all()
+    pedidos = pedido.objects.all().aggregate(Sum('total'))
+    return render(request,'ventas/empleado/empleado_metas.html',
+    {'empleados':empleados, 'pedidos':pedidos})
 
 
 @login_required

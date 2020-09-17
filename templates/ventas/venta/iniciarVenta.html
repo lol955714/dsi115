@@ -1,12 +1,6 @@
-asd
-asd
-asd
-asd
-asd
-asd
 
-	<form action="{% url 'ventas:iniciar' %}">
+	<form action="{% url 'ventas:iniciar' %}" method="POST">
 		{%csrf_token%}
-		{{form.as_p}}
+		{{ form.as_p }}
 		<button type="submit">Iniciar</button>
 	</form>
