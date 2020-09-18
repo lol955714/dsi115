@@ -10,8 +10,21 @@ from django.template.loader import render_to_string
 from django.db.models import Sum
 from datetime import datetime
 
+def eliminarPendientes(request):
+    if pedido.objects.filter(finalizada=False).count()>0:
+        pedido.objects.filter(finalizada=False).delete()
+    return redirect("/")
+
+def sinFinalizar(request):
+    pedidos=pedido.objects.filter(finalizada=False)
+    return render(request,'ventas/venta/sinFinalizar.html',{'pedidos':pedidos})
+
 def cancelarVenta(request,idPedido):
-    pedido.objects.get(id=int(idPedido)).delete()
+    pedid=pedido.objects.get(id=int(idPedido))
+    print(pedid.total)
+    if lineaDeVenta.objects.filter(pedidofk=pedid.id).count()>0:
+        lineaDeVenta.objects.filter(pedidofk=pedid.id).delete()
+    pedid.delete()
     return redirect("/")
 
 def venta(request, idPedido):
@@ -21,7 +34,6 @@ def venta(request, idPedido):
     return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos})
 
 def finalizarVenta(reques,idPedido):
-    print(idPedido)
     ped=pedido.objects.get(id=int(idPedido))
     ped.setFinal()
     ped.save()
@@ -30,7 +42,8 @@ def finalizarVenta(reques,idPedido):
 def eliminarLinea(request, idLinea):
     var=lineaDeVenta.objects.get(id=int(idLinea))
     pedid=var.pedidofk
-    ruta='/ventas/vender/'+str(var.id)
+    pedid.quitar(var.getSubtotal())
+    ruta='/ventas/vender/'+str(pedid.id)
     var.delete()
     return redirect(ruta)
      
@@ -40,10 +53,13 @@ def editarLinea(request, idLinea):
         form = agregar(request.POST)
         if form.is_valid():
             form_data = form.cleaned_data
+            pedid=linea.pedidofk
+            pedid.quitar(linea.getSubtotal())
             linea.setCantidad(form_data.get("cantidad"))
             linea.sub()
             linea.save()
-            print("hola")
+            pedid.setTotal(linea.getSubtotal())
+            pedid.save()
             return redirect('/ventas/vender/'+str(linea.pedidofk.id))
     else:
         form=agregar()
@@ -51,19 +67,19 @@ def editarLinea(request, idLinea):
     return render(request,'ventas/venta/editar.html',content)
 
 def agregarLinea(request,idPedido,idProducto):
+    pedid=pedido.objects.get(id=int(idPedido))
+    prod=Producto.objects.get(id=int(idProducto))
     if request.method == 'POST':
         form=agregar(request.POST)
         if form.is_valid():
-            pedid=pedido.objects.get(id=int(idPedido))
-            prod=Producto.objects.get(id=int(idProducto))
             form_data=form.cleaned_data
             linea=lineaDeVenta()
             linea.setArticulo(prod)
             linea.setCantidad(int(form_data.get("cantidad")))
             linea.setPedido(pedid)
             linea.sub()
-            pedid.setTotal(linea.getSubtotal())
             linea.save()
+            pedid.setTotal(linea.getSubtotal())
             ruta='/ventas/vender/'+str(pedid.id)
             return redirect(ruta)
     else:

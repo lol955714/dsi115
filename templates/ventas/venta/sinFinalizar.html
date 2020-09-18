@@ -1,0 +1,31 @@
+{% extends 'seguridad/login.html' %}
+{% block formulario %}
+
+            <a href="{% url 'ventas:eliminarPendientes' %}">Eliminar todas</a>
+            <a href="/">Regresar al inicio</a>
+          <h1>Ventas sin finalizar</h1>
+          <table>
+                <thead>
+                    <tr>
+                        <th>Vendedos</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for pedido in  pedidos%}
+                     <tr>
+                        <td>{{pedido.vendedor.nombres}}</td>
+                        <td>{{pedido.cliente}}</td>
+                        <td>{{pedido.total}}</td>
+                        <td>{{pedido.fechaCreada}}</td>
+                        <td><a href="{% url 'ventas:cancelar' pedido.id %}">Eliminar</a><a href="{% url 'ventas:vender' pedido.id %}">Continuar</a>
+                    </tr>
+                {% endfor %}
+                   
+                </tbody>
+          </table>
+
+{% endblock formulario %}

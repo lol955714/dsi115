@@ -40,16 +40,18 @@ class pedido(models.Model):
 	fechaCreada =models.DateField(auto_now=True)
 	vendedor = models.ForeignKey(Empleado, on_delete=models.CASCADE,null=True)
 	cliente = models.CharField(max_length=50,null=True)
-	total = models.DecimalField(max_digits=6,decimal_places=2,null=True)
+	total = models.DecimalField(max_digits=8,decimal_places=2,default=0)
 	#tipoPago = models.foreignKey(tipoPago, on_delete=models.CASCADE)
 	def setVendedor(self, valor):
 		self.vendedor=valor
 	def setCliente(self, valor):
 		self.cliente=valor
 	def setTotal(self, valor):
-		self.total=self.total+valor
+		self.total=self.total + valor
 	def setFinal(self):
 		self.finalizada=True
+	def quitar(self, valor):
+		self.total=self.total-valor
 
 class lineaDeVenta(models.Model):
 	articulofk = models.ForeignKey(Producto, on_delete=models.CASCADE)
