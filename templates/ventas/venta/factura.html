@@ -6,7 +6,7 @@
     <li>
         <a href="">Ventas pendientes</a>
         <a href="{% url 'ventas:finalizar' pedid.id %}">Finalizar venta</a>
-        <a href="">Cancelar venta</a>
+        <a href="{% url 'ventas:cancelar' pedid.id %}">Cancelar venta</a>
     </li>
 </ul>
  </nav><!-- .main-nav -->
@@ -31,6 +31,7 @@
                 <th>Precio</th>
                 <th>Cantidad</th>
                 <th>Subtotal</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,9 @@
                 <td>{{linea.articulofk.precioventa}}</td>
                 <td>{{linea.cantidad}}</td>
                 <td>{{linea.subtotal}}</td>
+                <th>
+                <a href="{% url 'ventas:editar' linea.id %}" rel="get:id=10" rev="abcwin[500,500]">Editar</a>
+                <a href="{% url 'ventas:eliminar' linea.id %}">Eliminar</a>
             </tr>
           {% endfor %}
         </tbody>

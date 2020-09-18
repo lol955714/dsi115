@@ -36,6 +36,8 @@ class pedido(models.Model):
 		self.vendedor=valor
 	def setCliente(self, valor):
 		self.cliente=valor
+	def setTotal(self, valor):
+		self.total=self.total+valor
 	def setFinal(self):
 		self.finalizada=True
 
@@ -52,4 +54,6 @@ class lineaDeVenta(models.Model):
 		self.cantidad=valor
 	def sub(self):
 		self.subtotal=self.cantidad * self.articulofk.precioventa
+	def getSubtotal(self):
+		return self.subtotal
 

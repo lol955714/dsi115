@@ -9,9 +9,12 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.db.models import Sum
 
+def cancelarVenta(request,idPedido):
+    pedido.objects.get(id=int(idPedido)).delete()
+    return redirect("/")
+
 def venta(request, idPedido):
     lineas = lineaDeVenta.objects.filter(pedidofk=int(idPedido))
-    print("no se que pasa")
     productos = Producto.objects.all()
     pedid = pedido.objects.get(id=int(idPedido))
     return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos})
@@ -23,18 +26,42 @@ def finalizarVenta(reques,idPedido):
     ped.save()
     return redirect("/")
 
+def eliminarLinea(request, idLinea):
+    var=lineaDeVenta.objects.get(id=int(idLinea))
+    pedid=var.pedidofk
+    ruta='/ventas/vender/'+str(var.id)
+    var.delete()
+    return redirect(ruta)
+     
+def editarLinea(request, idLinea):
+    linea=lineaDeVenta.objects.get(id=int(idLinea))
+    if request.method == 'POST':
+        form = agregar(request.POST)
+        if form.is_valid():
+            form_data = form.cleaned_data
+            linea.setCantidad(form_data.get("cantidad"))
+            linea.sub()
+            linea.save()
+            print("hola")
+            return redirect('/ventas/vender/'+str(linea.pedidofk.id))
+    else:
+        form=agregar()
+        content={'form':form,'linea':linea}
+    return render(request,'ventas/venta/editar.html',content)
+
 def agregarLinea(request,idPedido,idProducto):
-    pedid=pedido.objects.get(id=int(idPedido))
-    prod=Producto.objects.get(id=int(idProducto))
     if request.method == 'POST':
         form=agregar(request.POST)
         if form.is_valid():
+            pedid=pedido.objects.get(id=int(idPedido))
+            prod=Producto.objects.get(id=int(idProducto))
             form_data=form.cleaned_data
             linea=lineaDeVenta()
             linea.setArticulo(prod)
             linea.setCantidad(int(form_data.get("cantidad")))
             linea.setPedido(pedid)
             linea.sub()
+            pedid.setTotal(linea.getSubtotal())
             linea.save()
             ruta='/ventas/vender/'+str(pedid.id)
             return redirect(ruta)

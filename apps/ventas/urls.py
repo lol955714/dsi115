@@ -10,7 +10,10 @@ urlpatterns=[
     url(r'^iniciarVenta/', iniciarVenta,name="iniciar"),
     url(r'^vender/(?P<idPedido>\w+)', venta,name="vender"),
     url(r'^final/(?P<idPedido>\w+)', finalizarVenta,name="finalizar"),
+    url(r'^cancelar/(?P<idPedido>\w+)', cancelarVenta,name="cancelar"),
     url(r'^añadir/(?P<idPedido>\w+)/(?P<idProducto>\w+)', agregarLinea,name="añadir"),
+    url(r'^editar/(?P<idLinea>\w+)/', editarLinea,name="editar"),
+    url(r'^eliminar/(?P<idLinea>\w+)/', eliminarLinea,name="eliminar"),
     path(
     	'empleado/', 
     	empleado_list,
