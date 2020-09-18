@@ -1,4 +1,4 @@
-<form method="POST" action="{% url 'ventas:meta-delete' meta.id %}" class="js-meta-delete-form">
+<form method="POST" action="{% url 'ventas:asignacion-delete' asignacion.id %}" class="js-asignacion-delete-form">
     {% csrf_token %}
     <div class="modal-header">
       <h4 class="modal-title">Aviso: Confirmar Eliminación</h4>
@@ -7,7 +7,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <p class="lead">¿Está seguro que desea eliminar permanentemente  <strong>{{ meta.monto_asignado }}</strong>? ¡LA INFORMACIÓN YA NO PODRÁ RECUPERARSE!</p>
+      <p class="lead">¿Está seguro que desea eliminar esta asignacion? ¡LA INFORMACIÓN YA NO PODRÁ RECUPERARSE!</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

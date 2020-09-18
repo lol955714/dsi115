@@ -1,5 +1,6 @@
 {% block content %}
-<div >
+
+<div>
   <table class="table">
     <thead>
       <tr>
@@ -11,21 +12,29 @@
       </tr>
     </thead>
     <tbody>
-        {% for empleado in empleados %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{ empleado.nombres }}</td>
-            <td>{{ pedidos }}</td>
-            {% empty %}
-            <tr>
-                  <td colspan="8" class="text-center bg-warning">No Existen Metas</td>
-            </tr>
-            {% endfor %}        
+
+
+      {% for total in totales %}
+      <tr>
+
+
+        <td>{{forloop.counter}}</td>
+        <td>{{ total.empleadofk__nombres }}</td>
+        <td>{{ total.meta_asignadafk__monto_asignado__sum }}</td>
+        <td>{{ total.meta_asignadafk__monto_asignado__sum }}</td>
+        <td>{% widthratio total.meta_asignadafk__monto_asignado__sum total.meta_asignadafk__monto_asignado__sum 1 %}
+        </td>
+        {% empty %}
+
+      <tr>
+        <td colspan="8" class="text-center bg-warning">No Existen Metas</td>
+      </tr>
+      {% endfor %}
     </tbody>
   </table>
 
 </div>
 
-  <a href="{% url 'ventas:empleado-list' %}">Atras</a>
+<a href="{% url 'ventas:asignacion-list' %}">Atras</a>
 
 {% endblock %}

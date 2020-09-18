@@ -8,6 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.db.models import Sum
+from datetime import datetime
 
 def venta(request, idPedido):
     lineas = lineaDeVenta.objects.filter(pedidofk=int(idPedido))
@@ -58,12 +59,20 @@ def iniciarVenta(request):
         form=iniciarVe()
         return render(request,'ventas/venta/iniciarVenta.html',{'form':form})
 
+@login_required
 def informe_meta(request):
-    empleados = Empleado.objects.all()
-    pedidos = pedido.objects.all().aggregate(Sum('total'))
-    return render(request,'ventas/empleado/empleado_metas.html',
-    {'empleados':empleados, 'pedidos':pedidos})
+    mes_actual = datetime.now().month
+    anio_actual = datetime.now().year
+    dia_actual = datetime.now().day
 
+    #obtiene el total de las ventas realizadas por empledado en un tiempo especifico
+    totales = Asignacion.objects.filter(
+        fecha_asignacion__year=anio_actual,fecha_asignacion__month=mes_actual).values(
+            'empleadofk__nombres').annotate(Sum('meta_asignadafk__monto_asignado'))  
+    
+    pedidos = Metas.objects.filter(descripcion='hola').aggregate(Sum('monto_asignado'))
+    return render(request,'ventas/empleado/empleado_metas.html',
+    {'pedidos':pedidos, 'totales':totales})
 
 @login_required
 def empleado_list(request):
@@ -126,6 +135,7 @@ def empleado_delete(request, pk):
         )
     return JsonResponse(data)
 
+
 @login_required
 def meta_list(request):
 	metas = Metas.objects.all()
@@ -176,12 +186,73 @@ def meta_delete(request, pk):
         meta.delete()
         data['form_is_valid'] = True  
         metas = Metas.objects.all()
-        data['html_empleado_list'] = render_to_string('ventas/meta/meta_list_2.html', {
+        data['html_meta_list'] = render_to_string('ventas/meta/meta_list_2.html', {
             'metas': metas
         })
     else:
         context = {'meta': meta}
         data['html_form'] = render_to_string('ventas/meta/meta_delete.html',
+            context,
+            request=request,
+        )
+    return JsonResponse(data)
+
+@login_required
+def asignacion_list(request):
+	asignaciones = Asignacion.objects.all()
+	return render(request,'ventas/asignacion/asignacion_list.html',{'asignaciones':asignaciones})
+
+@login_required 
+def save_asignacion_form(request, form, template_name):
+	data = dict()
+	if request.method == 'POST':
+		if form.is_valid():
+			form.save()
+			data['form_is_valid']=True
+			asignaciones = Asignacion.objects.all()
+			data['html_asignacion_list'] = render_to_string('ventas/asignacion/asignacion_list_2.html',
+				{'asignaciones':asignaciones})
+		else:
+			data['form_is_valid']=False
+	context = {'form':form}
+	data['html_form'] = render_to_string(
+		template_name,
+		context,
+		request = request,
+	)
+	return JsonResponse(data)
+
+@login_required
+def asignacion_create(request):
+    if request.method == 'POST':
+        form = AsignacionForm(request.POST)
+    else:
+        form = AsignacionForm()
+    return save_asignacion_form(request, form, 'ventas/asignacion/asignacion_create.html')
+
+@login_required
+def asignacion_update(request, pk):
+    asignacion = get_object_or_404(Asignacion, pk=pk)
+    if request.method == 'POST':
+        form = AsignacionForm(request.POST, instance=asignacion)
+    else:
+        form = AsignacionForm(instance=asignacion)
+    return save_asignacion_form(request, form, 'ventas/asignacion/asignacion_update.html')
+    
+@login_required
+def asignacion_delete(request, pk):
+    asignacion = get_object_or_404(Asignacion, pk=pk)
+    data = dict()
+    if request.method == 'POST':
+        asignacion.delete()
+        data['form_is_valid'] = True  
+        asignaciones = Asignacion.objects.all()
+        data['html_asignacion_list'] = render_to_string('ventas/asignacion/asignacion_list_2.html', {
+            'asignaciones': asignaciones
+        })
+    else:
+        context = {'asignacion': asignacion}
+        data['html_form'] = render_to_string('ventas/asignacion/asignacion_delete.html',
             context,
             request=request,
         )

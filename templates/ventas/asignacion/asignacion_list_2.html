@@ -1,0 +1,27 @@
+{% for asignacion in asignaciones %}
+<tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{ asignacion.empleadofk }}</td>
+    <td>{{ asignacion.meta_asignadafk }}</td>
+
+
+    <td>
+
+        <button type="button"
+            class="btn btn-warning btn-sm js-update-asignacion"
+            data-url="{% url 'ventas:asignacion-update' asignacion.id %}">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <img src="/static/images/editar.png" title="Editar" width="20" height="20"/>
+         </button>
+        <button type="button"
+          class="btn btn-danger btn-sm js-delete-asignacion"
+          data-url="{% url 'ventas:asignacion-delete' asignacion.id %}">
+            <span class="glyphicon glyphicon-trash"></span>
+             <img src="/static/images/delete.png" title="Editar" width="20" height="20"/>
+          </button>
+    </td>
+{% empty %}
+<tr>
+      <td colspan="8" class="text-center bg-warning">No hay asignaciones realizadas</td>
+</tr>
+{% endfor %}
