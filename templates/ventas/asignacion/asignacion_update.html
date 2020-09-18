@@ -1,10 +1,10 @@
 {% load crispy_forms_tags %}
 
-<form method="POST" action="{% url 'ventas:meta-update' form.instance.pk %}" class="js-meta-update-form">
+<form method="POST" action="{% url 'ventas:asignacion-update' form.instance.pk %}" class="js-asignacion-update-form">
   {% csrf_token %}
   <div class="modal-header">
     
-    <h4 class="modal-title">Actualizar Datos de la Meta</h4>
+    <h4 class="modal-title">Actualizar Datos de la Asignacion</h4>
   </div>
   <div class="modal-body">
     {{ form|crispy }}

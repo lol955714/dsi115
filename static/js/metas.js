@@ -26,7 +26,7 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#meta-table tbody").html(data.html_proveedor_list);
+          $("#meta-table tbody").html(data.html_meta_list);
           $("#modal-meta").modal('hide');
         }
         else {
@@ -38,17 +38,15 @@ $(function () {
   };
 
 
-  /* Binding */
 
-  // Create book
   $(".js-create-meta").click(loadForm);
   $("#modal-meta").on("submit", ".js-meta-create-form", saveForm);
 
-  // Update book
+
   $("#meta-table").on("click", ".js-update-meta", loadForm);
   $("#modal-meta").on("submit", ".js-meta-update-form", saveForm);
 
-// Delete book
+
 $("#meta-table").on("click", ".js-delete-meta", loadForm);
 $("#modal-meta").on("submit", ".js-meta-delete-form", saveForm);
 });

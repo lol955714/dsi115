@@ -55,7 +55,26 @@ urlpatterns=[
         meta_delete,
         name='meta-delete'
     ),
-
+    path(
+    	'asignacion/', 
+    	asignacion_list,
+    	name='asignacion-list'
+    ),
+    path(
+    	'asignacion/create/',
+    	asignacion_create,
+    	name='asignacion-create'
+    ),
+    path(
+        'asignacion/update/<int:pk>',
+        asignacion_update,
+        name='asignacion-update'
+    ),
+    path(
+        'asignacion/delete/<int:pk>',
+        asignacion_delete,
+        name='asignacion-delete'
+    ),
     path(
         'empleado/meta/',
         informe_meta,

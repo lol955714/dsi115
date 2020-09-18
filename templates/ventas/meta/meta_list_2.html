@@ -3,12 +3,11 @@
     <td>{{forloop.counter}}</td>
     <td>{{ meta.monto_asignado }}</td>
     <td>{{ meta.descripcion }}</td>
-    <td>{{ meta.monto_logrado }}</td>
 
     <td>
 
         <button type="button"
-            class="btn btn-warning btn-sm js-meta-empleado"
+            class="btn btn-warning btn-sm js-update-meta"
             data-url="{% url 'ventas:meta-update' meta.id %}">
             <span class="glyphicon glyphicon-pencil"></span>
             <img src="/static/images/editar.png" title="Editar" width="20" height="20"/>
