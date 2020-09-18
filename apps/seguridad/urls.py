@@ -5,8 +5,7 @@ from apps.seguridad.views import *
 from django.contrib.auth.views import LogoutView
 app_name='seguridad'
 urlpatterns=[
-
+url(r'^index', index, name="index"),
 url(r'^login', auth, name="ingresar"),
 url(r'^logout', LogoutView.as_view(next_page='seguridad:ingresar'), name="logout"),
-#url(r'^inicio', iniciar, name="inicio"),
 ]

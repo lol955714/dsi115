@@ -146,9 +146,7 @@ USE_TZ = True
 
 
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-LOGIN_URL = 'seguridad:ingresar'
-LOGIN_REDIRECT_URL='/'
-LOGOUT_URL = 'seguridad:ingresar'
+
 
 
 STATIC_URL = '/static/'

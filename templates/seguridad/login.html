@@ -1,3 +1,4 @@
+{% extends 'base/base.html' %}
 {%block logout%}
 {%endblock logout%}
 {%block contenido%}
@@ -9,14 +10,16 @@
         <div><br>SIAVAC  | <span>Sistema Informático para la Administración y Venta de Accesorios</span><hr></div>
         </div>
         <body id="log">
-            <div id="contenedor2">
-                <a href= {% url 'ventas:iniciar' %} rel="get:id=10" rev="abcwin[500,500]">Iniciar nueva venta </a>
-            </div>
+        <div id="contenedor2">
+              <a href= {% url 'ventas:iniciar' %} rel="get:id=10" rev="abcwin[500,500]">Iniciar nueva venta </a>
             <div id="Contenedor">
                 <div class="header">
+                  {% block formulario %}
                     <div>Administrador<span></span></div>
                 </div>
-            <form method="post"> 
+              
+               
+            <form method='POST'> 
                 {% csrf_token %}
                     <div class="login">
                         <div class="opcioncontra">
@@ -26,10 +29,11 @@
                             <input  type="password" name="pass" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required="true">
                         </div>
                         <div class="opcioncontra">
-                        <br><button type="submit" class="boton">Iniciar Sesión</button> 
+                        <button type="submit" >Iniciar</button> 
                         </div>
                     </div>
             </form>
+             {% endblock formulario %}
             </div>  
         </body> 
 {%endblock contenido%}

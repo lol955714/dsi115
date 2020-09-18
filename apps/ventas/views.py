@@ -11,8 +11,7 @@ from django.db.models import Sum
 
 def venta(request, idPedido):
     lineas = lineaDeVenta.objects.filter(pedidofk=int(idPedido))
-    print(lineas.count())
-    print(idPedido)
+    print("no se que pasa")
     productos = Producto.objects.all()
     pedid = pedido.objects.get(id=int(idPedido))
     return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos})

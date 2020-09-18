@@ -14,11 +14,11 @@
 {% block propio %}
     <div>
         <div>
-        <h3>vendedor: {{pedid.vendedor.nombres}}</h3>
+        <label>vendedor: {{pedid.vendedor.nombres}}</label>
         <br>
-        <h3>Cliente: {{pedid.cliente}}</h3>
+        <label>Cliente: {{pedid.cliente}}</label>
         <br>
-        <h3>Fecha de facturación:{{pedid.fechaCreada}}</h3>
+        <label>Fecha de facturación:{{pedid.fechaCreada}}</label>
 
         </div>
         <div>
@@ -68,7 +68,7 @@
                 <td>{{producto.descripcion}}</td>
                 <td>{{producto.precioventa}}</td>
                 <td>{{producto.existencia}}</td>
-                <td><a href="{% url 'ventas:añadir' pedid.id producto.id %}"> <button> Agregar </button> </a> </td>
+                <td> <a href= {% url 'ventas:añadir' pedid.id producto.id %} rel="get:id=10" rev="abcwin[500,500]"> Añadir</a>
             </tr>
           {% endfor %}
         {% endif %}
