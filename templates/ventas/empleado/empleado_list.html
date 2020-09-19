@@ -1,26 +1,27 @@
 {% extends 'base/base_sistema.html' %}
 {% load static %} 
 {% block title %}SIAVAC | Empleados{% endblock %}
-{% block titulo_contenido %}Proveedores{% endblock titulo_contenido%}
+{% block titulo_contenido %}Empleados{% endblock titulo_contenido%}
 {% block previa_contenido %}Se presentan los empleados registrados y las opciones para editar y eliminar.{% endblock previa_contenido%}
 {% block inf %}
-Edite la información de un empleados dando click en <img src="/static/images/editar.png" title="Editar" width="20" height="20"/> al lado del elemento que desea modificar. Elimine un proveedor de la tabla haciendo click en <img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>. Puede agregar un nuevo proveedor en:
+Edite la información de un empleados dando click en <img src="/static/images/editar.png" title="Editar" width="20" height="20"/> o elimine un registro de la tabla haciendo click en <img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>.
 {% endblock inf%}
 {% block bsq %}
-      <button type="button" class="btn btn-primary js-create-empleado"
+      <p style="text-align:center"><button type="button" class="btn btn-primary js-create-empleado"
           data-url="{% url 'ventas:empleado-create' %}">
       <span class="glyphicon glyphicon-plus"></span>
-      Agregar Nuevo Empleado
-    </button> 
-<p><br>Para regresar a la pantalla principal de ventas, haga click en:</p> 
-    <a href="{% url 'compras:index' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Ventas</button></a>
+      Agregar Empleado
+    </button> </p>
+     <p style="text-align:center"><a href="{% url 'ventas:meta-list' %}"><button type="button" class="btn btn-primary js-create-proveedor">Gestionar Metas</button></a></p>
+Para regresar al menú principal, haga click en: 
+    <p style="text-align:center"><br><a href="{% url 'compras:index' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar al Menú</button></a></p>
 {% endblock bsq%}
 {% block javascript %}
   <script src="{% static 'js/empleados.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'ventas:meta-list' %}">Gestionar Metas</a>
+
 <div class="container">
   
   <table class="table" id="empleado-table">
