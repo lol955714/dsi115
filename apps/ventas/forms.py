@@ -84,3 +84,5 @@ class iniciarVe(forms.Form):
 
 class agregar(forms.Form):
 	cantidad=forms.IntegerField(label="Cantidad de productos", required=True, min_value=1)
+class contra(forms.Form):
+	passwd = forms.CharField(max_length=32, widget=forms.PasswordInput)

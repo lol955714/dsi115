@@ -11,8 +11,9 @@ from django.db.models import Sum
 from datetime import datetime
 
 def eliminarPendientes(request):
-    if pedido.objects.filter(finalizada=False).count()>0:
-        pedido.objects.filter(finalizada=False).delete()
+    pedid=pedido.objects.filter(finalizada=False)
+    if pedid.count()>0:
+        pedid.delete()
     return redirect("/")
 
 def sinFinalizar(request):
@@ -80,6 +81,7 @@ def agregarLinea(request,idPedido,idProducto):
             linea.sub()
             linea.save()
             pedid.setTotal(linea.getSubtotal())
+            pedid.save()
             ruta='/ventas/vender/'+str(pedid.id)
             return redirect(ruta)
     else:
