@@ -32,21 +32,39 @@ def venta(request, idPedido):
     lineas = lineaDeVenta.objects.filter(pedidofk=int(idPedido))
     productos = Producto.objects.all()
     pedid = pedido.objects.get(id=int(idPedido))
-    return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos})
+    error=pedid.errorContra
+    pedid.errorContra()
+    pedid.save()
+    return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos,'error':error})
 
-def finalizarVenta(reques,idPedido):
+def finalizarVenta(request,idPedido):
     ped=pedido.objects.get(id=int(idPedido))
-    ped.setFinal()
-    ped.save()
-    return redirect("/")
+    if request.method=='POST':
+        con=contra(request.POST)
+        if con.is_valid():
+            datos=con.cleaned_data
+            credencial=pedido.objects.get(id=int(idPedido)).vendedor.usuario
+            user=authenticate(username=credencial.username, password=datos.get("passwd"))
+            if user != None:
+                print("holi")
+                ped.setFinal()
+                ped.save()
+                return redirect('/')
+            else:
+                ped.errorContra()
+                ped.save()
+                return redirect('/ventas/vender/'+str(ped.id))
+    else:
+        form=contra()
+        return render(request,'ventas/venta/confirmar.html',{'form':form,'ped':ped})
 
 def eliminarLinea(request, idLinea):
     var=lineaDeVenta.objects.get(id=int(idLinea))
     pedid=var.pedidofk
     pedid.quitar(var.getSubtotal())
-    ruta='/ventas/vender/'+str(pedid.id)
+    pedid.save()
     var.delete()
-    return redirect(ruta)
+    return redirect('/ventas/vender/'+str(pedid.id))
      
 def editarLinea(request, idLinea):
     linea=lineaDeVenta.objects.get(id=int(idLinea))

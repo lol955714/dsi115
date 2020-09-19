@@ -13,7 +13,6 @@ def index(request):
 def auth(request):
 	
 	if request.method == 'POST':
-		print("hola")
 		usern=request.POST.get('user',None)
 		passw=request.POST.get('pass',None)
 		user = authenticate(username=usern,password=passw)

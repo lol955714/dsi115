@@ -3,22 +3,29 @@
 {% block navegacion %}
 <nav class="main-nav float-right d-none d-lg-block">
 <ul>
-    <li>
-        <a href="">Ventas pendientes</a>
-        <a href="{% url 'ventas:finalizar' pedid.id %}">Finalizar venta</a>
-        <a href="{% url 'ventas:cancelar' pedid.id %}">Cancelar venta</a>
-    </li>
+    <li><a href="{% url 'ventas:sinFinalizar' %}">Ventas pendientes</a></li>
+    {% if pedid.total > 0 %}
+         <li><a href="{% url 'ventas:finalizar' pedid.id %}" rel="get:id=10" rev="abcwin[500,500]">Finalizar venta</a></li>
+    {% endif %}
+   
+    <li><a href="{% url 'ventas:cancelar' pedid.id %}">Cancelar venta</a></li>
 </ul>
  </nav><!-- .main-nav -->
 {% endblock navegacion %}
 {% block propio %}
+    {% block errorContra %}
+    {% if error == True %}
+    <h4>Contraseña equivocada, favor introducirla correctamente</h4>
+    {% endif %}
+    {% endblock errorContra %}
+    
     <div>
         <div>
         <label>vendedor: {{pedid.vendedor.nombres}}</label>
         <br>
         <label>Cliente: {{pedid.cliente}}</label>
         <br>
-        <label>Fecha de facturación:{{pedid.fechaCreada}}</label>
+        <label>Fecha de facturación: {{pedid.fechaCreada}}</label>
          <br>
         <label>Total actual:{{pedid.total}}</label>
 
@@ -26,7 +33,8 @@
         <div>
         </div>
         <div>
-        <table>
+        <table table class="table" id="proveedor-table" >
+        <caption>Productos a comprar</caption>
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -56,7 +64,8 @@
         </div>
 
         <div>
-       <table>
+       <table table class="table" id="proveedor-table">
+        <caption>Stock</caption>
         <thead>
             <tr>
                 <th>Nombre</th>

@@ -36,11 +36,13 @@ class Asignacion(models.Model):
 
 
 class pedido(models.Model):
+	
 	finalizada =models.BooleanField(default=False)
 	fechaCreada =models.DateField(auto_now=True)
 	vendedor = models.ForeignKey(Empleado, on_delete=models.CASCADE,null=True)
 	cliente = models.CharField(max_length=50,null=True)
 	total = models.DecimalField(max_digits=8,decimal_places=2,default=0)
+	errorContra =models.BooleanField(default=False)
 	#tipoPago = models.foreignKey(tipoPago, on_delete=models.CASCADE)
 	def setVendedor(self, valor):
 		self.vendedor=valor
@@ -52,6 +54,11 @@ class pedido(models.Model):
 		self.finalizada=True
 	def quitar(self, valor):
 		self.total=self.total-valor
+	def errorContra(self):
+		if self.errorContra == True:
+			self.errorContra = False
+		else:
+			self.error = True
 
 class lineaDeVenta(models.Model):
 	articulofk = models.ForeignKey(Producto, on_delete=models.CASCADE)
