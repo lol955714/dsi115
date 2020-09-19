@@ -1,13 +1,18 @@
-{% extends 'seguridad/login.html' %}
-{% block formulario %}
+{% extends 'base/base_sistema.html' %}
+{% block title %}SIAVAC | Ventas{% endblock %}
+{% block titulo_contenido %}Ventas sin Finalizar{% endblock titulo_contenido%}
+{% block previa_contenido %}Se presentan las ventas registradas que aún están pendientes por finalizar.{% endblock previa_contenido%}
+{% block inf %}
+Elimine una venta en específico haciendo click en el ícono <img src="/static/images/delete.png" title="Editar" width="20" height="20"/> al lado de la venta seleccionada. Elimine todas las ventas sin finalizar de la tabla haciendo click en:  <p style="text-align:center"><a href="{% url 'ventas:eliminarPendientes' %}"><button type="button" class="btn btn-primary js-create-proveedor">Eliminar todas las ventas</button></a></p> 
 
-            <a href="{% url 'ventas:eliminarPendientes' %}">Eliminar todas</a>
-            <a href="/">Regresar al inicio</a>
-          <h1>Ventas sin finalizar</h1>
-          <table>
+Regrese al menú principal seleccionando: <p style="text-align:center"><br><a href="/"><button type="button" class="btn btn-primary js-create-proveedor">Regresar Menú Anterior</button></a></p>
+{% endblock inf%}
+{% block content %}
+
+          <table table class="table" id="proveedor-table">
                 <thead>
                     <tr>
-                        <th>Vendedos</th>
+                        <th>Vendidos</th>
                         <th>Cliente</th>
                         <th>Total</th>
                         <th>Fecha</th>
@@ -21,11 +26,11 @@
                         <td>{{pedido.cliente}}</td>
                         <td>{{pedido.total}}</td>
                         <td>{{pedido.fechaCreada}}</td>
-                        <td><a href="{% url 'ventas:cancelar' pedido.id %}">Eliminar</a><a href="{% url 'ventas:vender' pedido.id %}">Continuar</a>
+                        <td><a href="{% url 'ventas:cancelar' pedido.id %}"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>Eliminar</a><a href="{% url 'ventas:vender' pedido.id %}">Continuar</a>
                     </tr>
                 {% endfor %}
                    
                 </tbody>
           </table>
 
-{% endblock formulario %}
+{% endblock content %}
