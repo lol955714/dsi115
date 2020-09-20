@@ -15,7 +15,7 @@ class Metas(models.Model):
 		return '%s'%(self.monto_asignado)
 
 class Empleado(models.Model):
-	#usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE )
+	usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	meta_asignadafk = models.ForeignKey(Metas, on_delete=models.CASCADE,null=True)
 	nombres = models.CharField(max_length=40,null=False)
 	apellidos = models.CharField(max_length=40,null=False)
