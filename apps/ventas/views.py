@@ -129,9 +129,9 @@ def informe_meta(request):
     dia_actual = datetime.now().day
 
     #obtiene el total de las ventas realizadas por empledado en un tiempo especifico
-    totales = Asignacion.objects.filter(
-        fecha_asignacion__year=anio_actual,fecha_asignacion__month=mes_actual).values(
-            'empleadofk__nombres').annotate(Sum('meta_asignadafk__monto_asignado'))  
+    totales = pedido.objects.filter(
+        fechaCreada__year=anio_actual,fechaCreada__month=mes_actual).values(
+            'vendedor__nombres').annotate(Sum('total'))  
     
     pedidos = Metas.objects.filter(descripcion='hola').aggregate(Sum('monto_asignado'))
     return render(request,'ventas/empleado/empleado_metas.html',

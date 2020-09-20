@@ -2,6 +2,7 @@ from django.db import models
 from apps.inventario.models import *
 from django.conf import settings
 from django.core.validators import RegexValidator
+import datetime
 # Create your models here.
 
 #class tipoPago(models.Model):
@@ -14,17 +15,25 @@ class Metas(models.Model):
 		return '%s'%(self.monto_asignado)
 
 class Empleado(models.Model):
-	usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE )
+	#usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE )
 	meta_asignadafk = models.ForeignKey(Metas, on_delete=models.CASCADE,null=True)
 	nombres = models.CharField(max_length=40,null=False)
 	apellidos = models.CharField(max_length=40,null=False)
 	telefono= models.CharField(max_length=8,null=False,unique=True,validators=[
 		RegexValidator(regex='^.{8}$', 
-		message='Ha introducido un numero incorrecto', 
+		message='El # ingresado es invalido, Debe tener 8 caracteres', 
 		code='nomatch'
-	)])
-	dui = models.CharField(max_length=9,null=False,unique=True)
-	nit = models.CharField(max_length=14,null=False,unique=True)
+		)])
+	dui = models.CharField(max_length=9,null=False,unique=True,validators=[
+		RegexValidator(regex='^.{9}$', 
+		message='El DUI ingresado es invalido, Debe tener 9 caracteres', 
+		code='nomatch'
+		)])
+	nit = models.CharField(max_length=14,null=False,unique=True,validators=[
+		RegexValidator(regex='^.{14}$', 
+		message='El NIT ingresado es invalido, Debe tener 14 caracteres', 
+		code='nomatch'
+		)])
 	def __str__(self):
 		return '%s'%(self.nombres)
 
@@ -33,6 +42,9 @@ class Asignacion(models.Model):
 	empleadofk = models.ForeignKey(Empleado, on_delete=models.CASCADE,null=False)
 	fecha_asignacion = models.DateField(auto_now=True)
 	monto_logrado = models.DecimalField(max_digits=6, decimal_places=2, blank=True, default=0)
+    
+	class Meta:
+		unique_together = (('empleadofk', 'meta_asignadafk'),)
 
 
 class pedido(models.Model):
