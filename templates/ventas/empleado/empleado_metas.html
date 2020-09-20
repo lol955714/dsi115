@@ -14,13 +14,15 @@
     <tbody>
 
 
-      {% for tot in totales %}
+      {% for total in totales %}
       <tr>
+
+
         <td>{{forloop.counter}}</td>
-        <td>{{ tot.vendedor__nombres }}</td>
-        <td>{{ tot.vendedor__monto_asignado }}</td>
-        <td>{{ tot.total__sum }}</td>
-        <td>{% widthratio tot.total__sum tot.vendedor__monto_asignado 1 %}
+        <td>{{ total.empleadofk__nombres }}</td>
+        <td>{{ total.meta_asignadafk__monto_asignado__sum }}</td>
+        <td>{{ total.meta_asignadafk__monto_asignado__sum }}</td>
+        <td>{% widthratio total.meta_asignadafk__monto_asignado__sum total.meta_asignadafk__monto_asignado__sum 1 %}
         </td>
         {% empty %}
 

@@ -1,25 +1,44 @@
 {% extends 'base/base_sistema.html' %}
 {% load static %} 
 {% block title %}SIAVAC | Asigaciones{% endblock %}
-{% block titulo_contenido %}Asigaciones{% endblock titulo_contenido%}
+{% block titulo_contenido %}Asignación de Metas{% endblock titulo_contenido%}
+{% block previa_contenido %}Lleve un control de ventas por cada vendedor para establecer incentivos.{% endblock previa_contenido%}
 
 {% block bsq %}
-      <button type="button" class="btn btn-primary js-create-asignacion"
-          data-url="{% url 'ventas:asignacion-create' %}">
-      <span class="glyphicon glyphicon-plus"></span>
-      Agregar una nueva asignacion
+  <p style="text-align:center">
+    <button type="button" class="btn btn-primary js-create-asignacion" data-url="{% url 'ventas:asignacion-create' %}">
+      <span class="glyphicon glyphicon-plus"></span>Agregar nueva Asignación
     </button> 
-<p><br>Para regresar a la pantalla principal de ventas, haga click en:</p> 
-    <a href="{% url 'compras:index' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Ventas</button></a>
+</p>
+
+  <p style="text-align:center">
+    <a href="{% url 'ventas:empleado-list' %}">
+      <button type="button" class="btn btn-primary js-create-proveedor">Gestionar Empleados</button>
+    </a>
+  </p>
+
+  <p style="text-align:center">
+    <a href="{% url 'ventas:meta-list' %}">
+      <button type="button" class="btn btn-primary js-create-proveedor">Gestionar Metas</button>
+    </a>
+  </p>
+
+  <p style="text-align:center">
+    <a href="{% url 'ventas:empleado-meta' %}">
+    <button type="button" class="btn btn-primary js-create-proveedor">Ver Informe de Metas
+    </button> </a>
+  </p>
+
+  Para regresar a la pantalla principal de ventas, haga click en:
+  <p style="text-align:center"><a href="{% url 'compras:index' %}">
+      <button type="button" class="btn btn-primary js-create-empleado">Regresar a Ventas</button>
+    </a></p> 
 {% endblock bsq%}
 {% block javascript %}
   <script src="{% static 'js/asignaciones.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'ventas:empleado-list' %}">Gestionar Empleados</a>
-<a href="{% url 'ventas:meta-list' %}">Gestionar Metas</a>
-
 <div class="container">
   
   <table class="table" id="asignacion-table">
@@ -45,5 +64,4 @@
   </div>
 </div>
 
-<a href="{% url 'ventas:empleado-meta' %}">Ver Informe de Metas</a>
 {% endblock %}

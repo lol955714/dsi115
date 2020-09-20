@@ -1,29 +1,35 @@
 {% extends 'base/base_sistema.html' %}
 {% load static %} 
 {% block title %}SIAVAC | Metas{% endblock %}
+{% block titulo_contenido %}Gestionar Metas{% endblock titulo_contenido%}
+{% block previa_contenido %}Lleve un control de ventas por cada vendedor para establecer incentivos.{% endblock previa_contenido%}
+{% block inf %}
+Edite la información de una meta registrada dando click en <img src="/static/images/editar.png" title="Editar" width="20" height="20"/> o elimine un registro de la tabla haciendo click en <img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>. Agregue nuevas metas seleccionando la opción: 
+{% endblock inf%}
 {% block javascript %}
   <script src="{% static 'js/metas.js' %}"></script>
 {% endblock %}
 {% block bsq %}
-      <button type="button" class="btn btn-primary js-create-meta"
-          data-url="{% url 'ventas:meta-create' %}">
-      <span class="glyphicon glyphicon-plus"></span>
-      Agregar una nueva meta
+  <p style="text-align:center">
+    <button type="button" class="btn btn-primary js-create-meta" data-url="{% url 'ventas:meta-create' %}">
+      <span class="glyphicon glyphicon-plus"></span>Agregar una Nueva Meta
     </button> 
+  </p>
+    Para regresar al menú principal, haga click en: 
+    <p style="text-align:center"><br><a href="{% url 'ventas:asignacion-list' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Asignaciones</button></a>
+  </p>
 
 {% endblock bsq%}
 
-
 {% block content %}
-<a href="{% url 'ventas:asignacion-list' %}">Regresar a asignaciones</a>
 <div class="container">
   
   <table class="table" id="meta-table">
     <thead>
       <tr>
         <th>#</th>
-        <th>monto asignado</th>
-        <th>descripcion</th>
+        <th>Monto Asignado</th>
+        <th>Descripción</th>
         <th>Acciones</th>
       </tr>
     </thead>
