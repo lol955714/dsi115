@@ -11,8 +11,9 @@
         </div>
         <body id="log">
         <div id="contenedor2">
-              <a href= "{% url 'ventas:iniciar' %}" rel="get:id=10" rev="abcwin[500,500]">Iniciar nueva venta </a>
-              <a href="{% url 'ventas:sinFinalizar' %}">Ventas sin finalizar</a>
+              <a href= "{% url 'ventas:iniciar' %}" rel="get:id=10" rev="abcwin[500,500]"> <button>Iniciar nueva venta</button> </a>
+              <br>
+              <a href="{% url 'ventas:sinFinalizar' %}" > <button>Ventas sin finaliza</button> </a>
             <div id="Contenedor">
                 <div class="header">
                   {% block formulario %}

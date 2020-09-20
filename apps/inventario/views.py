@@ -12,6 +12,7 @@ from datetime import date
 
 # Create your views here.
 
+
 @login_required
 def inventario(request):
 	global contexto

@@ -15,7 +15,11 @@ class Metas(models.Model):
 		return '%s'%(self.monto_asignado)
 
 class Empleado(models.Model):
-	usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	clave= models.CharField(max_length=4,null=False,unique=True,validators=[
+		RegexValidator(regex='^.{8}$', 
+		message='El # ingresado es invalido, Debe tener 8 caracteres', 
+		code='nomatch'
+		)])
 	meta_asignadafk = models.ForeignKey(Metas, on_delete=models.CASCADE,null=True)
 	nombres = models.CharField(max_length=40,null=False)
 	apellidos = models.CharField(max_length=40,null=False)
