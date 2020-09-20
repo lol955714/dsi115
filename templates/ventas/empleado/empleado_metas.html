@@ -1,5 +1,14 @@
+{% extends 'base/base_sistema.html' %}
+{% load static %} 
+{% block title %}SIAVAC | Informe de Metas{% endblock %}
+{% block titulo_contenido %}Informe de Metas{% endblock titulo_contenido%}
+{% block previa_contenido %}Lleve un control de ventas por cada vendedor para establecer incentivos.{% endblock previa_contenido%}
+{% block inf %}
+La tabla presenta el nombre del empleado, la meta que se le asignó y el monto total obtenido en las ventas realizadas. Se muestra también, el porcentaje de avance del trabajador con respecto a la meta y sus resultados. <br><br>Para regresar al menú principal, haga click en: 
+    <p style="text-align:center"><a href="{% url 'ventas:asignacion-list' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Asignaciones</button></a>
+  </p>
+{% endblock inf%}
 {% block content %}
-
 <div>
   <table class="table">
     <thead>
@@ -35,6 +44,5 @@
 
 </div>
 
-<a href="{% url 'ventas:asignacion-list' %}">Atras</a>
 
 {% endblock %}

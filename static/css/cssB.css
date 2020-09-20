@@ -106,7 +106,6 @@ h1,h2,h3,h4,h5,h6, {
 --------------------------------------------------------------*/
 
 /* Desktop Navigation */
-
 .main-nav {
   /* Drop Down */
   /* Deep Drop Down */
@@ -153,7 +152,7 @@ h1,h2,h3,h4,h5,h6, {
   opacity: 0;
   visibility: hidden;
   padding: 10px 0;
-  background: #fff;
+  background: red;
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
   transition: ease all 0.3s;
 }
@@ -173,7 +172,7 @@ h1,h2,h3,h4,h5,h6, {
   padding: 10px 20px;
   font-size: 14px;
   font-weight: 500;
-  text-transform: none;
+  text-transform: uppercase;
   color: #065e77;
 }
 
@@ -185,7 +184,7 @@ h1,h2,h3,h4,h5,h6, {
 
 .main-nav .drop-down > a:after {
   content: "\f107";
-  font-family: FontAwesome;
+  font-family: "Open Sans", sans-serif;
   padding-left: 10px;
 }
 

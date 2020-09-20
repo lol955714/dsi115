@@ -2,11 +2,9 @@
 <link rel="stylesheet" href="{% static 'css/cssF.css' %}">
 <link rel="stylesheet" href="{% static 'css/cssG.css' %}">
 
-
-NOTIFICACIONES
-<table border="1px">
+<table class="table" id="proveedor-table">
     <thead>
-    <tr><th>Categoria</th><th>Descripcion</th><th>Acción</th></tr>
+    <tr><th>Categoría</th><th>Descripcion</th><th>Acción</th></tr>
     </thead>
     <tbody>
    {% for notificacion in notificaciones %}
