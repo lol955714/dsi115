@@ -26,7 +26,7 @@ Se mostrará una tabla con todos los productos que ofrece el proveedor, seleccio
 			{%for producto in productos%}
 				<tr>
 					<td>{{producto.nombre}}</td>
-					<td>{{producto.precio}}</td>
+					<td>{{producto.preciocompra}}</td>
 					<td> <a href="{% url 'compras:add' idPedido producto.id idProveedor%}" rel="get:id=10" rev="abcwin[500,auto]">Agregar</a> </td>
 				</tr>
 			{%endfor%}

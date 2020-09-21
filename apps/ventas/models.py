@@ -1,11 +1,12 @@
 from django.db import models
 from apps.inventario.models import *
+from apps.compras.models import Tipo_Pago
 from django.conf import settings
 from django.core.validators import RegexValidator
 import datetime
 # Create your models here.
 
-#class tipoPago(models.Model):
+
 
 class Metas(models.Model):
 	monto_asignado = models.DecimalField(max_digits=6, decimal_places=2)
@@ -16,8 +17,8 @@ class Metas(models.Model):
 
 class Empleado(models.Model):
 	clave= models.CharField(max_length=4,null=False,unique=True,validators=[
-		RegexValidator(regex='^.{8}$', 
-		message='El # ingresado es invalido, Debe tener 8 caracteres', 
+		RegexValidator(regex='^.{4}$', 
+		message='El # ingresado es invalido, Debe tener 4 caracteres', 
 		code='nomatch'
 		)])
 	meta_asignadafk = models.ForeignKey(Metas, on_delete=models.CASCADE,null=True)
@@ -52,14 +53,14 @@ class Asignacion(models.Model):
 
 
 class pedido(models.Model):
-	
+	nope = models.BooleanField(default=False)
 	finalizada =models.BooleanField(default=False)
 	fechaCreada =models.DateField(auto_now=True)
 	vendedor = models.ForeignKey(Empleado, on_delete=models.CASCADE,null=True)
 	cliente = models.CharField(max_length=50,null=True)
 	total = models.DecimalField(max_digits=8,decimal_places=2,default=0)
-	errorContra =models.BooleanField(default=False)
-	#tipoPago = models.foreignKey(tipoPago, on_delete=models.CASCADE)
+	#errorContra =models.BooleanField(default=False)
+	tipoPago = models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE,null=True)
 	def setVendedor(self, valor):
 		self.vendedor=valor
 	def setCliente(self, valor):
@@ -70,9 +71,11 @@ class pedido(models.Model):
 		self.finalizada=True
 	def quitar(self, valor):
 		self.total=self.total-valor
+	def setTipoPago(self, valor):
+		self.tipoPago=valor
 	def errorContra(self):
-		if self.errorContra == True:
-			self.errorContra = False
+		if self.nope == True:
+			self.nope = False
 		else:
 			self.error = True
 

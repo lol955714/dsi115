@@ -1,9 +1,10 @@
 from django import forms 
 from django.forms import widgets
 from apps.ventas.models import *
+from apps.compras.models import Tipo_Pago
 from django.conf import settings
 
-vendedores= Empleado.objects.all()
+tipos=Tipo_Pago.objects.all()
 
 class EmpleadoForm(forms.ModelForm):
 	class Meta:
@@ -79,10 +80,11 @@ class AsignacionForm(forms.ModelForm):
 		}
 
 class iniciarVe(forms.Form):
-	vendedor = forms.ModelMultipleChoiceField(vendedores,required=True,label="vendedor")
 	cliente = forms.CharField(label='Nombre del cliente',required=True,max_length=25)
 
 class agregar(forms.Form):
 	cantidad=forms.IntegerField(label="Cantidad de productos", required=True, min_value=1)
+
 class contra(forms.Form):
-	passwd = forms.CharField(max_length=32, widget=forms.PasswordInput, required=True)
+	typ = forms.ModelMultipleChoiceField(tipos,required=True, label='Selecciones el método de pago')
+	passwd = forms.CharField(widget=forms.PasswordInput, required=True,min_length=4,max_length=4)

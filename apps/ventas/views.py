@@ -32,7 +32,7 @@ def venta(request, idPedido):
     lineas = lineaDeVenta.objects.filter(pedidofk=int(idPedido))
     productos = Producto.objects.all()
     pedid = pedido.objects.get(id=int(idPedido))
-    error=pedid.errorContra
+    error=pedid.nope
     pedid.errorContra()
     pedid.save()
     return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos,'error':error})
@@ -43,20 +43,22 @@ def finalizarVenta(request,idPedido):
         con=contra(request.POST)
         if con.is_valid():
             datos=con.cleaned_data
-            credencial=pedido.objects.get(id=int(idPedido)).vendedor.usuario
-            user=authenticate(username=credencial.username, password=datos.get("passwd"))
-            if user != None:
-                print("holi")
+            try: 
+                emple=Empleado.objects.get(clave=datos.get("passwd"))
+                print("hola")
                 ped.setFinal()
+                ped.setVendedor(emple)
+                ped.setTipoPago(datos.get("typ").get())
                 ped.save()
                 return redirect('/')
-            else:
-                ped.errorContra()
-                ped.save()
-                return redirect('/ventas/vender/'+str(ped.id))
+            except:
+                if ped.nope == False:
+                    ped.nope=True
+                    print("holi")
+                    ped.save()
+                return redirect('/ventas/vender/'+str(ped.id))   
     else:
-        form=contra()
-        return render(request,'ventas/venta/confirmar.html',{'form':form,'ped':ped})
+        return render(request,'ventas/venta/confirmar.html',{'ped':ped,'form':contra()})
 
 def eliminarLinea(request, idLinea):
     var=lineaDeVenta.objects.get(id=int(idLinea))
@@ -114,7 +116,6 @@ def iniciarVenta(request):
             form_data=form.cleaned_data
             venta=pedido()
             venta.setCliente(form_data.get("cliente"))
-            venta.setVendedor(form_data.get("vendedor").get())
             venta.save()
             ruta='/ventas/vender/'+str(venta.id)
             return redirect(ruta)
