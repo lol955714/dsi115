@@ -21,9 +21,7 @@ def inventario(request):
 	if buscar:
 	 	producto=Producto.objects.filter(Q(nombre__icontains=buscar))
 	 	contexto={'productos':producto}
-	elif control:
-	    contexto={'productos':control}
-	    messages.info(request,"Los siguientes productos tienen existencias bajas")
+	
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}

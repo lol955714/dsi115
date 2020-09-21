@@ -9,6 +9,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.db.models import Sum
 from datetime import datetime
+from django.db.models import Q
 
 def eliminarPendientes(request):
     pedid=pedido.objects.filter(finalizada=False)
@@ -29,12 +30,18 @@ def cancelarVenta(request,idPedido):
     return redirect("/")
 
 def venta(request, idPedido):
+    #metodo que recupera lo mandado en la barra de buscar
+    buscar=request.POST.get("buscar")
     lineas = lineaDeVenta.objects.filter(pedidofk=int(idPedido))
-    productos = Producto.objects.all()
     pedid = pedido.objects.get(id=int(idPedido))
     error=pedid.nope
     pedid.errorContra()
     pedid.save()
+    if buscar:
+        #funcion que busca por nombre 
+        productos=Producto.objects.filter(Q(nombre__icontains=buscar))
+    else: 
+      productos = Producto.objects.all()
     return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos,'error':error})
 
 def finalizarVenta(request,idPedido):

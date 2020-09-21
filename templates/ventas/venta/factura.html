@@ -1,6 +1,12 @@
 {% extends 'base/base_sistema.html' %}
 {% load static %}
 {% block navegacion %}
+<style type="text/css"> 
+  input[type=text] {
+  width: 150px;
+  
+}
+</style>
 <nav class="main-nav float-right d-none d-lg-block">
 <ul>
     <li><a href="{% url 'ventas:sinFinalizar' %}">Ventas pendientes</a></li>
@@ -71,6 +77,12 @@
                 <th>Precio</th>
                 <th>Stock</th>
                 <th>Acción</th>
+                <th><form method="post"> 
+                      {% csrf_token %} 
+                      <input type="text" placeholder="Buscar Producto" name="buscar" value="{{request.GET.buscar }}" width=50px> 
+                      <button type="submit" class="btn btn-primary btn btn-primary">Buscar</button>
+                      <button type="submit" class="btn btn-primary btn btn-primary" onclick="location.reload();">Actualizar</button> 
+                    </form> </th>
             </tr>
         </thead>
         <tbody>
