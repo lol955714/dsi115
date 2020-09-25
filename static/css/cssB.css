@@ -152,7 +152,7 @@ h1,h2,h3,h4,h5,h6, {
   opacity: 0;
   visibility: hidden;
   padding: 10px 0;
-  background: red;
+  background: #e0e9f9;
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
   transition: ease all 0.3s;
 }
@@ -375,7 +375,7 @@ h1{
 }
 
 .banner div{
-	text-align: left;
+	text-align: right;
 	margin: auto;
 	background-color: black;
 	font-family: 'Exo', sans-serif;

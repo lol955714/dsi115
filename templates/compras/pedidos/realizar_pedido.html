@@ -1,11 +1,12 @@
 {% extends 'base/base_sistema.html' %}
+{% block title %}SIAVAC | Nuevo Pedido{% endblock %}
 {% block titulo_contenido %}Crear Nuevo Pedido{% endblock titulo_contenido%}
 {% block previa_contenido %}Se muestran los productos que ofrece el proveedor y los añadidos al pedido.{% endblock previa_contenido%}
 {% block inf %}
 Se mostrará una tabla con todos los productos que ofrece el proveedor, seleccione los que desee así como las unidades que necesita adquirir. Puede agregar una nota especial, de considerarlo necesario.
-<p><a href="{% url 'compras:cancelar' idPedido%}"><button type="button" class="btn btn-primary js-create-proveedor">Cancelar</button> </a></p>
+<p style="text-align:center"><a href="{% url 'compras:cancelar' idPedido%}"><button type="button" class="btn btn-primary js-create-proveedor">Cancelar Pedido</button> </a></p>
 {%if var != 0%}
-<a href="{% url 'compras:index' %}"><button>Terminar</button> </a>
+<p style="text-align:center"><a href="{% url 'compras:index' %}"><button type="button" class="btn btn-primary js-create-proveedor">Terminar Pedido</button> </a></p>
 {%endif%}
 
 {% endblock inf%}
@@ -36,7 +37,7 @@ Se mostrará una tabla con todos los productos que ofrece el proveedor, seleccio
 	</tbody>
 </table>
 
-
+<label><h3><strong>Productos Seleccionados</strong></h3></label>
 <table class="table" id="proveedor-table">
 	<thead>
 		<tr></tr>
@@ -63,7 +64,7 @@ Se mostrará una tabla con todos los productos que ofrece el proveedor, seleccio
 				</tr>
 			{%endfor%}
 		{%else%}
-			<label><h3>Aún no se ha registrado nada en el pedido</h3><p>Para agregar un artículo al pedido, seleccione un producto de la tabla de arriba y haga click en <strong>add</strong>. Luego, ingrese los datos que se le solicitarán.</p></label>
+			<label><h3>Aún no se ha registrado nada en el pedido</h3><p>Para agregar un artículo al pedido, seleccione un producto de la tabla de arriba y haga click en <strong>agregar</strong>. Luego, ingrese los datos que se le solicitarán.</p></label>
 		{%endif%}
 	</tbody>
 </table>

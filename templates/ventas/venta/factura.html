@@ -1,5 +1,6 @@
-{% extends 'base/base_sistema.html' %}
+{% extends 'base/b_sistema.html' %}
 {% load static %}
+{% block title %}SIAVAC | Factura{% endblock %}
 {% block navegacion %}
 <style type="text/css"> 
   input[type=text] {
@@ -9,31 +10,42 @@
 </style>
 <nav class="main-nav float-right d-none d-lg-block">
 <ul>
-    <li><a href="{% url 'ventas:sinFinalizar' %}">Ventas pendientes</a></li>
+    <li><a href="{% url 'ventas:sinFinalizar' %}">Ventas Pendientes</a></li>
     {% if pedid.total > 0 %}
-         <li><a href="{% url 'ventas:finalizar' pedid.id %}" rel="get:id=10" rev="abcwin[500,500]">Finalizar venta</a></li>
+         <li><a href="{% url 'ventas:finalizar' pedid.id %}" rel="get:id=10" rev="abcwin[500,500]">Finalizar Venta</a></li>
     {% endif %}
    
-    <li><a href="{% url 'ventas:cancelar' pedid.id %}">Cancelar venta</a></li>
+    <li><a href="{% url 'ventas:cancelar' pedid.id %}">Cancelar Venta</a></li>
 </ul>
  </nav><!-- .main-nav -->
 {% endblock navegacion %}
+
 {% block propio %}
     {% block errorContra %}
     {% if error == True %}
-    <h4>Contraseña equivocada, favor introducirla correctamente</h4>
+    <h4>¡Contraseña errónea! Favor introducirla correctamente.</h4>
     {% endif %}
     {% endblock errorContra %}
     
     <div>
-        <div>
-        <label>Cliente: {{pedid.cliente}}</label>
-        <br>
-        <label>Fecha de facturación: {{pedid.fechaCreada}}</label>
-         <br>
-        <label>Total actual: {{pedid.total}}</label>
+        <h2>{% block titulo_contenido %}Factura{% endblock titulo_contenido%}</h2>
+        <table align="left">
+  <tr>
+    <th style="width:180px">Cliente:</th>
+    <td>{{pedid.cliente}}</td>
+  </tr>
+  <tr>
+    <th>Fecha de Facturación:</th>
+    <td>{{pedid.fechaCreada}}</td>
+  </tr>
+  <tr>
+    <th>Total Actual:</th>
+    <td>${{pedid.total}}</td>
+  </tr>
+  <tr>
+  </tr>
+</table>
 
-        </div>
         <div>
         </div>
         <div>
@@ -53,18 +65,18 @@
           {% for linea in lineas %}
             <tr>
                 <td>{{linea.articulofk.nombre}}</td>
-                <td>{{linea.articulofk.precioventa}}</td>
+                <td>${{linea.articulofk.precioventa}}</td>
                 <td>{{linea.cantidad}}</td>
-                <td>{{linea.subtotal}}</td>
+                <td>${{linea.subtotal}}</td>
                 <th>
-                <a href="{% url 'ventas:editar' linea.id %}" rel="get:id=10" rev="abcwin[500,500]">Editar</a>
-                <a href="{% url 'ventas:eliminar' linea.id %}">Eliminar</a>
+                <a href="{% url 'ventas:editar' linea.id %}" rel="get:id=10" rev="abcwin[500,500]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
+                <a href="{% url 'ventas:eliminar' linea.id %}"><img src="/static/images/delete.png" title="Editar" width="20" height="20"/></a>
             </tr>
           {% endfor %}
         </tbody>
 
         {% endif %}
-        </table>
+        </table><br>
         </div>
 
         <div>
@@ -91,7 +103,7 @@
             <tr>
                 <td>{{producto.nombre}}</td>
                 <td>{{producto.descripcion}}</td>
-                <td>{{producto.precioventa}}</td>
+                <td>${{producto.precioventa}}</td>
                 <td>{{producto.existencia}}</td>
                 <td> <a href= {% url 'ventas:añadir' pedid.id producto.id %} rel="get:id=10" rev="abcwin[500,500]"> Añadir</a>
             </tr>

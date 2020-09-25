@@ -20,7 +20,8 @@ h3 {
   font-weight: 400;
   margin: 0 0 20px 0;
   padding: 0;
-  color: blue;
+  color: #413e66;
+  text-align: center;
 }
 
 div button {
@@ -67,7 +68,6 @@ div button {
     padding: 10px 18px;
     margin: 0 3px 15px 0;
     font-weight: bold;
-    background-color: #3CC93F;
     border-radius: 3px;
     border:none;
     display:block;

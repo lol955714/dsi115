@@ -1,5 +1,6 @@
+<link rel="stylesheet" type="text/css" href="/static/css/cssE.css"/>
 <form action="{% url 'ventas:editar' linea.id%}" method='POST'>
 {% csrf_token %}
 {{form.as_p}}
-<button type="submit">Añadir</button>
+<button type="submit">Actualizar</button>
 </form>
