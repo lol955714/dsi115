@@ -12,7 +12,7 @@ Luego de seleccionar el proveedor y la forma de pago que desee, haga click en <s
 <form action="{% url 'compras:reCom' %}" method="POST" id="form">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" value="submit" id="submit" class="boton">Generar pedido</button>
+    <button type="submit" value="submit" id="submit" class="boton">Generar Pedido</button>
 </form>
 
 {% endblock content%}
