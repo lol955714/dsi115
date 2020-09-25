@@ -1,26 +1,14 @@
-{% extends 'base/base.html' %}
+{% extends 'base/b_login.html' %}
 {%block logout%}
 {%endblock logout%}
-{%block contenido%}
-<link rel="stylesheet" type="text/css" href="/static/css/cssB.css"/>
-<link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>
-    <script type="text/javascript" src="/static/js/ABCwin.js"></script>
-<title>SIAVAC | Login</title>
-        <div class="banner">
-        <div><br>SIAVAC  | <span>Sistema Informático para la Administración y Venta de Accesorios</span><hr></div>
-        </div>
-        <body id="log">
-        <div id="contenedor2">
-              <a href= "{% url 'ventas:iniciar' %}" rel="get:id=10" rev="abcwin[500,500]"> <button>Iniciar Nueva Venta</button> </a>
-              <br>
-              <a href="{% url 'ventas:sinFinalizar' %}" > <button>Ventas sin Finalizar</button> </a>
-            <div id="Contenedor">
-                <div class="header">
-                  {% block formulario %}
-                    <div>Administrador<span></span></div>
-                </div>
-              
-               
+{% block titulo_contenido %}Administrador{% endblock titulo_contenido%}
+{% block inf %} 
+<p style="text-align:center"><a href= "{% url 'ventas:iniciar' %}" rel="get:id=10" rev="abcwin[500,500]"> <button class="btn btn-primary js-create-empleado">Iniciar Nueva Venta</button></a></p>
+<p style="text-align:center"><a href="{% url 'ventas:sinFinalizar' %}" > <button class="btn btn-primary js-create-empleado">Ventas sin Finalizar</button> </a></p>{% endblock inf%}
+                
+{%block content%}
+       
+                  {% block formulario %}       
             <form method='POST'> 
                 {% csrf_token %}
                     <div class="login">
@@ -31,11 +19,12 @@
                             <input  type="password" name="pass" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required="true">
                         </div>
                         <div class="opcioncontra">
-                        <button type="submit">Iniciar Sesión</button> 
+                            <br>
+                        <p style="text-align:center"><button type="submit" class="btn btn-primary js-create-empleado">Iniciar Sesión</button></p>
                         </div>
                     </div>
             </form>
              {% endblock formulario %}
             </div>  
         </body> 
-{%endblock contenido%}
+{%endblock content%}
