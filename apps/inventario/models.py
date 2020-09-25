@@ -8,6 +8,7 @@ class Categoria(models.Model):
 	def __str__(self):
 		return '%s'%(self.nombre)
 
+
 class Proveedor(models.Model):
 	nombre =models.CharField(max_length=30,null=True)
 	telefono=models.CharField(max_length=8,null=False)
@@ -64,3 +65,7 @@ class Incidencia(models.Model):
 		self.fkProducto = valor
 	def setDescripcion(self, valor):
 		self.descripcion = valor
+
+class Notificacion(models.Model):
+	fecha = models.DateTimeField(auto_now=True)
+	descripcion = models.CharField(max_length=150, null=False)

@@ -1,32 +1,17 @@
 {% load static%}
 {% block css %}
- 	<link rel="stylesheet" type="text/css" href="{% static "css/cssA.css" %}">
  	<script type="text/javascript" src="/static/js/scriptA.js"></script>
  {% endblock css %}
 {%block contenido%}
-
- <div class="contenedor2">
-            <div id="contenido2">
-
-			<h1><label> Edición de pedido</label></h1>
-<h3>
-</h3>
- <div id="principal">
- 	<div id="izquierda">
+<link rel="stylesheet" type="text/css" href="/static/css/cssE.css"/>
+			<h3>Edición de pedidos</h3>
+ 
  		<form action="{% url 'compras:add' idPedido producto idProveedor%}" method='POST'>
  			{% csrf_token %}
  			{{form.as_p}}
 			<button type="submit" value="submit" class="boton3">Agregar línea</button>
+
+			<br><a href="{% url 'compras:lin' idPedido idProveedor %}"><button class="boton3">Cancelar línea</button></a>
  		</form>
-	</div>
- 	
- </div>
- <footer>
- 			<a href="{% url 'compras:lin' idPedido idProveedor %}"><button class="boton3">Cancelar</button></a>
- 		</footer>
-
-			</div>
- </div>
-
 	
 {%endblock contenido%}

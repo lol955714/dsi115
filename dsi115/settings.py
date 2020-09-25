@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.compras',
     'apps.inventario',
+    'apps.ventas',
     'apps.seguridad',
     'widget_tweaks',    #utilizado para articulo y proveedores
     'crispy_forms',
@@ -88,9 +89,9 @@ WSGI_APPLICATION = 'dsi115.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'basefinal',
-        'USER': 'lol',
-        'PASSWORD': 'noquiero',
+        'NAME': 'dsi',
+        'USER': 'postgres',
+        'PASSWORD': 'admin123',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -146,9 +147,7 @@ USE_TZ = True
 
 
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-LOGIN_URL = 'seguridad:ingresar'
-LOGIN_REDIRECT_URL='/'
-LOGOUT_URL = 'seguridad:ingresar'
+
 
 
 STATIC_URL = '/static/'

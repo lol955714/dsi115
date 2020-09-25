@@ -1,0 +1,6 @@
+<link rel="stylesheet" type="text/css" href="/static/css/cssE.css"/>
+<form action="{% url 'ventas:añadir' pedid.id prod.id%}" method='POST'>
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit">Añadir Productos</button>
+</form>

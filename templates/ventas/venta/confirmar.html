@@ -1,0 +1,6 @@
+<link rel="stylesheet" type="text/css" href="/static/css/cssE.css"/>
+<form action="{% url 'ventas:finalizar' ped.id %}" method='POST'>
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit">Confirmar Venta</button>
+</form>

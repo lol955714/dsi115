@@ -1,0 +1,12 @@
+{% extends 'seguridad/login.html' %}
+{% block formulario %}
+            <div id="contenedor2">
+            
+                <a href= {% url 'ventas:iniciar' %} rel="get:id=10" rev="abcwin[500,500]">Iniciar nueva venta </a>
+            </div>
+            <div id="contenido2">
+            <br>
+                 <a href= {% url 'seguridad:ingresar' %} rel="get:id=10" rev="abcwin[500,500]">Iniciar sesión </a>
+            </div>
+
+{% endblock formulario %}

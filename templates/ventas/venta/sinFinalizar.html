@@ -1,0 +1,38 @@
+{% extends 'base/base_sistema.html' %}
+{% block title %}SIAVAC | Ventas{% endblock %}
+{% block titulo_contenido %}Ventas sin Finalizar{% endblock titulo_contenido%}
+{% block previa_contenido %}Se presentan las ventas registradas que aún están pendientes por finalizar.{% endblock previa_contenido%}
+{% block inf %}
+Continue una venta en específico haciendo click en el ícono <img src="/static/images/continuar.png" title="Editar" width="20" height="20"/> al lado de la venta seleccionada o elimine una venta sin finalizar haciendo click en el ícono <img src="/static/images/delete.png" title="Editar" width="20" height="20"/> Elimine todas las ventas sin finalizar de la tabla haciendo click en:  <p style="text-align:center"><a href="{% url 'ventas:eliminarPendientes' %}"><button type="button" class="btn btn-primary js-create-proveedor">Eliminar todas las ventas</button></a></p> 
+
+Regrese al menú principal seleccionando: <p style="text-align:center"><br><a href="/"><button type="button" class="btn btn-primary js-create-proveedor">Regresar Menú Anterior</button></a></p>
+{% endblock inf%}
+{% block navegacion %}
+{% endblock navegacion %}
+{% block content %}
+
+          <table table class="table" id="proveedor-table">
+                <thead>
+                    <tr>
+                        <th>Vendedor</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for pedido in  pedidos%}
+                     <tr>
+                        <td>{{pedido.vendedor.nombres}}</td>
+                        <td>{{pedido.cliente}}</td>
+                        <td>{{pedido.total}}</td>
+                        <td>{{pedido.fechaCreada}}</td>
+                        <td><a href="{% url 'ventas:cancelar' pedido.id %}"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a><a href="{% url 'ventas:vender' pedido.id %}"><img src="/static/images/continuar.png" title="Eliminar" width="20" height="20"/></a>
+                    </tr>
+                {% endfor %}
+                   
+                </tbody>
+          </table>
+
+{% endblock content %}

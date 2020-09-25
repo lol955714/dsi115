@@ -1,0 +1,8 @@
+<link rel="stylesheet" type="text/css" href="/static/css/cssE.css"/>
+          
+	<form action="{% url 'ventas:iniciar' %}" method="POST" class="js-meta-update-form">	
+		{%csrf_token%}
+		{{form.as_p}}
+		<button type="submit" class="btn btn-primary">Iniciar</button>
+	</form>
+

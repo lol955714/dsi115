@@ -1,0 +1,16 @@
+{% load crispy_forms_tags %}
+
+<form method="POST" action="{% url 'ventas:asignacion-update' form.instance.pk %}" class="js-asignacion-update-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    
+    <h4 class="modal-title">Actualizar Datos de la Asignacion</h4>
+  </div>
+  <div class="modal-body">
+    {{ form|crispy }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+  </div>
+</form>

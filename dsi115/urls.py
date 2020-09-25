@@ -24,5 +24,6 @@ urlpatterns = [
     path('seguridad/',include('apps.seguridad.urls')),
     path('inventario/',include('apps.inventario.urls')),
     path('compras/',include('apps.compras.urls')),
+    path('ventas/',include('apps.ventas.urls')),
     path('', RedirectView.as_view(url='/seguridad/login', permanent=False)),
 ]+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

@@ -1,9 +1,15 @@
 {% extends 'base/base_sistema.html' %}
+{% block title %}SIAVAC | Pedidos{% endblock %}
+{% block titulo_contenido %}Crear Nuevo Pedido{% endblock titulo_contenido%}
+{% block previa_contenido %}Genere un nuevo pedido con el proveedor, forma de pago y productos que necesite.{% endblock previa_contenido%}
+{% block inf %}
+Luego de seleccionar el proveedor y la forma de pago que desee, haga click en <strong>Generar Pedido</strong> para continuar con el proceso de pedido o en <strong>Cancelar</strong> para regresar al menú principal.
+<p style="text-align:center"><a href="{% url 'compras:index' %}"><button type="button" class="btn btn-primary js-create-proveedor">Cancelar</button></a></p>
+{% endblock inf%}
 {%block navegacion%}
 {%endblock navegacion%}
 {% block content %}
-<a href="{% url 'compras:index' %}"><button>Cancelar</button></a>
-
+<link rel="stylesheet" type="text/css" href="/static/css/cssE.css"/>
 <form action="{% url 'compras:reCom' %}" method="POST" id="form">
     {% csrf_token %}
     {{ form.as_p }}

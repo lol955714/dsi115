@@ -1,0 +1,48 @@
+{% extends 'base/base_sistema.html' %}
+{% load static %} 
+{% block title %}SIAVAC | Informe de Metas{% endblock %}
+{% block titulo_contenido %}Informe de Metas{% endblock titulo_contenido%}
+{% block previa_contenido %}Lleve un control de ventas por cada vendedor para establecer incentivos.{% endblock previa_contenido%}
+{% block inf %}
+La tabla presenta el nombre del empleado, la meta que se le asignó y el monto total obtenido en las ventas realizadas. Se muestra también, el porcentaje de avance del trabajador con respecto a la meta y sus resultados. <br><br>Para regresar al menú principal, haga click en: 
+    <p style="text-align:center"><a href="{% url 'ventas:asignacion-list' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Asignaciones</button></a>
+  </p>
+{% endblock inf%}
+{% block content %}
+<div>
+  <table class="table" id="proveedor-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Empleado</th>
+        <th>Meta Asignada</th>
+        <th>Monto Logrado</th>
+        <th>% de Avance</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      {% for total in totales %}
+      <tr>
+
+
+        <td>{{forloop.counter}}</td>
+        <td>{{ total.empleadofk__nombres }}</td>
+        <td>{{ total.meta_asignadafk__monto_asignado__sum }}</td>
+        <td>{{ total.meta_asignadafk__monto_asignado__sum }}</td>
+        <td>{% widthratio total.meta_asignadafk__monto_asignado__sum total.meta_asignadafk__monto_asignado__sum 1 %}
+        </td>
+        {% empty %}
+
+      <tr>
+        <td colspan="8" class="text-center bg-warning">No Existen Metas</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+
+{% endblock %}

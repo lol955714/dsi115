@@ -1,0 +1,116 @@
+{% extends 'base/b_sistema.html' %}
+{% load static %}
+{% block title %}SIAVAC | Factura{% endblock %}
+{% block navegacion %}
+<style type="text/css"> 
+  input[type=text] {
+  width: 150px;
+  
+}
+</style>
+<nav class="main-nav float-right d-none d-lg-block">
+<ul>
+    <li><a href="{% url 'ventas:sinFinalizar' %}">Ventas Pendientes</a></li>
+    {% if pedid.total > 0 %}
+         <li><a href="{% url 'ventas:finalizar' pedid.id %}" rel="get:id=10" rev="abcwin[500,500]">Finalizar Venta</a></li>
+    {% endif %}
+   
+    <li><a href="{% url 'ventas:cancelar' pedid.id %}">Cancelar Venta</a></li>
+</ul>
+ </nav><!-- .main-nav -->
+{% endblock navegacion %}
+
+{% block propio %}
+    {% block errorContra %}
+    {% if error == True %}
+    <h4>¡Contraseña errónea! Favor introducirla correctamente.</h4>
+    {% endif %}
+    {% endblock errorContra %}
+    
+    <div>
+        <h2>{% block titulo_contenido %}Factura{% endblock titulo_contenido%}</h2>
+        <table align="left">
+  <tr>
+    <th style="width:180px">Cliente:</th>
+    <td>{{pedid.cliente}}</td>
+  </tr>
+  <tr>
+    <th>Fecha de Facturación:</th>
+    <td>{{pedid.fechaCreada}}</td>
+  </tr>
+  <tr>
+    <th>Total Actual:</th>
+    <td>${{pedid.total}}</td>
+  </tr>
+  <tr>
+  </tr>
+</table>
+
+        <div>
+        </div>
+        <div>
+        <table table class="table" id="proveedor-table" >
+        <caption>Productos a comprar</caption>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if lineas %}
+          {% for linea in lineas %}
+            <tr>
+                <td>{{linea.articulofk.nombre}}</td>
+                <td>${{linea.articulofk.precioventa}}</td>
+                <td>{{linea.cantidad}}</td>
+                <td>${{linea.subtotal}}</td>
+                <th>
+                <a href="{% url 'ventas:editar' linea.id %}" rel="get:id=10" rev="abcwin[500,500]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
+                <a href="{% url 'ventas:eliminar' linea.id %}"><img src="/static/images/delete.png" title="Editar" width="20" height="20"/></a>
+            </tr>
+          {% endfor %}
+        </tbody>
+
+        {% endif %}
+        </table><br>
+        </div>
+
+        <div>
+       <table table class="table" id="proveedor-table">
+        <caption>Stock</caption>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acción</th>
+                <th><form method="post"> 
+                      {% csrf_token %} 
+                      <input type="text" placeholder="Buscar Producto" name="buscar" value="{{request.GET.buscar }}" width=50px> 
+                      <button type="submit" class="btn btn-primary btn btn-primary">Buscar</button>
+                      <button type="submit" class="btn btn-primary btn btn-primary" onclick="location.reload();">Actualizar</button> 
+                    </form> </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if productos %}
+           {% for producto in productos %}
+            <tr>
+                <td>{{producto.nombre}}</td>
+                <td>{{producto.descripcion}}</td>
+                <td>${{producto.precioventa}}</td>
+                <td>{{producto.existencia}}</td>
+                <td> <a href= {% url 'ventas:añadir' pedid.id producto.id %} rel="get:id=10" rev="abcwin[500,500]"> Añadir</a>
+            </tr>
+          {% endfor %}
+        {% endif %}
+        </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock propio %}

@@ -6,17 +6,18 @@
     <td>{{ proveedor.direccion }}</td>
 
     <td>
+
         <button type="button"
             class="btn btn-warning btn-sm js-update-proveedor"
             data-url="{% url 'compras:proveedor-update' proveedor.id %}">
             <span class="glyphicon glyphicon-pencil"></span>
-            Editar
+            <img src="/static/images/editar.png" title="Editar" width="20" height="20"/>
          </button>
         <button type="button"
           class="btn btn-danger btn-sm js-delete-proveedor"
           data-url="{% url 'compras:proveedor-delete' proveedor.id %}">
             <span class="glyphicon glyphicon-trash"></span>
-             Eliminar
+             <img src="/static/images/delete.png" title="Editar" width="20" height="20"/>
           </button>
     </td>
 {% empty %}
