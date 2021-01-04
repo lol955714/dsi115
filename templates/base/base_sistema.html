@@ -32,6 +32,25 @@
                   <li><a href="{% url 'ventas:asignacion-list' %}">Asignación de Metas</a></li>
                 </ul>
           </li>
+          <li class="drop-down"><a href="">Informes</a>
+            <ul>
+              <li class="drop-down"><a>De Metas</a>
+                <ul>
+                  <li><a href="{% url 'ventas:empleado-meta-diaria' %}" class="dropdown-item">Diarias</a></li>
+                  <li><a href="{% url 'ventas:empleado-meta-quincenal' %}" class="dropdown-item">Quincenales</a></li>
+                  <li><a href="{% url 'ventas:empleado-meta-mensual' %}" class="dropdown-item">Mensuales</a></li>
+                </ul>
+  
+              <li class="drop-down"><a>De Ventas</a>
+                <ul>
+                  <li ><a href="{% url 'ventas:ventas-totales' %}" class="dropdown-item">Por Producto</a></li>
+                  <li ><a href="{% url 'ventas:informe-categoria' %}" class="dropdown-item">Por Categoria</a></li>
+                </ul>
+                <li class="drop-down"><a href="{% url 'ventas:informe-existencia' %}" class="dropdown-item">Inventario</a></li>
+            </ul>
+
+          </li>
+          
         {%endblock encabezado%}
 				<li style="float:right" class="salir"><a href="{%  url "seguridad:logout" %}">Cerrar Sesión</a></li>
         </ul>

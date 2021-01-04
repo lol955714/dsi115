@@ -10,6 +10,15 @@ from django.template.loader import render_to_string
 from django.db.models import Sum
 from datetime import datetime
 from django.db.models import Q
+from django.db.models import Count
+from django.contrib.humanize.templatetags.humanize import intcomma
+
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 
 def eliminarPendientes(request):
     pedid=pedido.objects.filter(finalizada=False)
@@ -130,20 +139,224 @@ def iniciarVenta(request):
         form=iniciarVe()
         return render(request,'ventas/venta/iniciarVenta.html',{'form':form})
 
+
+
 @login_required
-def informe_meta(request):
+def informe_meta_diaria(request):
     mes_actual = datetime.now().month
     anio_actual = datetime.now().year
     dia_actual = datetime.now().day
 
     #obtiene el total de las ventas realizadas por empledado en un tiempo especifico
+    meta_diaria = Asignacion.objects.filter(tipo_meta=1)
     totales = pedido.objects.filter(
-        fechaCreada__year=anio_actual,fechaCreada__month=mes_actual).values(
-            'vendedor__nombres').annotate(Sum('total'))  
+        fechaCreada__year=anio_actual).values(
+            'vendedor','vendedor__nombres','vendedor__apellidos','vendedor__id').annotate(Sum('total'))  
     
-    pedidos = Metas.objects.filter(descripcion='hola').aggregate(Sum('monto_asignado'))
-    return render(request,'ventas/empleado/empleado_metas.html',
-    {'pedidos':pedidos, 'totales':totales})
+    return render(request,'ventas/informes/empleado_meta_diaria.html',
+    {'totales':totales,'meta_diaria':meta_diaria})
+
+@login_required
+def informe_meta_diaria_pdf(request):
+    template_path = 'ventas/informes/ventas_meta_diaria_pdf.html'
+
+    anio_actual = datetime.now().year
+    meta_diaria = Asignacion.objects.filter(tipo_meta=1)
+    totales = pedido.objects.filter(
+        fechaCreada__year=anio_actual).values(
+            'vendedor','vendedor__nombres','vendedor__apellidos','vendedor__id').annotate(Sum('total'))  
+
+    context = {'totales':totales,'meta_diaria':meta_diaria}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+@login_required
+def informe_meta_quincenal(request):
+    mes_actual = datetime.now().month
+    anio_actual = datetime.now().year
+    dia_actual = datetime.now().day
+
+    #obtiene el total de las ventas realizadas por empledado en un tiempo especifico
+    meta_diaria = Asignacion.objects.filter(tipo_meta=2)
+    totales = pedido.objects.filter(
+        fechaCreada__year=anio_actual).values(
+            'vendedor','vendedor__nombres','vendedor__apellidos','vendedor__id').annotate(Sum('total'))  
+    
+    return render(request,'ventas/informes/empleado_meta_quincenal.html',
+    {'totales':totales,'meta_diaria':meta_diaria})
+
+@login_required
+def informe_meta_quincenal_pdf(request):
+    template_path = 'ventas/informes/ventas_meta_quincenal_pdf.html'
+
+    anio_actual = datetime.now().year
+    meta_diaria = Asignacion.objects.filter(tipo_meta=2)
+    totales = pedido.objects.filter(
+        fechaCreada__year=anio_actual).values(
+            'vendedor','vendedor__nombres','vendedor__apellidos','vendedor__id').annotate(Sum('total'))  
+
+    context = {'totales':totales,'meta_diaria':meta_diaria}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+@login_required
+def informe_meta_mensual(request):
+    mes_actual = datetime.now().month
+    anio_actual = datetime.now().year
+    dia_actual = datetime.now().day
+
+    #obtiene el total de las ventas realizadas por empledado en un tiempo especifico
+    meta_diaria = Asignacion.objects.filter(tipo_meta=3)
+    totales = pedido.objects.filter(
+        fechaCreada__year=anio_actual).values(
+            'vendedor','vendedor__nombres','vendedor__apellidos','vendedor__id').annotate(Sum('total'))  
+    
+    return render(request,'ventas/informes/empleado_meta_mensual.html',
+    {'totales':totales,'meta_diaria':meta_diaria})
+
+@login_required
+def informe_meta_mensual_pdf(request):
+    template_path = 'ventas/informes/ventas_meta_mensual_pdf.html'
+
+    anio_actual = datetime.now().year
+    meta_diaria = Asignacion.objects.filter(tipo_meta=3)
+    totales = pedido.objects.filter(
+        fechaCreada__year=anio_actual).values(
+            'vendedor','vendedor__nombres','vendedor__apellidos','vendedor__id').annotate(Sum('total'))  
+
+    context = {'totales':totales,'meta_diaria':meta_diaria}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+@login_required
+def informe_ventas_totales(request):
+    anio_actual = datetime.now().year
+    productos_vendidos = lineaDeVenta.objects.filter().values(
+            'articulofk__id','articulofk__nombre').annotate(cant=Sum('cantidad'),sub=Sum('subtotal')).order_by('-cant') 
+    total_vendido = pedido.objects.all().aggregate(Sum('total'))['total__sum']
+    total = f"${intcomma('{:0.2f}'.format(total_vendido))}"
+    return render(request,'ventas/empleado/ventas_totales.html',
+    {'productos_vendidos':productos_vendidos,'total_vendido':total})
+
+def informe_ventas_totales_pdf(request):
+    template_path = 'ventas/informes/ventas_totales_pdf.html'
+    context = {'productos_vendidos':lineaDeVenta.objects.filter().values(
+            'articulofk__id','articulofk__nombre').annotate(cant=Sum('cantidad'),sub=Sum('subtotal')).order_by('-cant'),'total_vendido':pedido.objects.all().aggregate(Sum('total'))['total__sum']}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+@login_required
+def informe_productos_categoria(request):
+    anio_actual = datetime.now().year
+    productos_vendidos_categoria = lineaDeVenta.objects \
+        .values('articulofk__fkcategoria__nombre','articulofk__nombre') \
+        .annotate(cant=Count('cantidad')).order_by('-cant') 
+    return render(request,'ventas/informes/ventas_categoria.html',
+    {'productos_vendidos_categoria':productos_vendidos_categoria})
+
+@login_required
+def informe_productos_categoria_pdf(request):
+    template_path = 'ventas/informes/ventas_categoria_pdf.html'
+    productos_vendidos_categoria = lineaDeVenta.objects \
+        .values('articulofk__fkcategoria__nombre','articulofk__nombre') \
+        .annotate(cant=Count('cantidad')).order_by('-cant') 
+    context = {'productos_vendidos_categoria':productos_vendidos_categoria}
+            
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+@login_required
+def informe_existencia_productos(request):
+    anio_actual = datetime.now().year
+    productos_existencia = Producto.objects \
+        .values('nombre','fkproveedor__nombre','fkcategoria__nombre','existencia') \
+        .order_by('existencia') 
+    return render(request,'ventas/informes/inventario.html',
+    {'productos_existencia':productos_existencia})
+
+@login_required
+def informe_existencia_productos_pdf(request):
+    template_path = 'ventas/informes/inventario_pdf.html'
+    productos_existencia = Producto.objects \
+        .values('nombre','fkproveedor__nombre','fkcategoria__nombre','existencia') \
+        .order_by('existencia')  
+    context = {'productos_existencia':productos_existencia}
+            
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 @login_required
 def empleado_list(request):

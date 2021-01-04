@@ -1,0 +1,54 @@
+{% extends 'base/base_sistema.html' %}
+{% load static %} 
+{% block title %}SIAVAC | Informe de Metas{% endblock %}
+{% block titulo_contenido %}Informe de Metas Mensual{% endblock titulo_contenido%}
+{% block previa_contenido %}Lleve un control de ventas por cada vendedor para establecer incentivos.{% endblock previa_contenido%}
+{% block inf %}
+La tabla presenta el nombre del empleado, la meta que se le asignó y el monto total obtenido en las ventas realizadas. Se muestra también, el porcentaje de avance del trabajador con respecto a la meta y sus resultados. <br><br>Para regresar al menú principal, haga click en: 
+    <p style="text-align:center"><a href="{% url 'ventas:asignacion-list' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Asignaciones</button></a>
+  </p>
+{% endblock inf%}
+{% block content %}
+<div>
+  <table style="float:left; width: 100%;" class="table" id="" >
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Empleado</th>
+        <th>Fecha de Asignacion</th>
+        <th>Meta Asignada</th>
+        <th>Monto Logrado</th>
+        <th>Avance (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for total in totales %}
+      {% for m in meta_diaria %}
+      {% if total.vendedor__id  == m.empleadofk.id %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{ total.vendedor__nombres}} {{ total.vendedor__apellidos}}</td>
+        <td>{{ m.fecha_asignacion}}</td>
+        <td>{{ m.meta_asignadafk }}</td>
+        <td>{{ total.total__sum}}</td>
+        <td>{% widthratio total.total__sum m.meta_asignadafk.monto_asignado 100 %}%</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+      {% empty %}
+      <tr>
+        <td colspan="8" class="text-center bg-warning">No Existen Metas</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div style="text-align: center;">
+  <a class="btn btn-danger" href="{% url 'ventas:ventas-meta_mensual-pdf' %}" role="button">
+    Generar PDF
+    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+      <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+    </svg></a>
+</div>
+{% endblock %}
