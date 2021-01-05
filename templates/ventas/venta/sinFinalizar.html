@@ -27,7 +27,7 @@ Regrese al menú principal seleccionando: <p style="text-align:center"><br><a hr
                         <td>{{pedido.vendedor.nombres}}</td>
                         <td>{{pedido.cliente}}</td>
                         <td>{{pedido.total}}</td>
-                        <td>{{pedido.fechaCreada}}</td>
+                        <td>{{pedido.fechaCreada. }}</td>
                         <td><a href="{% url 'ventas:cancelar' pedido.id %}"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a><a href="{% url 'ventas:vender' pedido.id %}"><img src="/static/images/continuar.png" title="Eliminar" width="20" height="20"/></a>
                     </tr>
                 {% endfor %}
