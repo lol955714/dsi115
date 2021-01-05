@@ -1,0 +1,50 @@
+{% extends 'base/base_sistema.html' %}
+{% block title %}SIAVAC | Cuentas{% endblock %}
+{% block titulo_contenido %}Cuentas{% endblock titulo_contenido%}
+{% block previa_contenido %}Se presentan las cuentas registradas con las opciones para editar y eliminar.{% endblock previa_contenido%}
+{% block inf %}
+
+
+Edite la información registrada de una cuenta seleccionando el ícono <img src="/static/images/editar.png" title="Editar" width="20" height="20"/> al lado de la cuenta que desea modificar. Elimine un elemento de la tabla haciendo click en <img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>.
+<p>ACCIONES:</p>
+<p>-Agregar- --</p>
+{% endblock inf%}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>
+  <script type="text/javascript" src="/static/js/ABCwin.js"></script>
+     {% if messages %}
+    <ul class="messages">
+       {% for message in messages%}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+          <p>{{ message }}</p>
+      </div>
+       {% endfor %}
+    </ul>
+    {% endif %}
+    <table class="table" id="proveedor-table">
+    <thead>
+    <tr><th>Fecha</th>
+        <th>Titulo</th>
+        <th>Descripción</th>
+        <th>Monto</th>
+        <th>Fecha limite</th>
+        <th>Tipo</th>
+        <th>Acciones</th></tr>
+	</thead>
+	<tbody>
+   {% for cuenta in cuentas%}
+   <tr>
+       <td>{{cuenta.fechacreacion}}</td>
+       <td>{{cuenta.titulo}}</td>
+       <td>{{cuenta.comentario}}</td>
+       <td>{{cuenta.monto}}</td>
+       <td>{{cuenta.fechalimite}}</td>
+     <td>{{cuenta.cobrar}}</td>
+<td><a href="{% url 'inventario:gestprod' cuenta.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
+       <a href="{% url 'inventario:elimprod' cuenta.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a></td>
+   </tr>
+   {%endfor%}
+    </tbody>
+</table>
+        {% endblock %}

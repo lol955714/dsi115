@@ -91,3 +91,9 @@ def notificaciones(request):
             noti.save()
 
     return render(request, 'inventario/notificaciones.html',{'notificaciones':notificacion})
+
+
+def cuentas(request):
+    cuenta = Cuenta.objects.all()
+    contexto = {'cuentas': cuenta}
+    return render(request, 'cuentas/index.html',contexto)
