@@ -27,7 +27,7 @@ def inventario(request):
 	return render(request,'base/existencias.html',contexto)
 
 
-def inventarioSinLog(request):
+def consulta(request):
 	global contexto
 	buscar=request.POST.get("buscar")
 	control=Producto.objects.filter(Q(existencia__lte=300))
@@ -37,7 +37,7 @@ def inventarioSinLog(request):
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
-	return render(request,'base/existencias2.html',contexto)
+	return render(request,'inventario/consulta.html',contexto)
 
 @login_required
 def gestprod2(request,idProducto):
