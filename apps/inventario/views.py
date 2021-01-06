@@ -119,3 +119,14 @@ def deletecuent(request,idCuenta):
              return redirect('inventario:cuent')
     form = elimiarForm()
     return render(request, 'inventario/eliminar_cuenta.html',{'form':form,'idCuenta':idCuenta})
+
+@login_required
+def addcuenta(request):
+    if request.method == 'POST':
+        form = cuentaForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('inventario:cuent')
+    else:
+        form = cuentaForm()
+    return render(request,'inventario/agregar_cuenta.html',{'form':form})

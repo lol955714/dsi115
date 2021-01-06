@@ -72,9 +72,9 @@ class Notificacion(models.Model):
 
 class Cuenta(models.Model):
 	fechacreacion = models.DateTimeField(auto_now=True)
-	fechalimite = models.DateTimeField(blank=True,null=True)
 	comentario = models.CharField(max_length=150, null=False)
 	titulo = models.CharField(max_length=150, null=True)
 	monto= models.DecimalField(max_digits=5, decimal_places=2, null=False)
 	cobrar = models.BooleanField(default=False) #True=Cobrar, False=Pagar
 	archivada = models.BooleanField(default=False)
+	fechalimite = models.CharField(max_length=150, null=True)
