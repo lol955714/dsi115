@@ -62,7 +62,7 @@ Edite la información registrada de un artículo en existencia seleccionando el 
    	<td>{{producto.descripcion}}</td>
    	<td>{{producto.preciocompra}}</td>
    	<td>{{producto.precioventa}}</td>
-   	 {% if producto.existencia <= 5 %}
+   	 {% if producto.existencia <= producto.minimo %}
      <td bgcolor="red">{{producto.existencia}}</td>
     {% else %}
      <td>{{producto.existencia}}</td>

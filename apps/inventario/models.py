@@ -35,6 +35,7 @@ class Producto(models.Model):
 	preciocompra =models.DecimalField(max_digits=5,decimal_places=2,null=False)
 	existencia =models.IntegerField(null=False)
 	promocion =models.BooleanField(default=False)
+	minimo=models.IntegerField(null=False)
 	fkcategoria = models.ForeignKey(Categoria,on_delete=models.CASCADE,null=False)
 	fkproveedor = models.ForeignKey(Proveedor,on_delete=models.CASCADE,null=False)
 	def __str__(self):

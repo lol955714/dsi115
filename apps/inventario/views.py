@@ -9,7 +9,7 @@ from django.shortcuts import *
 from apps.inventario.forms import *
 from apps.inventario.models import *
 from datetime import date
-
+from apps.compras.models import Pedido
 # Create your views here.
 
 
@@ -21,7 +21,6 @@ def inventario(request):
 	if buscar:
 	 	producto=Producto.objects.filter(Q(nombre__icontains=buscar))
 	 	contexto={'productos':producto}
-	
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
@@ -61,8 +60,9 @@ def deleteprod(request,idProducto):
 def notificaciones(request):
     producto = Producto.objects.all()
     notificacion = Notificacion.objects.all()
+    pedidos=Pedido.objects.all().filter(pendiente=True)
     for p in producto:
-      if p.existencia <= 5:
+      if p.existencia <= p.minimo:
          notif = Notificacion()
          notif.descripcion = "El producto " + p.nombre + " Esta por agotarse"
          a = 0
@@ -74,7 +74,7 @@ def notificaciones(request):
 
     for nn in notificacion:
         for pp in producto:
-            if pp.existencia >5 :
+            if pp.existencia >pp.minimo :
                 z =  "El producto " + pp.nombre + " Esta por agotarse"
                 if nn.descripcion == z:
                     nn.delete()
@@ -90,7 +90,7 @@ def notificaciones(request):
         if b==0:
             noti.save()
 
-    return render(request, 'inventario/notificaciones.html',{'notificaciones':notificacion})
+    return render(request, 'inventario/notificaciones.html',{'notificaciones':notificacion,'pedidos':pedidos})
 
 
 def cuentas(request):
