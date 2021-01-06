@@ -52,8 +52,8 @@
             <td>{{forloop.counter}}</td>
             <td>{{ total.vendedor__nombres}} {{ total.vendedor__apellidos}}</td>
             <td>{{ m.fecha_asignacion}}</td>
-            <td>{{ m.meta_asignadafk }}</td>
-            <td>{{ total.total__sum}}</td>
+            <td>${{ m.meta_asignadafk }}</td>
+            <td>${{ total.total__sum}}</td>
             <td>{% widthratio total.total__sum m.meta_asignadafk.monto_asignado 100 %}%</td>
         {% endif %}
         {% endfor %}
