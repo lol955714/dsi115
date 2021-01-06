@@ -41,8 +41,8 @@ Edite la información registrada de una cuenta seleccionando el ícono <img src=
        <td>{{cuenta.monto}}</td>
        <td>{{cuenta.fechalimite}}</td>
      <td>{{cuenta.cobrar}}</td>
-<td><a href="{% url 'inventario:gestprod' cuenta.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
-       <a href="{% url 'inventario:elimprod' cuenta.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a></td>
+<td><a href="{% url 'inventario:gestcuent' cuenta.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
+       <a href="{% url 'inventario:elimcuent' cuenta.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a></td>
    </tr>
    {%endfor%}
     </tbody>

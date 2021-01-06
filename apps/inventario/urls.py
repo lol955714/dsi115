@@ -9,4 +9,6 @@ url(r'^notificaciones',notificaciones,name="notif"),
 url(r'^cuentas',cuentas,name="cuent"),
 url(r'^editar_producto/(?P<idProducto>\w+)', gestprod2, name="gestprod"),
 url(r'^eliminar_producto/(?P<idProducto>\w+)',deleteprod, name="elimprod"),
+url(r'^editar_cuenta/(?P<idCuenta>\w+)', gestcuent, name="gestcuent"),
+url(r'^eliminar_cuenta/(?P<idCuenta>\w+)',deletecuent, name="elimcuent"),
 ]

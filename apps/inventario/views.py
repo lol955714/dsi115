@@ -97,3 +97,25 @@ def cuentas(request):
     cuenta = Cuenta.objects.all()
     contexto = {'cuentas': cuenta}
     return render(request, 'cuentas/index.html',contexto)
+
+@login_required
+def gestcuent(request,idCuenta):
+    cuenta = Cuenta.objects.get(id=idCuenta)
+    if request.method=='POST':
+        form = cuentaForm(request.POST, instance=cuenta)
+        if form.is_valid():
+             form.save()
+             return redirect('inventario:cuent')
+    form = cuentaForm(instance=cuenta)
+    return render(request, 'inventario/modificar_cuenta.html',{'form':form,'idCuenta':idCuenta})
+
+@login_required
+def deletecuent(request,idCuenta):
+    cuenta = Cuenta.objects.get(id=idCuenta)
+    if request.method=='POST':
+        form = elimiarForm(request.POST)
+        if form.is_valid():
+             cuenta.delete()
+             return redirect('inventario:cuent')
+    form = elimiarForm()
+    return render(request, 'inventario/eliminar_cuenta.html',{'form':form,'idCuenta':idCuenta})
