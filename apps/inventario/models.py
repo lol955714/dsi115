@@ -27,6 +27,7 @@ class CategoriaIncidencia(models.Model):
 		return '%s'%(self.nombre)
 
 
+
 class Producto(models.Model):
 	nombre =models.CharField(max_length=30,null=False)
 	descripcion =models.CharField(max_length=50,null=False,default='')

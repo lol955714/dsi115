@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib import messages
 from .models import *
+from .forms import *
 from django.views.generic import *
 from django.shortcuts import *
 from apps.inventario.forms import *

@@ -9,6 +9,7 @@ Edite la información registrada de un artículo en existencia seleccionando el 
 {% endblock inf%}
 
 
+
 {% block bsq %}
 <style type="text/css"> 
   input[type=text] {
@@ -21,7 +22,22 @@ Edite la información registrada de un artículo en existencia seleccionando el 
        <button type="submit" class="btn btn-primary btn-primary">Buscar</button>
        <button type="submit" class="btn btn-primary btn-primary" onclick="location.reload();">Actualizar</button>  
 
-      </form>   
+      </form> 
+       <p>
+    <button type="button" class="btn btn-primary js-create-articulo"
+          data-url="{% url 'compras:articulo-create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      Nuevo Articulo
+    </button>
+  </p>  
+  
+  <div class="modal fade" id="modal-articulo">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+      </div>
+    </div>
+  </div>
 {% endblock bsq%}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>

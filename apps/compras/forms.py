@@ -15,12 +15,15 @@ from .models import *
 prove=Proveedor.objects.all()
 tipos=Tipo_Pago.objects.all()
 
+class comentarioPedido(forms.Form):
+	comentario=forms.CharField(label="Nota especial",max_length=50,required=False)
+
 class pedidoForm(forms.Form):
 	proveedores=forms.ModelMultipleChoiceField(prove,required=True)
 	tipo=forms.ModelMultipleChoiceField(tipos,required=True)
 	
 class formulario(forms.Form):
-	cantidad=forms.IntegerField(required=False)
+	cantidad=forms.IntegerField(required=True)
 	comentario=forms.CharField(label="Nota especial",max_length=50,required=False)
 
 class ProveedorForm(forms.ModelForm):

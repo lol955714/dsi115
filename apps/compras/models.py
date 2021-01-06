@@ -11,6 +11,7 @@ class Pedido(models.Model):
     display = models.BooleanField(default=False)
     fechaPedido = models.DateTimeField(auto_now=True)
     fkProveedor=models.ForeignKey(Proveedor,on_delete=models.CASCADE,null=True)
+    comentario = models.CharField(max_length=60,blank=True)
     def agregarSubtotal(self,valor):
         self.subtotal=self.subtotal + valor
     def quitarSubtotal(self,valor):

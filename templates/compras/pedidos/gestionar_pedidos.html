@@ -29,16 +29,15 @@ Cree un nuevo pedido o gestione la información relacionada con los proveedores 
 			<td>{{pedido.fechaPedido}}</td>
 			<td>{{pedido.fkProveedor.nombre}}</td>
 			<td>{{pedido.subtotal}}</td>
-			{%if pedido.pendiente == True%}
+			{% if pedido.pendiente == True%}
 			<td>Pendiente</td>
-			{%else%}
-			{%if pedido.cancelado == True%}
+			{% elif pedido.cancelado == True%}
 			<td>Cancelado</td>
-			{%else%}
+			{% else%}
 			<td>Recibido</td>
-			{%endif%}
-			{%endif%}
-			<td><a href="">Ver detalle</a></td>
+			{% endif%}
+			
+			<td><a href="{% url 'compras:verDetalle' pedido.id %}">Ver detalle</a></td>
 		</tr>
 		{%endfor%}
 		
