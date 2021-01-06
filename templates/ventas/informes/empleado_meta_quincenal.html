@@ -15,7 +15,7 @@ La tabla presenta el nombre del empleado, la meta que se le asignó y el monto t
       <tr>
         <th>#</th>
         <th>Empleado</th>
-        <th>Fecha de Asignacion</th>
+        <th>Fecha de Asignación</th>
         <th>Meta Asignada</th>
         <th>Monto Logrado</th>
         <th>Avance (%)</th>
@@ -29,8 +29,8 @@ La tabla presenta el nombre del empleado, la meta que se le asignó y el monto t
         <td>{{forloop.counter}}</td>
         <td>{{ total.vendedor__nombres}} {{ total.vendedor__apellidos}}</td>
         <td>{{ m.fecha_asignacion}}</td>
-        <td>{{ m.meta_asignadafk }}</td>
-        <td>{{ total.total__sum}}</td>
+        <td>${{ m.meta_asignadafk }}</td>
+        <td>${{ total.total__sum}}</td>
         <td>{% widthratio total.total__sum m.meta_asignadafk.monto_asignado 100 %}%</td>
       </tr>
       {% endif %}
