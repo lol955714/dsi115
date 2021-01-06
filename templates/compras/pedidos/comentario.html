@@ -1,0 +1,5 @@
+<form action="{% url 'compras:cancel' idPedido %}" method="POST" id="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" value="submit" id="submit" class="boton">Generar pedido</button>
+</form>

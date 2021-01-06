@@ -1,0 +1,70 @@
+{% extends 'base/base_sistema.html' %}
+{% block content %}
+<h1>Detalle de pedido</h1>
+<div>
+<table class="table">
+    <tr>
+        <td>Proveedor</td>
+        <td> {{pedido.fkProveedor}}</td>
+    </tr>
+    <tr>
+        <td>Fecha del pedido</td>
+        <td> {{ pedido.fechaPedido}}</td>
+    </tr>
+    <tr>
+        <td>Total a cancelar</td>
+        <td>  {{pedido.subtotal}}</td>
+    </tr>
+    <tr>
+        <td>Estado</td>
+        <td>
+            {% if pedido.pendiente == True%}
+			Pendiente
+			{% elif pedido.cancelado == True%}
+			Cancelado
+			{% else%}
+			Recibido
+			{% endif%}  
+        </td>
+    </tr>
+    <tr>
+            {% if pedido.pendiente == True%}
+			<td>Acciones</td>
+            <td><a href="{% url 'compras:cancel' pedido.id %}" rel="get:id=10" rev="abcwin[500,auto]">Cancelar pedido </a></td>
+            <td><a href="{% url 'compras:aceptar' pedido.id %}" rel="get:id=10" rev="abcwin[500,auto]">Marcar como recibido</a></td>
+			{% elif pedido.cancelado == True%}
+			<td>Razon de cancelado</td>
+            <td>{{pedido.comentario}}
+			{% else%}
+			<td>Comentario de recibido</td>
+            <td>{{pedido.comentario}}
+			{% endif%}  
+        
+    </tr>
+       
+</div>
+<table class="table">
+<thead>
+    <th>Producto</th>
+    <th>Cantidad</th>
+    <th>Precio unitario</th>
+    <th>Subtotal</th>
+</thead>
+<tbody>
+<tr>
+    {% if lineas%}
+    {% for linea in lineas%}
+        <td>{{ linea.fkProducto.nombre}}</td>
+        <td>{{ linea.cantidad }} </td>
+        <td>{{ linea.fkProducto.preciocompra}}</td>
+        <td> {{ linea.subtotal}} </td>
+        <td></td>
+
+    {% endfor %}
+    {% else %}
+    <h3>No hay lineas agregadas</h3>
+    {% endif %}
+</tr>
+</tbody>
+</table>
+{% endblock content %}

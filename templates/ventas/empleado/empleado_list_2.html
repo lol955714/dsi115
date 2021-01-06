@@ -6,8 +6,27 @@
     <td>{{ empleado.telefono }}</td>
     <td>{{ empleado.dui }}</td>
     <td>{{ empleado.nit }}</td>
-
     <td>
+            <div id="div{{empleado.id}}" style="display:none" >
+                  {{empleado.clave}}
+            </div>
+            <button onclick="toogle('div{{empleado.id}}','button{{empleado.id}}')" id="button{{empleado.id}}">Mostrar</button>
+      <script>
+    function toogle(div, but) {
+    var x = document.getElementById(div);
+      var button = document.getElementById(but);
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    button.innerText = 'ocultar';
+    } else {
+      x.style.display = "none";
+      button.innerText = 'Mostrar';
+    }
+  }
+   </script>
+    </td>
+      
+      <td>
       <button type="button"
             class="btn btn-warning btn-sm js-update-empleado"
             data-url="{% url 'ventas:empleado-update' empleado.id %}">
@@ -18,9 +37,10 @@
           class="btn btn-danger btn-sm js-delete-empleado"
           data-url="{% url 'ventas:empleado-delete' empleado.id %}">
             <span class="glyphicon glyphicon-trash"></span>
-             <img src="/static/images/delete.png" title="Editar" width="20" height="20"/>
+             <img src="/static/images/delete.png" title="eliminar" width="20" height="20"/>
           </button>
     </td>
+</tr>
 {% empty %}
 <tr>
       <td colspan="8" class="text-center bg-warning">No Existen Empleados</td>

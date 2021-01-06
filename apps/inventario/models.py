@@ -8,9 +8,10 @@ class Categoria(models.Model):
 	def __str__(self):
 		return '%s'%(self.nombre)
 
-
 class Proveedor(models.Model):
 	nombre =models.CharField(max_length=30,null=True)
+	nombreRepresentante=models.CharField(max_length=35,null=False)
+	telefonoPersonal=models.CharField(max_length=8,null=False)
 	telefono=models.CharField(max_length=8,null=False)
 	direccion=models.CharField(max_length=150,null=False)
 	estado =models.BooleanField(default=True,null=False)
@@ -24,6 +25,7 @@ class CategoriaIncidencia(models.Model):
 		return self.id
 	def __str__(self):
 		return '%s'%(self.nombre)
+
 
 
 class Producto(models.Model):
@@ -53,6 +55,10 @@ class Producto(models.Model):
 		self.fkproveedor = valor
 	def setFkIncidencia(self, valor):
 		self.fkIncidencia = valor
+	def agregarInventario(self, valor):
+		self.existencia=self.existencia+valor
+	def removerInventario(self, valor):
+		self.existencia=self.existencia-valor
 
 class Incidencia(models.Model):
 	fkCategoriaIncidencia = models.ForeignKey(CategoriaIncidencia, on_delete=models.CASCADE, null=False, blank=False)

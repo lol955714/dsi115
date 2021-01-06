@@ -14,7 +14,6 @@ admin.site.register(Incidencia)
 admin.site.register(Notificacion)
 admin.site.register(Cuenta)
 
-
 admin.sites.AdminSite.site_header = 'Administración del sistema SIAVAC'
 admin.sites.AdminSite.site_title = 'SIAVAC Administracion'
 admin.sites.AdminSite.index_title = ''

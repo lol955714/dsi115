@@ -18,12 +18,13 @@ from django.urls import reverse_lazy
 #falta agregar verificación por rol
 @login_required
 def indexCompras(request):
-	return render(request,'compras/index.html')
+	return render(request,'compras/gestionar_pedidos.html')
 
 @login_required
 def proveedor_list(request):
 	proveedors = Proveedor.objects.all()
 	return render(request,'compras/proveedor/proveedor_list.html',{'proveedors':proveedors})
+
 
 @login_required
 def save_proveedor_form(request, form, template_name):
@@ -52,6 +53,7 @@ def proveedor_create(request):
     else:
         form = ProveedorForm()
     return save_proveedor_form(request, form, 'compras/proveedor/proveedor_create.html')
+
 
 @login_required
 def proveedor_update(request, pk):
@@ -148,6 +150,12 @@ def verpedidos(request):
 	contexto = {'pedidos':pedidos}
 	return render(request, 'compras/pedidos/gestionar_pedidos.html',contexto)
 
+def verDetalle(request,idPedido):
+    lineas = detalle_Pedido.objects.all().filter(fkPedido=idPedido)
+    pedido = Pedido.objects.get(id=idPedido)
+    contexto={'lineas':lineas,'pedido':pedido}
+    return render(request,'compras/pedidos/verDetalle.html',contexto)
+
 
 #def crearPedido(request):
 @login_required
@@ -205,12 +213,50 @@ def editarLinea(request, idLinea, idPedido, producto, idProveedor):
             produc=Producto.objects.all().filter(fkcategoria= cat)
             detalle=detalle_Pedido.objects.all().filter(fkPedido=Pedido.objects.get(id=idPedido))
             var=detalle.count()
-            print("holi")
             return render(request,'compras/pedidos/realizar_pedido.html',{'productos':produc,'idPedido':idPedido,'idProveedor':idProveedor,'detalle':detalle,'var':var})
     else:
         form=formulario()
         contexto={'form':form,'producto':producto,'idPedido':idPedido,'idProveedor':idProveedor,'idLinea':idLinea}
         return render(request,'compras/pedidos/realizar_pedido.html',contexto)
+@login_required
+def cancelarPedido(request, idPedido):
+    if request.method=='POST':
+        fomu=comentarioPedido(request.POST)
+        if fomu.is_valid():
+            form_data=fomu.cleaned_data
+            pedido =  Pedido.objects.get(id=idPedido)
+            pedido.comentario=form_data.get("comentario")
+            pedido.cancelado=True
+            pedido.pendiente=False
+            pedido.save()
+            urlss='/compras/verDetalle/'+idPedido
+            return redirect(urlss)
+    else:
+        form=comentarioPedido()
+        return render(request,'compras/pedidos/comentario.html',{'form':form,'idPedido': idPedido})
+
+@login_required
+def recibirPedido(request, idPedido):
+    if request.method=='POST':
+        fomu=comentarioPedido(request.POST)
+        if fomu.is_valid():
+            form_data=fomu.cleaned_data
+            pedido =  Pedido.objects.get(id=idPedido)
+            lineas = detalle_Pedido.objects.all().filter(fkPedido=idPedido)
+            for linea in lineas:
+                producto = Producto.objects.get(id=linea.fkProducto.id)
+                producto.agregarInventario(linea.cantidad)
+                producto.save()
+            pedido.comentario=form_data.get("comentario")
+            pedido.exito = True
+            pedido.pendiente = False
+            pedido.save()
+            urlss='/compras/verDetalle/'+idPedido
+            return redirect(urlss)
+    else:
+        form=comentarioPedido()
+        return render(request,'compras/pedidos/comentario2.html',{'form':form,'idPedido': idPedido})
+
 
 @login_required
 def agregarPedido(request):#genera el pedido

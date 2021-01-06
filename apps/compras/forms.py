@@ -15,27 +15,34 @@ from .models import *
 prove=Proveedor.objects.all()
 tipos=Tipo_Pago.objects.all()
 
+class comentarioPedido(forms.Form):
+	comentario=forms.CharField(label="Nota especial",max_length=50,required=False)
+
 class pedidoForm(forms.Form):
 	proveedores=forms.ModelMultipleChoiceField(prove,required=True)
 	tipo=forms.ModelMultipleChoiceField(tipos,required=True)
 	
 class formulario(forms.Form):
-	cantidad=forms.IntegerField(required=False)
+	cantidad=forms.IntegerField(required=True)
 	comentario=forms.CharField(label="Nota especial",max_length=50,required=False)
 
 class ProveedorForm(forms.ModelForm):
 	class Meta:
 		model = Proveedor
-		fields = ('nombre', 'telefono', 'direccion')
+		fields = ('nombre', 'telefono', 'direccion','nombreRepresentante','telefonoPersonal')
 		labels={
 			'nombre':'Nombre del Proveedor',
 			'telefono':'Telefono',
 			'direccion':'Dirección',
+			'nombreRepresentante':'Nombre del vendedor',
+			'telefonoPersonal':'teléfono personal',
 		}
 		widgets={
 			'nombre' : forms.TextInput(attrs={'class':'form-control'}),
 			'telefono' : forms.TextInput(attrs={'class':'form-control'}),
 			'direccion' : forms.TextInput(attrs={'class':'form-control'}),
+			'nombreRepresentante' :   forms.TextInput(attrs={'class':'form-control'}),
+			'telefonoPersonal' :   forms.TextInput(attrs={'class':'form-control'}),
 		}
 
 class ArticuloForm(forms.ModelForm):

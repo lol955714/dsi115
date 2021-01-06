@@ -1,14 +1,13 @@
 {% extends 'base/base_sistema.html' %}
 {% load static %} 
-{% block title %}SIAVAC | Informe de Ventas por Categoria{% endblock %}
-{% block titulo_contenido %}Informe de Ventas por Categoria{% endblock titulo_contenido%}
+{% block title %}SIAVAC | Informe de Ventas por Categoría{% endblock %}
+{% block titulo_contenido %}Informe de Ventas por Categoría{% endblock titulo_contenido%}
 {% block previa_contenido %}
-Lleve un control de que categorias de productos esta vendiendo mas!!!
+Muestra los productos más vendidos de acuerdo a la categoría a la que pertenecen.
 {% endblock previa_contenido%}
 {% block inf %}
-La tabla presenta un listado de categorias, junto con ello la cantidad vendida
-y ademas de ello los productos vendidos. Las categorias estan ordenadas 
-por cantidad de productos vendidos es decir de mayor a menor cantidad. 
+La tabla presenta un listado de categorías, además de los productos y sus respectivas unidades vendidas. Las categorías están ordenadas 
+por cantidad de productos vendidos, es decir de mayor a menor cantidad. 
 <br><br>Para regresar al menú principal, haga click en: 
     <p style="text-align:center"><a href="{% url 'ventas:asignacion-list' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Asignaciones</button></a>
   </p>
@@ -20,7 +19,7 @@ por cantidad de productos vendidos es decir de mayor a menor cantidad.
     <thead>
       <tr>
         <th>#</th>
-        <th>Categoria</th>
+        <th>Categoría</th>
         <th>Cantidad Vendida</th>
         <th>Productos Vendidos</th>
 
