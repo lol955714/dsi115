@@ -146,7 +146,7 @@ def articulo_delete(request, pk):
 
 @login_required
 def verpedidos(request):
-	pedidos=Pedido.objects.all()
+	pedidos=Pedido.objects.all().order_by('-fechaPedido')
 	contexto = {'pedidos':pedidos}
 	return render(request, 'compras/pedidos/gestionar_pedidos.html',contexto)
 

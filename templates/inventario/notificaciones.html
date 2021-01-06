@@ -7,13 +7,26 @@
     <tr><th>Categoría</th><th>Descripcion</th><th>Acción</th></tr>
     </thead>
     <tbody>
-   {% for notificacion in notificaciones %}
-    <tr>
-
-        <th>Categoria</th>
-        <th>{{notificacion.descripcion}}</th>
-        <th><a href="">Ir al sitio</a></th>
-    </tr>
-       {% endfor %}
+   
+    
+        {% for notificacion in notificaciones %}
+        <tr>
+            <td>Existencias en inventario</td>
+            <td>{{notificacion.descripcion}}</td>
+            <td><a href="/inventario/inventario">Ir al sitio</a></td>
+            </tr>
+        {% endfor %}
+    
+    
+        {% for pedido in pedidos %}
+        <tr>
+            <td>Pedidos pendientes</td>
+            <td>
+                De: {{pedido.fkProveedor.nombre}} para el día {{pedido.fechaPedido}}
+            </td>
+            <td><a href="/compras/verDetalle/{{pedido.id}}">Ir al sitio</a></td>
+            </tr>
+        {% endfor %}
+    
     </tbody>
 </table>

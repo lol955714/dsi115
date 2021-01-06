@@ -17,6 +17,7 @@ class productoForm(forms.ModelForm):
 			'existencia',
 			'promocion',
 			'fkcategoria',
+			'minimo',
 			'fkproveedor',
 			]
 		labels={
@@ -28,6 +29,7 @@ class productoForm(forms.ModelForm):
 			'existencia':'Existencias:',
 			'promocion':'Promocion:',
 			'fkcategoria':'Categoria',
+			'minimo':'Cantidad mínima',
 			'fkproveedor':'Proveedor',
 		}
 		widgets={
@@ -37,8 +39,9 @@ class productoForm(forms.ModelForm):
 			'preciocompra': forms.NumberInput(),
 			'existencia': forms.TextInput(),
 			'promocion': forms.CheckboxInput(),
-			'fkproveedor': forms.Select(),
 			'fkcategoria': forms.Select(),
+			'minimo': forms.NumberInput(),
+			'fkproveedor': forms.Select(),		
 		}
 
 

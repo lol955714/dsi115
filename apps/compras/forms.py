@@ -57,6 +57,7 @@ class ArticuloForm(forms.ModelForm):
 			'promocion',
 			'fkproveedor',
 			'fkcategoria',
+			'minimo',
 		]
 		labels={
 			'nombre':'Nombre Articulo',
@@ -67,6 +68,7 @@ class ArticuloForm(forms.ModelForm):
 			'promocion':'Promocion',
 			'fkproveedor':'Proveedor',
 			'fkcategoria':'Categoria',
+			'minimo':'cantidad mínima de producto',
 		}
 		widgets={
 			'nombre' : forms.TextInput(attrs={'class':'form-control'}),
@@ -77,6 +79,7 @@ class ArticuloForm(forms.ModelForm):
 			#'promocion' : forms.ChoiceField(attrs={'class':'form-control'}),
 			'fkproveedor' : forms.Select(attrs={'class':'form-control'}),
 			'fkcategoria' : forms.Select(attrs={'class':'form-control'}),
+			'minimo' : forms.NumberInput(attrs={'class':'form-control'}),
 		}
 
 
