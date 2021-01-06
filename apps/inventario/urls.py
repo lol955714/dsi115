@@ -5,8 +5,7 @@ from apps.inventario.views import *
 app_name='inventario'
 urlpatterns=[
 url(r'^inventario', inventario ,name="inventario"),
-url(r'^inventario2', inventarioSinLog ,name="inventario2"),
-url(r'^inventario',inventario,name="consulta"),	
+url(r'^consulta',consulta,name="consulta"),	
 url(r'^notificaciones',notificaciones,name="notif"),
 url(r'^cuentas',cuentas,name="cuent"),
 url(r'^editar_producto/(?P<idProducto>\w+)', gestprod2, name="gestprod"),
