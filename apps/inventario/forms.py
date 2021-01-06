@@ -44,3 +44,29 @@ class productoForm(forms.ModelForm):
 
 class elimiarForm(forms.Form):
 	confirmar = forms.CheckboxInput()
+
+class cuentaForm(forms.ModelForm):
+	class Meta:
+		model=Cuenta
+		fields=[
+			'titulo',
+			'monto',
+			'fechalimite',
+			'comentario',
+			'cobrar',
+			]
+		labels={
+
+			'titulo':'Titulo',
+			'monto':'Monto:',
+			'fechalimite':'Fecha limite:',
+			'comentario':'Comentario:',
+			'cobrar':'Marque la casilla si es una cuenta por cobrar, o dejela en blanco si es por pagar.',
+		}
+		widgets={
+			'titulo': forms.TextInput(),
+			'monto': forms.TextInput(),
+			'fechalimite': forms.DateTimeInput(),
+			'comentario': forms.TextInput(),
+			'cobrar': forms.CheckboxInput(),
+		}
