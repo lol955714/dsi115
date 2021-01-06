@@ -55,6 +55,10 @@ class Producto(models.Model):
 		self.fkproveedor = valor
 	def setFkIncidencia(self, valor):
 		self.fkIncidencia = valor
+	def agregarInventario(self, valor):
+		self.existencia=self.existencia+valor
+	def removerInventario(self, valor):
+		self.existencia=self.existencia-valor
 
 class Incidencia(models.Model):
 	fkCategoriaIncidencia = models.ForeignKey(CategoriaIncidencia, on_delete=models.CASCADE, null=False, blank=False)

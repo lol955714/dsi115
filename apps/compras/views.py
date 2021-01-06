@@ -242,9 +242,13 @@ def recibirPedido(request, idPedido):
         if fomu.is_valid():
             form_data=fomu.cleaned_data
             pedido =  Pedido.objects.get(id=idPedido)
+            lineas = detalle_Pedido.objects.all().filter(fkPedido=idPedido)
+            for linea in lineas:
+                producto = Producto.objects.get(id=linea.fkProducto.id)
+                producto.agregarInventario(linea.cantidad)
+                producto.save()
             pedido.comentario=form_data.get("comentario")
             pedido.exito = True
-            print(pedido.exito)
             pedido.pendiente = False
             pedido.save()
             urlss='/compras/verDetalle/'+idPedido

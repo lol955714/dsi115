@@ -61,8 +61,12 @@ def finalizarVenta(request,idPedido):
             datos=con.cleaned_data
             try: 
                 emple=Empleado.objects.get(clave=datos.get("passwd"))
-                print("hola")
                 ped.setFinal()
+                lineas = lineaDeVenta.objects.filter(pedidofk=int(idPedido))
+                for linea in lineas:
+                    producto = Producto.objects.get(id=linea.articulofk.id)
+                    producto.removerInventario(linea.cantidad)
+                    producto.save()
                 ped.setVendedor(emple)
                 ped.setTipoPago(datos.get("typ").get())
                 ped.save()
