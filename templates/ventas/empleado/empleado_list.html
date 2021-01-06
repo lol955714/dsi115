@@ -7,11 +7,14 @@
 Edite la información de un empleados dando click en <img src="/static/images/editar.png" title="Editar" width="20" height="20"/> o elimine un registro de la tabla haciendo click en <img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/>.
 {% endblock inf%}
 {% block bsq %}
-      <p style="text-align:center"><button type="button" class="btn btn-primary js-create-empleado"
-          data-url="{% url 'ventas:empleado-create' %}">
+      <p style="text-align:center">
+      <button 
+              type="button" class="btn btn-primary js-create-empleado"
+              data-url="{% url 'ventas:empleado-create' %}">
       <span class="glyphicon glyphicon-plus"></span>
       Agregar Empleado
-    </button> </p>
+    </button> 
+    </p>
 Para regresar al menú principal, haga click en: 
     <p style="text-align:center"><br><a href="{% url 'compras:index' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar al Menú</button></a></p>
 {% endblock bsq%}
@@ -21,9 +24,10 @@ Para regresar al menú principal, haga click en:
 
 {% block content %}
 
+
 <div class="container">
   
-  <table class="table" id="proveedor-table">
+  <table class="table" id="empleado-table">
     <thead>
       <tr>
         <th>#</th>
@@ -32,6 +36,7 @@ Para regresar al menú principal, haga click en:
         <th>Teléfono</th>
         <th>DUI</th>
         <th>NIT</th>
+        <th>clave</th>
         <th>Acciones</th>
       </tr>
     </thead>

@@ -363,6 +363,7 @@ def empleado_list(request):
 	empleados = Empleado.objects.all()
 	return render(request,'ventas/empleado/empleado_list.html',{'empleados':empleados})
 
+
 @login_required
 def save_empleado_form(request, form, template_name):
 	data = dict()

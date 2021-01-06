@@ -18,7 +18,7 @@ from django.urls import reverse_lazy
 #falta agregar verificación por rol
 @login_required
 def indexCompras(request):
-	return render(request,'compras/index.html')
+	return render(request,'compras/gestionar_pedidos.html')
 
 @login_required
 def proveedor_list(request):
@@ -52,6 +52,7 @@ def proveedor_create(request):
     else:
         form = ProveedorForm()
     return save_proveedor_form(request, form, 'compras/proveedor/proveedor_create.html')
+
 
 @login_required
 def proveedor_update(request, pk):

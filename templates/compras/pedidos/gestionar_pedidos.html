@@ -4,12 +4,12 @@
 {% block previa_contenido %}Se presentan los pedidos registrados así como la opción ver detalles para mostrar más información sobre el pedido seleccionado.{% endblock previa_contenido%}
 {% block inf %}
 
+
 Cree un nuevo pedido o gestione la información relacionada con los proveedores seleccionando una de las siguientes opciones: 
 <p><a href="{% url 'compras:reCom' %}"><button type="button" class="btn btn-primary js-create-proveedor">Crear Pedido</button></a>
 <a href="/compras/proveedor"><button type="button" class="btn btn-primary js-create-proveedor">Gestionar Proveedores</button></a></p>
 {% endblock inf%}
-{%block navegacion%}
-{%endblock navegacion%}
+
 {% block content %}
 {%if pedidos%}
 <table class="table" id="proveedor-table">
