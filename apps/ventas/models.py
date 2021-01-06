@@ -1,6 +1,7 @@
 from django.db import models
 from apps.inventario.models import *
 from apps.compras.models import Tipo_Pago
+from apps.ventas.models import *
 from django.conf import settings
 from django.core.validators import RegexValidator
 import datetime
@@ -16,6 +17,10 @@ class Metas(models.Model):
 
 	def __str__(self):
 		return '%s'%(self.monto_asignado)
+class Renta(models.Model):
+	iva=models.IntegerField(default=0.13, null=False)
+	pagoIva=models.DecimalField(max_digits=6, decimal_places=2)
+	venta=models.ForeignKey()
 
 class Empleado(models.Model):
 	clave= models.CharField(max_length=4,null=False,unique=True,validators=[
