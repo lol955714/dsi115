@@ -2,9 +2,9 @@
 {% load static %} 
 {% block title %}SIAVAC | Inventario{% endblock %}
 {% block titulo_contenido %}Inventario{% endblock titulo_contenido%}
-{% block previa_contenido %}Lleve un control de ventas por cada vendedor para establecer incentivos.{% endblock previa_contenido%}
+{% block previa_contenido %}Lleve un control de los productos de su negocio en existencia.{% endblock previa_contenido%}
 {% block inf %}
-La tabla presenta el nombre del empleado, la meta que se le asignó y el monto total obtenido en las ventas realizadas. Se muestra también, el porcentaje de avance del trabajador con respecto a la meta y sus resultados. <br><br>Para regresar al menú principal, haga click en: 
+La tabla presenta el nombre del artículo, la categoría establecida, el proveedor y las unidades en existencia.<br><br>Para regresar al menú principal, haga click en: 
     <p style="text-align:center"><a href="{% url 'ventas:asignacion-list' %}"><button type="button" class="btn btn-primary js-create-empleado">Regresar a Asignaciones</button></a>
   </p>
 {% endblock inf%}
