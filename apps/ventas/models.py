@@ -1,10 +1,10 @@
 from django.db import models
 from apps.inventario.models import *
 from apps.compras.models import Tipo_Pago
-from apps.ventas.models import *
 from django.conf import settings
 from django.core.validators import RegexValidator
 import datetime
+from .models import *
 from django.utils.translation import gettext as _
 from django.db.models import UniqueConstraint
 # Create your models here.
@@ -20,7 +20,7 @@ class Metas(models.Model):
 class Renta(models.Model):
 	iva=models.IntegerField(default=0.13, null=False)
 	pagoIva=models.DecimalField(max_digits=6, decimal_places=2)
-	venta=models.ForeignKey()
+	#venta=models.ForeignKey(pedido,on_delete=models.CASCADE,null=False)
 
 class Empleado(models.Model):
 	clave= models.CharField(max_length=4,null=False,unique=True,validators=[

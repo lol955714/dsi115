@@ -13,7 +13,7 @@ from apps.compras.models import Pedido
 # Create your views here.
 
 
-@login_required
+
 def inventario(request):
 	global contexto
 	buscar=request.POST.get("buscar")
@@ -25,6 +25,19 @@ def inventario(request):
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
 	return render(request,'base/existencias.html',contexto)
+
+
+def inventarioSinLog(request):
+	global contexto
+	buscar=request.POST.get("buscar")
+	control=Producto.objects.filter(Q(existencia__lte=300))
+	if buscar:
+	 	producto=Producto.objects.filter(Q(nombre__icontains=buscar))
+	 	contexto={'productos':producto}
+	else:
+		producto=Producto.objects.all()
+		contexto={'productos':producto}
+	return render(request,'base/existencias2.html',contexto)
 
 @login_required
 def gestprod2(request,idProducto):

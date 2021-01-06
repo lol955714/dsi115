@@ -4,7 +4,8 @@ from django.conf.urls import url
 from apps.inventario.views import *
 app_name='inventario'
 urlpatterns=[
-url(r'^inventario',inventario,name="inventario"),
+url(r'^inventario', inventario ,name="inventario"),
+url(r'^inventario2', inventarioSinLog ,name="inventario2"),
 url(r'^inventario',inventario,name="consulta"),	
 url(r'^notificaciones',notificaciones,name="notif"),
 url(r'^cuentas',cuentas,name="cuent"),
