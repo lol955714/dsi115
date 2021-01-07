@@ -15,7 +15,7 @@ from apps.compras.models import Pedido
 
 
 def inventario(request):
-	global contexto
+	
 	buscar=request.POST.get("buscar")
 	control=Producto.objects.filter(Q(existencia__lte=300))
 	if buscar:
@@ -24,11 +24,12 @@ def inventario(request):
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
+        
 	return render(request,'base/existencias.html',contexto)
 
 
 def inventarioSinLog(request):
-	global contexto
+	
 	buscar=request.POST.get("buscar")
 	control=Producto.objects.filter(Q(existencia__lte=300))
 	if buscar:
@@ -37,7 +38,7 @@ def inventarioSinLog(request):
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
-	return render(request,'base/existencias2.html',contexto)
+	return render(request,'base/base.html',contexto)
 
 @login_required
 def gestprod2(request,idProducto):

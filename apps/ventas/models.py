@@ -14,13 +14,14 @@ from django.db.models import UniqueConstraint
 class Metas(models.Model):
 	monto_asignado = models.DecimalField(max_digits=6, decimal_places=2)
 	descripcion = models.CharField(max_length=50)
-
 	def __str__(self):
 		return '%s'%(self.monto_asignado)
+
 class Renta(models.Model):
-	iva=models.IntegerField(default=0.13, null=False)
-	pagoIva=models.DecimalField(max_digits=6, decimal_places=2)
-	#venta=models.ForeignKey(pedido,on_delete=models.CASCADE,null=False)
+	iva=models.IntegerField(default=0.13)
+	pagoIva=models.DecimalField(max_digits=6, decimal_places=2,default=0.00)
+	def calcular(self, monto):
+		self.pagoIva=monto + (monto*self.iva)
 
 class Empleado(models.Model):
 	clave= models.CharField(max_length=4,null=False,unique=True,validators=[
@@ -77,6 +78,7 @@ class pedido(models.Model):
 	total = models.DecimalField(max_digits=8,decimal_places=2,default=0)
 	#errorContra =models.BooleanField(default=False)
 	tipoPago = models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE,null=True)
+	renta = models.ForeignKey(Renta, on_delete=models.CASCADE)
 	def setVendedor(self, valor):
 		self.vendedor=valor
 	def setCliente(self, valor):
@@ -94,6 +96,10 @@ class pedido(models.Model):
 			self.nope = False
 		else:
 			self.error = True
+	def calcularRenta(self):
+		self.renta.calcular(self.total)
+	def setRenta(self, valor):
+		self.renta=valor
 
 class lineaDeVenta(models.Model):
 	articulofk = models.ForeignKey(Producto, on_delete=models.CASCADE)

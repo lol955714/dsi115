@@ -83,6 +83,7 @@ class AsignacionForm(forms.ModelForm):
 		}
 
 class iniciarVe(forms.Form):
+	credito = forms.BooleanField(label="Necesitará crédito fiscal?",required=False)
 	cliente = forms.CharField(label='Nombre del cliente',required=True,max_length=25)
 
 class agregar(forms.Form):

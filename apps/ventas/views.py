@@ -136,6 +136,18 @@ def iniciarVenta(request):
             form_data=form.cleaned_data
             venta=pedido()
             venta.setCliente(form_data.get("cliente"))
+            '''
+            if(form_data.get("credito")==True):
+                renta = Renta()
+                venta.setRenta(renta)
+                renta.save()
+                
+                venta.save()
+                print("hola")
+            '''
+            renta = Renta()
+            renta.save()
+            venta.setRenta(venta)
             venta.save()
             ruta='/ventas/vender/'+str(venta.id)
             return redirect(ruta)
