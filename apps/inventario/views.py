@@ -38,7 +38,7 @@ def consulta(request):
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
-	return render(request,'base/base.html',contexto)
+	return render(request,'inventario/consulta.html',contexto)
 
 @login_required
 def gestprod2(request,idProducto):
