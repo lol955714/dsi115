@@ -84,13 +84,24 @@ WSGI_APPLICATION = 'dsi115.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 #sección de desarrollo
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dsi',
         'USER': 'postgres',
         'PASSWORD': 'admin123',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'basefinal2',
+        'USER': 'lol',
+        'PASSWORD': 'noquiero',
         'HOST': 'localhost',
         'PORT': '5432',
     }
