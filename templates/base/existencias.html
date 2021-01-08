@@ -9,6 +9,7 @@ Edite la información registrada de un artículo en existencia seleccionando el 
 {% endblock inf%}
 
 
+
 {% block bsq %}
 <style type="text/css"> 
   input[type=text] {
@@ -21,7 +22,22 @@ Edite la información registrada de un artículo en existencia seleccionando el 
        <button type="submit" class="btn btn-primary btn-primary">Buscar</button>
        <button type="submit" class="btn btn-primary btn-primary" onclick="location.reload();">Actualizar</button>  
 
-      </form>   
+      </form> 
+       <p>
+    <button type="button" class="btn btn-primary js-create-articulo"
+          data-url="{% url 'compras:articulo-create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      Nuevo Articulo
+    </button>
+  </p>  
+  
+  <div class="modal fade" id="modal-articulo">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+      </div>
+    </div>
+  </div>
 {% endblock bsq%}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/ABCwin.css"/>
@@ -41,16 +57,18 @@ Edite la información registrada de un artículo en existencia seleccionando el 
 	</thead>
 	<tbody>
    {% for producto in productos%}
+   
    <tr>
    	<td>{{producto.nombre}}</td>
    	<td>{{producto.descripcion}}</td>
    	<td>{{producto.preciocompra}}</td>
    	<td>{{producto.precioventa}}</td>
-   	 {% if producto.existencia <= 5 %}
+   	 {% if producto.existencia <= producto.minimo %}
      <td bgcolor="red">{{producto.existencia}}</td>
     {% else %}
      <td>{{producto.existencia}}</td>
     {% endif %}
+    <td></td>
 <td><a href="{% url 'inventario:gestprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/editar.png" title="Editar" width="20" height="20"/></a>
        <a href="{% url 'inventario:elimprod' producto.id %}" rel="get:id=10" rev="abcwin[500,auto]"><img src="/static/images/delete.png" title="Eliminar" width="20" height="20"/></a></td>
    </tr>

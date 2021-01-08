@@ -1,0 +1,67 @@
+{% block titulo_contenido %}Informe de Metas Mensuales{% endblock titulo_contenido%}
+{% block content %}
+<style>
+    .img-invoice {
+        width: 50px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .head {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    #invoice thead tr th {
+        text-align: left;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        padding-top: 4px;
+    }
+
+    #invoice thead tr {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    #invoice tbody tr {
+        padding: 0;
+    }
+
+    .text-center{
+        text-align: center;
+    }
+</style>
+<div>
+  <table id="invoice" >
+    <thead>
+      <tr>
+        <th style="width: 5%;">#</th>
+        <th style="width: 30%;">Empleado</th>
+        <th style="width: 20%;">Fecha de Asignacion</th>
+        <th style="width: 15%;">Meta Asignada</th>
+        <th style="width: 20%;">Monto Logrado</th>
+        <th style="width: 10%;">Avance (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for total in totales %}
+        {% for m in meta_diaria %}
+        {% if total.vendedor__id  == m.empleadofk.id %}
+        <tr style="padding-top: 3px;">
+            <td>{{forloop.counter}}</td>
+            <td>{{ total.vendedor__nombres}} {{ total.vendedor__apellidos}}</td>
+            <td>{{ m.fecha_asignacion}}</td>
+            <td>${{ m.meta_asignadafk }}</td>
+            <td>${{ total.total__sum}}</td>
+            <td>{% widthratio total.total__sum m.meta_asignadafk.monto_asignado 100 %}%</td>
+        {% endif %}
+        {% endfor %}
+        {% empty %}
+            <td colspan="8" class="text-center bg-warning">No Existen Ventas Realizadas</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

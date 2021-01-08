@@ -4,7 +4,8 @@
 {% block titulo_contenido %}Administrador{% endblock titulo_contenido%}
 {% block inf %} 
 <p style="text-align:center"><a href= "{% url 'ventas:iniciar' %}" rel="get:id=10" rev="abcwin[500,500]"> <button class="btn btn-primary js-create-empleado">Iniciar Nueva Venta</button></a></p>
-<p style="text-align:center"><a href="{% url 'ventas:sinFinalizar' %}" > <button class="btn btn-primary js-create-empleado">Ventas sin Finalizar</button> </a></p>{% endblock inf%}
+<p style="text-align:center"><a href="{% url 'ventas:sinFinalizar' %}" > <button class="btn btn-primary js-create-empleado">Ventas sin Finalizar</button> </a></p>
+<p style="text-align:center"><a href="{% url 'inventario:consulta' %}" > <button class="btn btn-primary ">Consultar Inventario</button> </a></p>{% endblock inf%}
                 
 {%block content%}
        

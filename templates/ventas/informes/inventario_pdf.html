@@ -1,0 +1,67 @@
+{% block titulo_contenido %}Inventario{% endblock titulo_contenido%}
+{% block content %}
+<style>
+    .img-invoice {
+        width: 50px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .head {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    #invoice thead tr th {
+        text-align: left;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        padding-top: 4px;
+    }
+
+    #invoice thead tr {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    #invoice tbody tr {
+        padding: 0;
+    }
+
+    .text-center{
+        text-align: center;
+    }
+</style>
+<div>
+  <table id="invoice" >
+    <thead>
+      <tr>
+        <th style="width: 25%;">#</th>
+        <th style="width: 35%;">Producto</th>
+        <th style="width: 25%;">Categoria</th>
+        <th style="width: 25%;">Proveedor</th>
+        <th style="width: 25%;">Existencias</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prod in productos_existencia %}
+      <tr style="padding-top: 3px;">
+        <td>{{forloop.counter}}</td>
+        <td>{{ prod.nombre}}</td>
+        <td>{{ prod.fkcategoria__nombre}}</td>
+        <td>{{ prod.fkproveedor__nombre}}</td> 
+        <td>{{ prod.existencia}}</td> 
+        {% empty %}
+
+      <tr>
+        <td colspan="8" class="text-center bg-warning">No Hay ningun producto en existencia</td>
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+
+</div>
+
+
+{% endblock %}

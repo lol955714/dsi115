@@ -6,8 +6,6 @@
 Luego de seleccionar el proveedor y la forma de pago que desee, haga click en <strong>Generar Pedido</strong> para continuar con el proceso de pedido o en <strong>Cancelar</strong> para regresar al menú principal.
 <p style="text-align:center"><a href="{% url 'compras:index' %}"><button type="button" class="btn btn-primary js-create-proveedor">Cancelar</button></a></p>
 {% endblock inf%}
-{%block navegacion%}
-{%endblock navegacion%}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/cssE.css"/>
 <form action="{% url 'compras:reCom' %}" method="POST" id="form">

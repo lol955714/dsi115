@@ -11,13 +11,19 @@ Edite la asignación de un empleado en específico dando click en <img src="/sta
     <button type="button" class="btn btn-primary js-create-asignacion" data-url="{% url 'ventas:asignacion-create' %}">
       <span class="glyphicon glyphicon-plus"></span>Agregar nueva Asignación
     </button> 
-</p>
-
-  <p style="text-align:center">
-    <a href="{% url 'ventas:empleado-meta' %}">
-    <button type="button" class="btn btn-primary js-create-proveedor">Ver Informe de Metas
-    </button> </a>
   </p>
+
+  <div style="text-align:center" class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Informe de Metas
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a href="{% url 'ventas:empleado-meta-diaria' %}" class="dropdown-item" href="#">Diarias</a>
+      <a href="{% url 'ventas:empleado-meta-quincenal' %}" class="dropdown-item" href="#">Quincenales</a>
+      <a href="{% url 'ventas:empleado-meta-mensual' %}" class="dropdown-item" href="#">Mensuales</a>
+    </div>
+  </div>
+
 
   Para regresar a la pantalla principal de ventas, haga click en:
   <p style="text-align:center"><a href="{% url 'compras:index' %}">
@@ -37,6 +43,7 @@ Edite la asignación de un empleado en específico dando click en <img src="/sta
         <th>#</th>
         <th>Empleado</th>
         <th>Meta Asignada</th>
+        <th>Tipo de Meta</th>
         <th>Acciones</th>
       </tr>
     </thead>

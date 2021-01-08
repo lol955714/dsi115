@@ -6,6 +6,8 @@ from apps.compras.views import *
 
 app_name='compras'
 urlpatterns=[
+    url(r'^cancel/(?P<idPedido>\w+)',cancelarPedido,name="cancel"),
+    url(r'^aceptar/(?P<idPedido>\w+)',recibirPedido,name="aceptar"),
     url(r'^index',verpedidos,name="index"),
     url(r'^realizarCompras',agregarPedido,name="reCom"),
     url(r'^add/(?P<idPedido>\w+)/(?P<producto>\w+)/(?P<idProveedor>\w+)', agregarLinea,name="add"),
@@ -14,8 +16,9 @@ urlpatterns=[
     #url(r'^addPedido', agregarPedido, name="addP"),
     url(r'^pedir/(?P<idPedido>\w+)/(?P<idProveedor>\w+)/', lineapedido, name="lin"),
     url(r'^cancelar/(?P<idPedido>\w+)/', cancelar, name="cancelar"),
-
+    url(r'^verDetalle/(?P<idPedido>\w+)/', verDetalle, name="verDetalle"),
     url(r'^gestionarPedidos',PedidosList,name="gesPed"),
+    
     path(
     	'proveedor/', 
     	proveedor_list,

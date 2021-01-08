@@ -32,6 +32,21 @@
                   <li><a href="{% url 'ventas:asignacion-list' %}">Asignación de Metas</a></li>
                 </ul>
           </li>
+          <li><a href=""></a>
+            <ul></ul>
+            <ul></ul>
+            <ul></ul>
+          </li>
+          <div style="text-align:center" class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Informe de Metas
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a href="{% url 'ventas:empleado-meta-diaria' %}" class="dropdown-item" href="#">Diarias</a>
+              <a href="{% url 'ventas:empleado-meta-quincenal' %}" class="dropdown-item" href="#">Quincenales</a>
+              <a href="{% url 'ventas:empleado-meta-mensual' %}" class="dropdown-item" href="#">Mensuales</a>
+            </div>
+          </div>
         {%endblock encabezado%}
 				<li style="float:right" class="salir"><a href="{%  url "seguridad:logout" %}">Cerrar Sesión</a></li>
         </ul>

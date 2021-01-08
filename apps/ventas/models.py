@@ -4,6 +4,9 @@ from apps.compras.models import Tipo_Pago
 from django.conf import settings
 from django.core.validators import RegexValidator
 import datetime
+from .models import *
+from django.utils.translation import gettext as _
+from django.db.models import UniqueConstraint
 # Create your models here.
 
 
@@ -11,9 +14,16 @@ import datetime
 class Metas(models.Model):
 	monto_asignado = models.DecimalField(max_digits=6, decimal_places=2)
 	descripcion = models.CharField(max_length=50)
-
 	def __str__(self):
 		return '%s'%(self.monto_asignado)
+
+class Renta(models.Model):
+	iva=models.DecimalField(max_digits=6, decimal_places=2,default=0.13)
+	pagoIva=models.DecimalField(max_digits=6, decimal_places=2,default=0.00)
+	totalPagar=models.DecimalField(max_digits=6, decimal_places=2,default=0.00)
+	def calcular(self, monto):
+		print(self.iva)
+		self.pagoIva=monto * self.iva
 
 class Empleado(models.Model):
 	clave= models.CharField(max_length=4,null=False,unique=True,validators=[
@@ -21,12 +31,11 @@ class Empleado(models.Model):
 		message='El # ingresado es invalido, Debe tener 4 caracteres', 
 		code='nomatch'
 		)])
-	meta_asignadafk = models.ForeignKey(Metas, on_delete=models.CASCADE,null=True)
 	nombres = models.CharField(max_length=40,null=False)
 	apellidos = models.CharField(max_length=40,null=False)
 	telefono= models.CharField(max_length=8,null=False,unique=True,validators=[
 		RegexValidator(regex='^.{8}$', 
-		message='El # ingresado es invalido, Debe tener 8 caracteres', 
+		message='El # ingresado es invalido, Debe tener 9 caracteres', 
 		code='nomatch'
 		)])
 	dui = models.CharField(max_length=9,null=False,unique=True,validators=[
@@ -47,9 +56,19 @@ class Asignacion(models.Model):
 	empleadofk = models.ForeignKey(Empleado, on_delete=models.CASCADE,null=False)
 	fecha_asignacion = models.DateField(auto_now=True)
 	monto_logrado = models.DecimalField(max_digits=6, decimal_places=2, blank=True, default=0)
+
+	STATUS = (
+      (1,  _('Diaria')),
+      (2, _('Quincenal')),
+      (3, _('Mensual')),
+   )
+	tipo_meta = models.PositiveSmallIntegerField(
+      choices=STATUS,
+      default=1,
+   )
     
-	class Meta:
-		unique_together = (('empleadofk', 'meta_asignadafk'),)
+	#class Meta:
+	#	UniqueConstraint(fields=['empleadofk', 'fecha_asignacion'], name='unique_booking')
 
 
 class pedido(models.Model):
@@ -61,6 +80,7 @@ class pedido(models.Model):
 	total = models.DecimalField(max_digits=8,decimal_places=2,default=0)
 	#errorContra =models.BooleanField(default=False)
 	tipoPago = models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE,null=True)
+	renta = models.ForeignKey(Renta, on_delete=models.CASCADE, null=True)
 	def setVendedor(self, valor):
 		self.vendedor=valor
 	def setCliente(self, valor):
@@ -78,6 +98,10 @@ class pedido(models.Model):
 			self.nope = False
 		else:
 			self.error = True
+	def calcularRenta(self):
+		self.renta.calcular(self.total)
+	def setRenta(self, valor):
+		self.renta=valor
 
 class lineaDeVenta(models.Model):
 	articulofk = models.ForeignKey(Producto, on_delete=models.CASCADE)

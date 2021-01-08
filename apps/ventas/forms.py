@@ -10,6 +10,7 @@ class EmpleadoForm(forms.ModelForm):
 	class Meta:
 		model = Empleado
 		fields = [
+			'clave', 
 			'nombres', 
 			'apellidos', 
 			'telefono', 
@@ -17,6 +18,7 @@ class EmpleadoForm(forms.ModelForm):
 			'nit',
 		]
 		labels={
+			'clave':'Clave del Empleado',
 			'nombres':'Nombres del Empleado',
 			'apellidos':'Apellidos del Empleado',
 			'telefono':'# Telefonico',
@@ -24,26 +26,24 @@ class EmpleadoForm(forms.ModelForm):
 			'nit':'NIT',
 		}
 		widgets={
+			'clave' : forms.NumberInput(attrs={
+				'class':'form-control',
+				'placeholder':'Introduzca la clave del nuevo empleado', 
+			}),
 			'nombres' : forms.TextInput(attrs={'class':'form-control'}),
 			'apellidos' : forms.TextInput(attrs={'class':'form-control'}),
 			'telefono' : forms.NumberInput(attrs={
 				'class':'form-control',
 				'placeholder':'Introduzca numero telefonico', 
-				'minlength':'8',
-                'maxlength':'8',
 			}),
-			'dui' : forms.NumberInput(attrs={
+			'dui' : forms.TextInput(attrs={
 				'class':'form-control',
 				'placeholder':'Introduzca el DUI del nuevo empleado', 
-				'minlength':'9',
-                'maxlength':'9',
 			}),
 			'nit' : forms.NumberInput(attrs={
 				'class':'form-control',
 				'placeholder':'Introduzca el NIT del nuevo empleado', 
 				#'help_texts':'Ingrese el NIT completo',
-				'minlength':'14',
-                'maxlength':'14',
 			}),
 		}
 
@@ -69,17 +69,21 @@ class AsignacionForm(forms.ModelForm):
 		fields = [
 			'empleadofk',
 			'meta_asignadafk',  
+			'tipo_meta',
 		]
 		labels={
 			'empleadofk':'Seleccione el empleado',
 			'meta_asignadafk':'Asigne una meta',
+			'tipo_meta':'Seleccione el tipo de meta',
 		}
 		widgets={
 			'empleadofk' : forms.Select(attrs={'class':'form-control'}),
 			'meta_asignadafk' : forms.Select(attrs={'class':'form-control'}),
+			'tipo_meta': forms.Select(attrs={'class':'form-control'}),
 		}
 
 class iniciarVe(forms.Form):
+	credito = forms.BooleanField(label="Necesitará crédito fiscal?",required=False)
 	cliente = forms.CharField(label='Nombre del cliente',required=True,max_length=25)
 
 class agregar(forms.Form):

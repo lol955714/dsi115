@@ -40,15 +40,15 @@ $(function () {
   
     /* Binding */
   
-    // Create articulo
+    // Create empleado
     $(".js-create-empleado").click(loadForm);
     $("#modal-empleado").on("submit", ".js-empleado-create-form", saveForm);
   
-    // Update articulo
+    // Update empleado
     $("#empleado-table").on("click", ".js-update-empleado", loadForm);
     $("#modal-empleado").on("submit", ".js-empleado-update-form", saveForm);
   
-  // Delete articulo
+  // Delete empleado
   $("#empleado-table").on("click", ".js-delete-empleado", loadForm);
   $("#modal-empleado").on("submit", ".js-empleado-delete-form", saveForm);
   });

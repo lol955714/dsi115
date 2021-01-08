@@ -8,10 +8,9 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-	return render(request,'seguridad/index.html',{})
+	return redirect('inventario:inventario')
 
 def auth(request):
-	
 	if request.method == 'POST':
 		usern=request.POST.get('user',None)
 		passw=request.POST.get('pass',None)

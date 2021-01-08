@@ -1,8 +1,15 @@
 {% for asignacion in asignaciones %}
 <tr>
     <td>{{forloop.counter}}</td>
-    <td>{{ asignacion.empleadofk }}</td>
+    <td>{{ asignacion.empleadofk }} {{ asignacion.empleadofk.apellidos }}</td>
     <td>{{ asignacion.meta_asignadafk }}</td>
+    {% if asignacion.tipo_meta == 1 %}
+    <td>Diaria</td>
+    {% elif asignacion.tipo_meta == 2 %}
+    <td>Quincenal</td>
+    {% elif asignacion.tipo_meta == 3 %}
+    <td>Mensual</td>
+    {% endif %}
 
 
     <td>

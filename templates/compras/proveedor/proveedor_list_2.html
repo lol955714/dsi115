@@ -4,9 +4,9 @@
     <td>{{ proveedor.nombre }}</td>
     <td>{{ proveedor.telefono }}</td>
     <td>{{ proveedor.direccion }}</td>
-
+    <td>{{proveedor.nombreRepresentante}}</td>
+    <td>{{proveedor.telefonoPersonal}}</td>
     <td>
-
         <button type="button"
             class="btn btn-warning btn-sm js-update-proveedor"
             data-url="{% url 'compras:proveedor-update' proveedor.id %}">
@@ -22,6 +22,6 @@
     </td>
 {% empty %}
 <tr>
-      <td colspan="8" class="text-center bg-warning">No proveedors</td>
+      <td colspan="8" class="text-center bg-warning">No proveedores</td>
 </tr>
 {% endfor %}

@@ -1,0 +1,5 @@
+  <form method="POST" action="{% url 'inventario:addcuent' %}">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="boton3">Guardar</button>
+  </form>

@@ -9,23 +9,36 @@ from django.shortcuts import *
 from apps.inventario.forms import *
 from apps.inventario.models import *
 from datetime import date
-
+from apps.compras.models import Pedido
 # Create your views here.
 
 
-@login_required
+
 def inventario(request):
-	global contexto
+	
 	buscar=request.POST.get("buscar")
 	control=Producto.objects.filter(Q(existencia__lte=300))
 	if buscar:
 	 	producto=Producto.objects.filter(Q(nombre__icontains=buscar))
 	 	contexto={'productos':producto}
-	
 	else:
 		producto=Producto.objects.all()
 		contexto={'productos':producto}
+        
 	return render(request,'base/existencias.html',contexto)
+
+
+def consulta(request):
+	
+	buscar=request.POST.get("buscar")
+	control=Producto.objects.filter(Q(existencia__lte=300))
+	if buscar:
+	 	producto=Producto.objects.filter(Q(nombre__icontains=buscar))
+	 	contexto={'productos':producto}
+	else:
+		producto=Producto.objects.all()
+		contexto={'productos':producto}
+	return render(request,'inventario/consulta.html',contexto)
 
 @login_required
 def gestprod2(request,idProducto):
@@ -61,8 +74,9 @@ def deleteprod(request,idProducto):
 def notificaciones(request):
     producto = Producto.objects.all()
     notificacion = Notificacion.objects.all()
+    pedidos=Pedido.objects.all().filter(pendiente=True)
     for p in producto:
-      if p.existencia <= 5:
+      if p.existencia <= p.minimo:
          notif = Notificacion()
          notif.descripcion = "El producto " + p.nombre + " Esta por agotarse"
          a = 0
@@ -74,7 +88,7 @@ def notificaciones(request):
 
     for nn in notificacion:
         for pp in producto:
-            if pp.existencia >5 :
+            if pp.existencia >pp.minimo :
                 z =  "El producto " + pp.nombre + " Esta por agotarse"
                 if nn.descripcion == z:
                     nn.delete()
@@ -90,4 +104,43 @@ def notificaciones(request):
         if b==0:
             noti.save()
 
-    return render(request, 'inventario/notificaciones.html',{'notificaciones':notificacion})
+    return render(request, 'inventario/notificaciones.html',{'notificaciones':notificacion,'pedidos':pedidos})
+
+
+def cuentas(request):
+    cuenta = Cuenta.objects.all()
+    contexto = {'cuentas': cuenta}
+    return render(request, 'cuentas/index.html',contexto)
+
+@login_required
+def gestcuent(request,idCuenta):
+    cuenta = Cuenta.objects.get(id=idCuenta)
+    if request.method=='POST':
+        form = cuentaForm(request.POST, instance=cuenta)
+        if form.is_valid():
+             form.save()
+             return redirect('inventario:cuent')
+    form = cuentaForm(instance=cuenta)
+    return render(request, 'inventario/modificar_cuenta.html',{'form':form,'idCuenta':idCuenta})
+
+@login_required
+def deletecuent(request,idCuenta):
+    cuenta = Cuenta.objects.get(id=idCuenta)
+    if request.method=='POST':
+        form = elimiarForm(request.POST)
+        if form.is_valid():
+             cuenta.delete()
+             return redirect('inventario:cuent')
+    form = elimiarForm()
+    return render(request, 'inventario/eliminar_cuenta.html',{'form':form,'idCuenta':idCuenta})
+
+@login_required
+def addcuenta(request):
+    if request.method == 'POST':
+        form = cuentaForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('inventario:cuent')
+    else:
+        form = cuentaForm()
+    return render(request,'inventario/agregar_cuenta.html',{'form':form})

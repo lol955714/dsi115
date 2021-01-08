@@ -12,11 +12,14 @@
             <script type="text/javascript" src="/static/js/jquery.min.js"></script>
             <script type="text/javascript" src="/static/js/script1.js"></script>
             <link rel="stylesheet" type="text/css" href="/static/css/ABCwin2.css"/>
+             <script src="{% static 'js/articulos.js' %}"></script>
             <script type="text/javascript" src="/static/js/ABCwin2.js"></script>
+         
+
 
     <div class="container">
       <div class="logo float-left">
-        <h1 class="text-light"><a href="/" class="scrollto"><span>SIAVAC</span></a></h1>
+        <h1 class="text-light"><a href="/seguridad/index" class="scrollto"><span>SIAVAC</span></a></h1>
       </div>
       {%block navegacion%}
       <nav class="main-nav float-right d-none d-lg-block">
@@ -24,6 +27,7 @@
           {%block encabezado%}
 				  <li><a href="{% url 'inventario:inventario' %}">Inventario</a></li>
 				  <li><a href="{% url 'compras:index' %}">Compras</a></li>
+            <li><a href="{% url 'inventario:cuent' %}">Cuentas</a></li>
           <li><a href="{% url 'inventario:notif'  %}" rel="get:id=10" rev="abcwin[500,auto]">Notificaciones</a></li>
           <li class="drop-down"><a href="">Recursos Humanos</a>
               <ul>
@@ -32,6 +36,25 @@
                   <li><a href="{% url 'ventas:asignacion-list' %}">Asignación de Metas</a></li>
                 </ul>
           </li>
+          <li class="drop-down"><a href="">Informes</a>
+            <ul>
+              <li class="drop-down"><a>De Metas</a>
+                <ul>
+                  <li><a href="{% url 'ventas:empleado-meta-diaria' %}" class="dropdown-item">Diarias</a></li>
+                  <li><a href="{% url 'ventas:empleado-meta-quincenal' %}" class="dropdown-item">Quincenales</a></li>
+                  <li><a href="{% url 'ventas:empleado-meta-mensual' %}" class="dropdown-item">Mensuales</a></li>
+                </ul>
+  
+              <li class="drop-down"><a>De Ventas</a>
+                <ul>
+                  <li ><a href="{% url 'ventas:ventas-totales' %}" class="dropdown-item">Por Producto</a></li>
+                  <li ><a href="{% url 'ventas:informe-categoria' %}" class="dropdown-item">Por Categoria</a></li>
+                </ul>
+                <li class="drop-down"><a href="{% url 'ventas:informe-existencia' %}" class="dropdown-item">Inventario</a></li>
+            </ul>
+
+          </li>
+          
         {%endblock encabezado%}
 				<li style="float:right" class="salir"><a href="{%  url "seguridad:logout" %}">Cerrar Sesión</a></li>
         </ul>
