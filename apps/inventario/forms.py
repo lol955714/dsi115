@@ -69,7 +69,7 @@ class cuentaForm(forms.ModelForm):
 		widgets={
 			'titulo': forms.TextInput(),
 			'monto': forms.TextInput(),
-			'fechalimite': forms.TextInput(),
+			'fechalimite': forms.DateField(),
 			'comentario': forms.TextInput(),
 			'cobrar': forms.CheckboxInput(),
 		}
