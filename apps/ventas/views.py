@@ -35,8 +35,13 @@ def cancelarVenta(request,idPedido):
     print(pedid.total)
     if lineaDeVenta.objects.filter(pedidofk=pedid.id).count()>0:
         lineaDeVenta.objects.filter(pedidofk=pedid.id).delete()
-    pedid.delete()
-    return redirect("/")
+    try:
+        Renta.objects.get(id=pedid.renta.id).delete()
+        pedid.delete()
+        return redirect("/")
+    except:
+        pedid.delete()
+        return redirect("/")
 
 def venta(request, idPedido):
     #metodo que recupera lo mandado en la barra de buscar
@@ -51,7 +56,11 @@ def venta(request, idPedido):
         productos=Producto.objects.filter(Q(nombre__icontains=buscar))
     else: 
       productos = Producto.objects.all()
-    return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos,'error':error})
+    try:
+        renta = Renta.objects.get(id=pedid.renta.id)
+        return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos,'error':error,'renta':renta})
+    except:
+        return render(request,'ventas/venta/factura.html',{'pedid':pedid,'lineas':lineas, 'productos':productos,'error':error})
 
 def finalizarVenta(request,idPedido):
     ped=pedido.objects.get(id=int(idPedido))
@@ -86,7 +95,14 @@ def eliminarLinea(request, idLinea):
     pedid.quitar(var.getSubtotal())
     pedid.save()
     var.delete()
-    return redirect('/ventas/vender/'+str(pedid.id))
+    try:
+        renta=Renta.objects.get(id=pedid.renta.id)
+        renta.calcular(pedid.total)
+        renta.totalPagar=pedid.total+renta.pagoIva            
+        renta.save()
+        return redirect('/ventas/vender/'+str(pedid.id))
+    except:
+        return redirect('/ventas/vender/'+str(pedid.id))
      
 def editarLinea(request, idLinea):
     linea=lineaDeVenta.objects.get(id=int(idLinea))
@@ -101,7 +117,14 @@ def editarLinea(request, idLinea):
             linea.save()
             pedid.setTotal(linea.getSubtotal())
             pedid.save()
-            return redirect('/ventas/vender/'+str(linea.pedidofk.id))
+            try:
+                renta=Renta.objects.get(id=pedid.renta.id)
+                renta.calcular(pedid.total)           
+                renta.totalPagar=pedid.total+renta.pagoIva            
+                renta.save()
+                return redirect('/ventas/vender/'+str(linea.pedidofk.id))
+            except:
+                return redirect('/ventas/vender/'+str(linea.pedidofk.id))
     else:
         form=agregar()
         content={'form':form,'linea':linea}
@@ -122,8 +145,16 @@ def agregarLinea(request,idPedido,idProducto):
             linea.save()
             pedid.setTotal(linea.getSubtotal())
             pedid.save()
-            ruta='/ventas/vender/'+str(pedid.id)
-            return redirect(ruta)
+            try:
+                renta=Renta.objects.get(id=pedid.renta.id)
+                renta.calcular(pedid.total)    
+                renta.totalPagar=pedid.total+renta.pagoIva                   
+                renta.save()
+                ruta='/ventas/vender/'+str(pedid.id)
+                return redirect(ruta)
+            except:
+                ruta='/ventas/vender/'+str(pedid.id)
+                return redirect(ruta)
     else:
         form=agregar()
         variables={'form':form,'pedid':pedid,'prod':prod}
@@ -136,19 +167,13 @@ def iniciarVenta(request):
             form_data=form.cleaned_data
             venta=pedido()
             venta.setCliente(form_data.get("cliente"))
-            '''
             if(form_data.get("credito")==True):
                 renta = Renta()
-                venta.setRenta(renta)
                 renta.save()
-                
+                venta.setRenta(renta)
                 venta.save()
-                print("hola")
-            '''
-            renta = Renta()
-            renta.save()
-            venta.setRenta(venta)
-            venta.save()
+            else:
+                venta.save()
             ruta='/ventas/vender/'+str(venta.id)
             return redirect(ruta)
     else:

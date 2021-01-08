@@ -42,6 +42,16 @@
     <th>Total Actual:</th>
     <td>${{pedid.total}}</td>
   </tr>
+  {% if renta %}
+  <tr>
+    <th>crédito fiscal</th>
+    <td>${{renta.pagoIva }}</td>
+  </tr>
+  <tr>
+    <th>Total a cancelar</th>
+    <td>{{ renta.totalPagar }}</td>
+  </tr>
+  {% endif %}
   <tr>
   </tr>
 </table>

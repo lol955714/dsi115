@@ -28,7 +28,7 @@ def inventario(request):
 	return render(request,'base/existencias.html',contexto)
 
 
-def inventarioSinLog(request):
+def consulta(request):
 	
 	buscar=request.POST.get("buscar")
 	control=Producto.objects.filter(Q(existencia__lte=300))

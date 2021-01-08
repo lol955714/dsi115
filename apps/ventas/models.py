@@ -18,10 +18,12 @@ class Metas(models.Model):
 		return '%s'%(self.monto_asignado)
 
 class Renta(models.Model):
-	iva=models.IntegerField(default=0.13)
+	iva=models.DecimalField(max_digits=6, decimal_places=2,default=0.13)
 	pagoIva=models.DecimalField(max_digits=6, decimal_places=2,default=0.00)
+	totalPagar=models.DecimalField(max_digits=6, decimal_places=2,default=0.00)
 	def calcular(self, monto):
-		self.pagoIva=monto + (monto*self.iva)
+		print(self.iva)
+		self.pagoIva=monto * self.iva
 
 class Empleado(models.Model):
 	clave= models.CharField(max_length=4,null=False,unique=True,validators=[
@@ -78,7 +80,7 @@ class pedido(models.Model):
 	total = models.DecimalField(max_digits=8,decimal_places=2,default=0)
 	#errorContra =models.BooleanField(default=False)
 	tipoPago = models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE,null=True)
-	renta = models.ForeignKey(Renta, on_delete=models.CASCADE)
+	renta = models.ForeignKey(Renta, on_delete=models.CASCADE, null=True)
 	def setVendedor(self, valor):
 		self.vendedor=valor
 	def setCliente(self, valor):
