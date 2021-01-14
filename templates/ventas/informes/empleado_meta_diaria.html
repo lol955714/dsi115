@@ -9,6 +9,7 @@ La tabla presenta el nombre del empleado, la meta que se le asignó y el monto t
   </p>
 {% endblock inf%}
 {% block content %}
+
 <div>
   <table style="float:left; width: 100%;" class="table" id="" >
     <thead>
@@ -22,6 +23,7 @@ La tabla presenta el nombre del empleado, la meta que se le asignó y el monto t
       </tr>
     </thead>
     <tbody>
+
       {% for total in totales %}
       {% for m in meta_diaria %}
       {% if total.vendedor__id  == m.empleadofk.id %}

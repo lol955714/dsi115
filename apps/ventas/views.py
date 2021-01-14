@@ -203,6 +203,7 @@ def informe_meta_diaria_pdf(request):
 
     anio_actual = datetime.now().year
     meta_diaria = Asignacion.objects.filter(tipo_meta=1)
+    
     totales = pedido.objects.filter(
         fechaCreada__year=anio_actual).values(
             'vendedor','vendedor__nombres','vendedor__apellidos','vendedor__id').annotate(Sum('total'))  
