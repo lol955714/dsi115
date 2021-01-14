@@ -49,7 +49,7 @@ class Empleado(models.Model):
 		code='nomatch'
 		)])
 	def __str__(self):
-		return '%s'%(self.nombres)
+		return '%s'%(self.nombres+"  " + self.apellidos + "  de dui " + self.dui)
 
 class Asignacion(models.Model):
 	meta_asignadafk = models.ForeignKey(Metas, on_delete=models.CASCADE,null=False)	
