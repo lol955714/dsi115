@@ -195,7 +195,7 @@ def informe_meta_diaria(request):
             'vendedor','vendedor__nombres','vendedor__apellidos','vendedor__id').annotate(Sum('total'))  
     
     return render(request,'ventas/informes/empleado_meta_diaria.html',
-    {'totales':totales,'meta_diaria':meta_diaria})
+    {'totales':totales,'meta_diaria':meta_diaria,'anio':anio_actual,'mes':mes_actual,'dia':dia_actual})
 
 @login_required
 def informe_meta_diaria_pdf(request):
